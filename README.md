@@ -1,4 +1,5 @@
-# Telegram Parser
+# <p align="center">pyTelegramBotAPI
+Telegram Parser
  Script parse telegram links and sort them to channel/group database.
 
 
@@ -24,3 +25,8 @@ Whole configuration, such as:
 is making on the start of the script.
 
 ### Usage
+From the folder in which you cloned/downloaded the script you have to go to subfolder called _python_, and run throw the console _python3 main.py_
+
+### Requirements and thanks 
+* [Beautiful Soup 4](https://www.crummy.com/software/BeautifulSoup/)
+* [Requests](https://docs.python-requests.org/en/master/)
