@@ -11,8 +11,13 @@ Script doesn't require Telegram account or any usage of Telegram API. Whole algo
 Using console:
 ```
 git clone https://github.com/Antcating/telegram_parser.git
-cd telegram_parcer/main/
+cd telegram_parser/main/
 python3 main.py
+```
+Also, make sure, that all the requirements are installed:
+```
+cd telegram_parser
+pip3 install -r requirements.txt
 ```
 ---
 
