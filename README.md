@@ -9,15 +9,15 @@ Script doesn't require Telegram account or any usage of Telegram API. Whole algo
 
 ### Main features
 1. Parse types:
-    * Linear search -- choose the length of the link and parse all links, that are in this range.
-    * Random search -- creates random link from 5 to 32 symbols and check it.
-    * Mutation search -- input word and script creates mutations of this word and check all possibilities.
+    * Linear search - choose the length of the link and parse all links, that are in this range.
+    * Random search - creates random link from 5 to 32 symbols and check it.
+    * Mutation search - input word and script creates mutations of this word and check all possibilities.
 2. Parse content types:
     * Channels
     * Group
     * Users
     * All possible intersections between the above types 
-3. Turbo mode -- can be toggled to speed up parsing. 
+3. Turbo mode - can be toggled to speed up parsing. 
 
 ---
 
@@ -39,10 +39,11 @@ pip3 install -r requirements.txt
 
 #### Initial Config
 Whole configuration, such as:
-* Random page mode
+* Parse type
 * Turbo mode
-* Link generation length
-* etc.
+* Parse content type
+* Subsettings for some of types
+* etc.,
 is making on the start of the script.
 
 ---
