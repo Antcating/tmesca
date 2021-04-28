@@ -1,5 +1,5 @@
 # <p align="center">Telegram Group/Channel Parser
-    <img src="icon.png" alt="drawing" width="200"/>
+# <img src="icon.png" alt="drawing" width="200"/>
 Telegram Parser
  Script parse telegram links and sort them to channel/group database.
 
