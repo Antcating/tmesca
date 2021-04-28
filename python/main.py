@@ -1,90 +1,80 @@
-import requests, bs4, time, re, sys, random, csv
+import time, sys, os
 from database_check import database_check
 from link_processor import get_link
+from link_generator import alphabets_generator, random_address_generator, linear_address_generator, last_link_read_linear_address, mutation_address_generator
 
 database_check()
+
+def program_exit(link):
+    if work_mode == '1':            # 1 = linear
+        print('Saving last linear link position')
+        open('last_link', 'w').write(link)
+    # if work_mode == '3':
+    #     print('Mutation variations of the link ended')
+    print('Script stoped')
+    sys.exit(0)    
 
 def start_link():
     n_letters = input('How many letters in the link might be? ')
     start_point = 'a' + '1'*int(n_letters)
     open('last_link', 'w').write(start_point)
     
-try:                                    # LINK Checking
-    start_point = open('last_link').read()
-except:
-    start_link()
-rand_mode = input('Do you want to use random links mode(y/n): ')[0].lower()
-if rand_mode != 'y':
-    change_start = input('Do you want to change number of letters in link(y/n): ')[0].lower()
-    if change_start == 'y':
-        start_link()
-turbo_mode = input('Turn on turbo mod(y/n): ')                     # work mode with/out delay
+
+work_mode = input('What type of parsing you want to use:\n 1 - Linear parsing \n 2 - Random parsing \n 3 - Mutation parsing \nYour choise: ')[0].lower()
+turbo_mode = input('Turn on turbo mod(y/n): ')[0].lower()                   # work mode with/out delay
 output = input('Show output(y/n): ')[0].lower()
 
+if work_mode == '1':            # 1 = linear
+    try:                                    # LINK Checking
+        start_point = open('last_link').read()
+        change_start = input('Do you want to change number of letters in link(y/n): ')[0].lower()
+        if change_start == 'y':
+            start_link()
+    except:
+        print('Initial setup!')
+        start_link()
 
-def main(mode, output, rand_mode):
-    print('Parser is started!')
-    alphabet = ['1', '2', '3','4' , '5', '6', '7', '8', '9', '0', '_']
-    for letter in range(97,123):            #all letters except first alphabet
-        alphabet.append(chr(letter))
-        
-    alphabet1 = []                          #first letter alphabet
-    for letter in range(97,123):
-        alphabet1.append(chr(letter))
+def main(mode, output, work_mode):
+    alphabet, alphabet1 = alphabets_generator()
+    if work_mode == '1':
+        linear_letter_link_ids_array = last_link_read_linear_address(alphabet, alphabet1)
     
-
-    start_point = open('last_link').read()
-         # LINK GENERATION
-    link_index_array = []
-    for i in range(len(start_point)): 
-        if i == 0:        
-            link_index_array.append(alphabet1.index(start_point[i])) 
-        elif i == len(start_point)-1:
-            link_index_array.append(alphabet.index(start_point[i])+1)
-        else:
-            link_index_array.append(alphabet.index(start_point[i]))
+    if work_mode == '3':
+        try:
+            os.remove('mutated')
+        except:
+            pass
+        mutated_initial_link =  input('Input initial word to mutate (length of the word is greater than 5 letters): ')
+        mutated_array = mutation_address_generator(mutated_initial_link)
+        total_mutated_rows = len(mutated_array)
+        print('Total mutation created: ',total_mutated_rows)
+        mutated_word_id = 0
     try:
+        print('Parser is started!')
         while True:
-            if rand_mode == 'y':
-                len_link = random.randint(5, 32)
-                link = ''
-                for i in range(len_link):
-                    if i == 0:
-                        link += alphabet1[random.randint(0, len(alphabet1)-1)]
-                    else:
-                        link += alphabet[random.randint(0, len(alphabet)-1)]
+            if work_mode =='1':             # 1 = linear
+                link = linear_address_generator(alphabet, alphabet1, linear_letter_link_ids_array)
+                open('last_link', 'w').write(link)
+            elif work_mode == '2':          # 2 = random
+                link = random_address_generator(alphabet, alphabet1)
+            elif work_mode == '3':          # 3 = mutation
+                if total_mutated_rows > mutated_word_id +1:
+                    link = mutated_array[mutated_word_id]
+                    mutated_word_id += 1
+                else: 
+                    program_exit(link)
+            url_get_status = get_link(link, output)
+            if url_get_status == 'connection_error':
+                program_exit(link)
             
-            else:
-                link = ''
-                for i in range(len(link_index_array)):
-                    if i == 0:  
-                        link += str(alphabet1[link_index_array[i]])
-                    else:
-                        link += str(alphabet[link_index_array[i]])
-    
-                link_index_array[-1] += 1
-                for i in range(len(link_index_array)-1, -1, -1):
-                    if i != 0:
-                        if link_index_array[i] == len(alphabet):
-                            link_index_array[i] = 0
-                            link_index_array[i-1] += 1
-                    else:
-                        if link_index_array[0] == len(alphabet1):
-                            break
-                    
-            get_link(link, output)
-            
-            open('last_link', 'w').write(link)
             if turbo_mode != 'y':
                 time.sleep(1.5)
             else:
                 continue
-    except ConnectionError:         #exceptions
-        print('Waiting for Internet')
-        time.sleep(10)
     except KeyboardInterrupt:
-        open('last_link', 'w').write(link)
-        sys.exit(0)
+        if work_mode == '3':
+            print('Mutation checking keyboard interupted')
+        program_exit(link)
   
 
-main(turbo_mode, output, rand_mode)
+main(turbo_mode, output, work_mode)
