@@ -60,6 +60,7 @@ def main_window():
 
     window = sg.Window("Main Window", layout_main)
     try:
+        mutated_initial_link = None
         while True:
             event, values = window.read()
             if event == "Exit" or event == sg.WIN_CLOSED:
@@ -80,7 +81,6 @@ def main_window():
                     mutated_initial_link = mutation_setup_window()
                 
             if event == 'start_program':
-                mutated_initial_link = None
                 if values['parsing_mode_list'][0] == 'Linear':
                     work_mode = '1'
                 elif values['parsing_mode_list'][0] == 'Random':
