@@ -9,26 +9,54 @@ Script doesn't require Telegram account or any usage of Telegram API. Whole algo
 ---
 
 ### Main features
-1. Parse types:
+
+![gui_preview.png](gui_preview.png) <br />
+*GUI preview*
+1. GUI!
+2. Parse types:
     * Linear search - choose the length of the link and parse all links, that are in this range.
     * Random search - creates random link from 5 to 32 symbols and check it.
     * Mutation search - input word and script creates mutations of this word and check all possibilities.
-2. Parse content types:
+3. Parse content types:
     * Channels
     * Group
     * Users
     * All possible intersections between the above types 
-3. Turbo mode - can be toggled to speed up parsing. 
+4. Turbo mode - can be toggled to speed up parsing. 
 
 ---
 
 ### Installation and run
-Using console:
+#### United executable files
+Using console:<br />
+If you wanna you console version of the program:
 ```
-git clone https://github.com/Antcating/telegram_parser.git
-cd telegram_parser/main/
+git clone https://github.com/Antcating/telegram_parser.git -b test
+cd telegram_parser/telegram_parser/
+python3 console.py
+```
+If you wanna you GUI version of the program:
+```
+git clone https://github.com/Antcating/telegram_parser.git -b test
+cd telegram_parser/telegram_parser/
+python3 gui.py
+```
+
+#### Separated executable files
+Using console:<br />
+If you wanna you console version of the program:
+```
+git clone https://github.com/Antcating/telegram_parser.git -b test
+cd telegram_parser/telegram_parser_console/
 python3 main.py
 ```
+If you wanna you GUI version of the program:
+```
+git clone https://github.com/Antcating/telegram_parser.git -b test
+cd telegram_parser/telegram_parser_gui/
+python3 gui.py
+```
+#### Warning!
 Also, make sure, that all the requirements are installed:
 ```
 cd telegram_parser
@@ -44,7 +72,7 @@ Whole configuration, such as:
 * Turbo mode
 * Parse content type
 * Subsettings for some of types
-* etc.,
+* etc., <br />
 is making on the start of the script.
 
 ---
@@ -57,3 +85,7 @@ From the folder in which you cloned/downloaded the script you have to go to subf
 ### Requirements and thanks 
 * [Beautiful Soup 4](https://www.crummy.com/software/BeautifulSoup/)
 * [Requests](https://docs.python-requests.org/en/master/)
+<<<<<<< HEAD
+=======
+* [PySimpleGUI](https://github.com/PySimpleGUI/PySimpleGUI)
+>>>>>>> test
