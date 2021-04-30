@@ -27,7 +27,7 @@ Script doesn't require Telegram account or any usage of Telegram API. Whole algo
 ---
 
 ### Installation and run
-#### United executable files
+#### United executable files (testing, but preferable)
 Using console:<br />
 If you wanna you console version of the program:
 ```
@@ -42,7 +42,7 @@ cd telegram_parser/telegram_parser/
 python3 gui.py
 ```
 
-#### Separated executable files
+#### Separated executable files (stable, but with updates will be abandoned)
 Using console:<br />
 If you wanna you console version of the program:
 ```
