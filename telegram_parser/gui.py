@@ -34,17 +34,17 @@ def mutation_setup_window():
         pass
     layout = [[sg.Text("Input initial word to mutate (length of the word is greater than 5 letters): ")], 
               [sg.Input(size=(32, 1), key="word_init"), sg.Button('Ok', enable_events=True, key = 'get_mutated_word')],
-                  [sg.Exit(tooltip='Exit only if the button "OK changed to "Done" or if you won\'t use Mutation Parse Mode!!!')]
+              [sg.Button('Exit', tooltip='Exit only if the button "OK changed to "Done" or if you won\'t use Mutation Parse Mode!!!',key='Exit_no', enable_events=True) ]
                   ]
     window = sg.Window('Mutation Setup', layout, modal=True) 
     while True:
         event, values = window.read()
-        if event == "Exit" or event == sg.WIN_CLOSED or event == 'Exit_no':
-            break
         if event == 'get_mutated_word':
             mutated_initial_link = values['word_init']
+            window['get_mutated_word'].update('Done')
+        if event == "Exit" or event == sg.WIN_CLOSED or event == 'Exit_no':
+            window.close()
             return mutated_initial_link
-            
     window.close()
     
         
@@ -59,6 +59,7 @@ def main_window():
 
     window = sg.Window("Main Window", layout_main)
     try:
+        mutated_initial_link = None
         while True:
             event, values = window.read()
             if event == "Exit" or event == sg.WIN_CLOSED:
@@ -79,7 +80,6 @@ def main_window():
                     mutated_initial_link = mutation_setup_window()
                 
             if event == 'start_program':
-                mutated_initial_link = None
                 if values['parsing_mode_list'][0] == 'Linear':
                     work_mode = '1'
                 elif values['parsing_mode_list'][0] == 'Random':
@@ -109,7 +109,8 @@ def main_window():
                 print = window['Output'].print
                 main(work_mode, parser_type, window, turbo_mode, output, print, mutated_initial_link)
         window.close()
-    except IndexError:
-        window.close()
+    except AttributeError:
+        print('Fuck')
+        # window.close()
 if __name__ == "__main__":
     main_window()

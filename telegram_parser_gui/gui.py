@@ -43,6 +43,7 @@ def mutation_setup_window():
             break
         if event == 'get_mutated_word':
             mutated_initial_link = values['word_init']
+            window['get_mutated_word'].update('Done')
             return mutated_initial_link
             
     window.close()

@@ -11,8 +11,8 @@ def program_exit(link, work_mode, window):
     # if work_mode == '3':
     #     print('Mutation variations of the link ended')
     print('Script stoped')
-    if window != False:
-        window.close()
+    # if window != False:
+    #     window.close()
     sys.exit(0)    
 
 
