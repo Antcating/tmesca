@@ -1,5 +1,5 @@
-# <p align="center">Telegram Group/Channel Parser
-    <img src="icon.png" alt="drawing" width="200"/>
+# <p align="center">Telegram Group/Channel/User Parser
+# <p align="center"><img src="icon.png" alt="drawing" width="200"/>
 Telegram Parser
  Script parse telegram links and sort them to channel/group database.
 
@@ -23,20 +23,19 @@ Script doesn't require Telegram account or any usage of Telegram API. Whole algo
 ---
 
 ### Installation and run
-Using console:
-Console:
+Using console:<br />
+If you wanna you console version of the program:
 ```
 git clone https://github.com/Antcating/telegram_parser.git -b test
 cd telegram_parser/telegram_parser_console/
 python3 main.py
 ```
-GUI:
+If you wanna you console version of the program:
 ```
 git clone https://github.com/Antcating/telegram_parser.git -b test
 cd telegram_parser/telegram_parser_gui/
 python3 gui.py
 ```
-
 Also, make sure, that all the requirements are installed:
 ```
 cd telegram_parser
@@ -52,7 +51,7 @@ Whole configuration, such as:
 * Turbo mode
 * Parse content type
 * Subsettings for some of types
-* etc.,
+* etc., <br />
 is making on the start of the script.
 
 ---
@@ -65,3 +64,4 @@ From the folder in which you cloned/downloaded the script you have to go to subf
 ### Requirements and thanks 
 * [Beautiful Soup 4](https://www.crummy.com/software/BeautifulSoup/)
 * [Requests](https://docs.python-requests.org/en/master/)
+* [PySimpleGUI](https://github.com/PySimpleGUI/PySimpleGUI)
