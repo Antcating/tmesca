@@ -31,13 +31,13 @@ Script doesn't require Telegram account or any usage of Telegram API. Whole algo
 Using console:<br />
 If you wanna you console version of the program:
 ```
-git clone https://github.com/Antcating/telegram_parser.git -b test
+git clone https://github.com/Antcating/telegram_parser.git
 cd telegram_parser/telegram_parser/
 python3 console.py
 ```
 If you wanna you GUI version of the program:
 ```
-git clone https://github.com/Antcating/telegram_parser.git -b test
+git clone https://github.com/Antcating/telegram_parser.git
 cd telegram_parser/telegram_parser/
 python3 gui.py
 ```
@@ -46,7 +46,7 @@ python3 gui.py
 Using console:<br />
 If you wanna you console version of the program:
 ```
-git clone https://github.com/Antcating/telegram_parser.git -b test
+git clone https://github.com/Antcating/telegram_parser.git 
 cd telegram_parser/telegram_parser_console/
 python3 main.py
 ```
@@ -85,7 +85,4 @@ From the folder in which you cloned/downloaded the script you have to go to subf
 ### Requirements and thanks 
 * [Beautiful Soup 4](https://www.crummy.com/software/BeautifulSoup/)
 * [Requests](https://docs.python-requests.org/en/master/)
-<<<<<<< HEAD
-=======
 * [PySimpleGUI](https://github.com/PySimpleGUI/PySimpleGUI)
->>>>>>> test
