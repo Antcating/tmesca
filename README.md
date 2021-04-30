@@ -11,6 +11,7 @@ Script doesn't require Telegram account or any usage of Telegram API. Whole algo
 ### Main features
 
 ![gui_preview.png](gui_preview.png) <br />
+*GUI preview*
 1. GUI!
 2. Parse types:
     * Linear search - choose the length of the link and parse all links, that are in this range.
