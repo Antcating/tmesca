@@ -23,6 +23,22 @@ Script doesn't require Telegram account or any usage of Telegram API. Whole algo
 ---
 
 ### Installation and run
+#### United executable files
+Using console:<br />
+If you wanna you console version of the program:
+```
+git clone https://github.com/Antcating/telegram_parser.git -b test
+cd telegram_parser/telegram_parser/
+python3 console.py
+```
+If you wanna you GUI version of the program:
+```
+git clone https://github.com/Antcating/telegram_parser.git -b test
+cd telegram_parser/telegram_parser/
+python3 gui.py
+```
+
+#### Separated executable files
 Using console:<br />
 If you wanna you console version of the program:
 ```
@@ -36,6 +52,7 @@ git clone https://github.com/Antcating/telegram_parser.git -b test
 cd telegram_parser/telegram_parser_gui/
 python3 gui.py
 ```
+#### Warning!
 Also, make sure, that all the requirements are installed:
 ```
 cd telegram_parser
