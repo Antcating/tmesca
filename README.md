@@ -9,19 +9,19 @@ Script doesn't require Telegram account or any usage of Telegram API. Whole algo
 ---
 
 ### Main features
-0 . GUI!
-![gui_preview.png](gui_preview.png)
 
-1. Parse types:
+![gui_preview.png](gui_preview.png)
+1 . GUI!
+2. Parse types:
     * Linear search - choose the length of the link and parse all links, that are in this range.
     * Random search - creates random link from 5 to 32 symbols and check it.
     * Mutation search - input word and script creates mutations of this word and check all possibilities.
-2. Parse content types:
+3. Parse content types:
     * Channels
     * Group
     * Users
     * All possible intersections between the above types 
-3. Turbo mode - can be toggled to speed up parsing. 
+4. Turbo mode - can be toggled to speed up parsing. 
 
 ---
 
