@@ -62,7 +62,12 @@ Also, make sure, that all the requirements are installed:
 cd telegram_parser
 pip3 install -r requirements.txt
 ```
-If you have already downloaded older version of the program in the past, you can delete and get all over the instructions or 
+If you have already downloaded older version of the program in the past, you can delete and get all over the instructions or just update the existing folder:
+```
+cd telegram_parser
+git pull
+```
+
 ---
 
 ### Config
