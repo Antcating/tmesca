@@ -30,7 +30,7 @@ git clone https://github.com/Antcating/telegram_parser.git -b test
 cd telegram_parser/telegram_parser_console/
 python3 main.py
 ```
-If you wanna you console version of the program:
+If you wanna you GUI version of the program:
 ```
 git clone https://github.com/Antcating/telegram_parser.git -b test
 cd telegram_parser/telegram_parser_gui/
