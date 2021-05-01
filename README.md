@@ -1,12 +1,13 @@
 # <p align="center">Telegram Group/Channel/User Parser
 # <p align="center"><img src="icon.png" alt="drawing" width="200"/>
-Telegram Parser
- Script parse telegram links and sort them to channel/group database.
+Script parse telegram links and sort them to channel/group database.
 
 
 Script doesn't require Telegram account or any usage of Telegram API. Whole algorithm based on Telegram website and site scrapper BeautifulSoup4, so that this script can work without Telegram API delay.
 
 ---
+
+Read on [Русском](https://github.com/Antcating/telegram_parser/blob/main/README_ru.md)  [English](https://github.com/Antcating/telegram_parser/blob/main/README.md)
 
 ### Main features
 

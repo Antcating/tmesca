@@ -7,6 +7,8 @@
 
 ---
 
+Читайте на [Русском](https://github.com/Antcating/telegram_parser/blob/main/README_ru.md) [English](https://github.com/Antcating/telegram_parser/blob/main/README.md)
+
 ### Основные функции
 
 ![gui_preview.png](gui_preview.png) <br />
