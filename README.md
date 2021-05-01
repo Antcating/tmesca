@@ -7,7 +7,7 @@ Script doesn't require Telegram account or any usage of Telegram API. Whole algo
 
 ---
 
-Read on [Русском](https://github.com/Antcating/telegram_parser/blob/main/README_ru.md)  [English](https://github.com/Antcating/telegram_parser/blob/main/README.md)
+Read on [Русский](https://github.com/Antcating/telegram_parser/blob/main/README_ru.md)  [English](https://github.com/Antcating/telegram_parser/blob/main/README.md)
 
 ### Main features
 
