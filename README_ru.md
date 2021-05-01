@@ -92,4 +92,4 @@ git pull
 * [Beautiful Soup 4](https://www.crummy.com/software/BeautifulSoup/)
 * [Requests](https://docs.python-requests.org/en/master/)
 * [PySimpleGUI](https://github.com/PySimpleGUI/PySimpleGUI) <br />
-Отдельная благодарность [@flexagoon](t.me/flexagoon) за перевод README.md на русский язык.
+Отдельная благодарность [@flexagoon](https://t.me/flexagoon) за перевод README.md на русский язык.
