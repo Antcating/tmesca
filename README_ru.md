@@ -32,13 +32,13 @@
 Используя терминал:<br />
 Чтобы использовать консольную версию программы:
 ```
-git clone https://github.com/Antcating/telegram_parser.git -b test
+git clone https://github.com/Antcating/telegram_parser.git
 cd telegram_parser/telegram_parser/
 python3 console.py
 ```
 Чтобы использовать графическую версию программы:
 ```
-git clone https://github.com/Antcating/telegram_parser.git -b test
+git clone https://github.com/Antcating/telegram_parser.git
 cd telegram_parser/telegram_parser/
 python3 gui.py
 ```
@@ -47,13 +47,13 @@ python3 gui.py
 Using console:<br />
 Чтобы использовать консольную версию программы:
 ```
-git clone https://github.com/Antcating/telegram_parser.git -b test
+git clone https://github.com/Antcating/telegram_parser.git
 cd telegram_parser/telegram_parser_console/
 python3 main.py
 ```
 Чтобы использовать графическую версию программы:
 ```
-git clone https://github.com/Antcating/telegram_parser.git -b test
+git clone https://github.com/Antcating/telegram_parser.git
 cd telegram_parser/telegram_parser_gui/
 python3 gui.py
 ```
@@ -91,5 +91,5 @@ git pull
 ### Зависимости и благодарности
 * [Beautiful Soup 4](https://www.crummy.com/software/BeautifulSoup/)
 * [Requests](https://docs.python-requests.org/en/master/)
-* [PySimpleGUI](https://github.com/PySimpleGUI/PySimpleGUI)
+* [PySimpleGUI](https://github.com/PySimpleGUI/PySimpleGUI) <br />
 Отдельная благодарность [@flexagoon](t.me/flexagoon) за перевод README.md на русский язык.
