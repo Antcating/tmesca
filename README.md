@@ -1,4 +1,4 @@
-# <p align="center">Telegram Group/Channel/User Parser
+# <p align="center">Telegram Group/Channel/User/Sticker Parser
 # <p align="center"><img src="icon.png" alt="drawing" width="200"/>
 Script parse telegram links and sort them to channel/group database.
 
@@ -7,7 +7,11 @@ Script doesn't require Telegram account or any usage of Telegram API. Whole algo
 
 ---
 
-Read on [Русский](https://github.com/Antcating/telegram_parser/blob/main/README_ru.md)  [English](https://github.com/Antcating/telegram_parser/blob/main/README.md)
+### This is test branch!
+
+---
+
+Read on [Русском](https://github.com/Antcating/telegram_parser/blob/test/README_ru.md)  [English](https://github.com/Antcating/telegram_parser/blob/test/README.md)
 
 ### Main features
 
