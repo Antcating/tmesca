@@ -7,10 +7,6 @@
 
 ---
 
-### Это тестовая ветка! 
-
----
-
 Read on [Русском](https://github.com/Antcating/telegram_parser/blob/test/README_ru.md)  [English](https://github.com/Antcating/telegram_parser/blob/test/README.md)
 
 ### Основные функции
@@ -26,6 +22,7 @@ Read on [Русском](https://github.com/Antcating/telegram_parser/blob/test/
     * Каналы
     * Группы
     * Пользователи
+    * Стикер Паки
     * Все возможные комбинации указанных выше типов 
 4. Турбо-режим - может быть включен чтобы ускорить парсинг. 
 
