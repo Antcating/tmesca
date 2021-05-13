@@ -73,6 +73,7 @@ z=2
     except FileNotFoundError:
         mutated_replacement_set = set()
         mutated_array = []
+        link = [link]
         mutations = ['_', 'xxx']
         for number_of_connected_mutations in range(1, len(mutations) + 2):
             for mutation_tuple in itertools.permutations(link + mutations, number_of_connected_mutations):

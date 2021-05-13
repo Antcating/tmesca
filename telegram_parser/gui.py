@@ -34,31 +34,32 @@ def mutation_setup_window():
         pass
     layout = [[sg.Text("Input initial word to mutate (length of the word is greater than 5 letters): ")], 
               [sg.Input(size=(32, 1), key="word_init"), sg.Button('Ok', enable_events=True, key = 'get_mutated_word')],
-                  [sg.Exit(tooltip='Exit only if the button "OK changed to "Done" or if you won\'t use Mutation Parse Mode!!!')]
+              [sg.Button('Exit', tooltip='Exit only if the button "OK changed to "Done" or if you won\'t use Mutation Parse Mode!!!',key='Exit_no', enable_events=True) ]
                   ]
     window = sg.Window('Mutation Setup', layout, modal=True) 
     while True:
         event, values = window.read()
-        if event == "Exit" or event == sg.WIN_CLOSED or event == 'Exit_no':
-            break
         if event == 'get_mutated_word':
             mutated_initial_link = values['word_init']
+            window['get_mutated_word'].update('Done')
+        if event == "Exit" or event == sg.WIN_CLOSED or event == 'Exit_no':
+            window.close()
             return mutated_initial_link
-            
     window.close()
     
         
     
 def main_window():
-    layout_main = [ [sg.Text("Choose content to parse: "), sg.Checkbox('Channels', key='channel_content'), sg.Checkbox('Groups', key='group_content'), sg.Checkbox('Users', key='user_content')],
+    layout_main = [ [sg.Text("Choose content to parse: "), sg.Checkbox('Channels', key='channel_content'), sg.Checkbox('Groups', key='group_content'), sg.Checkbox('Users', key='user_content'), sg.Checkbox('Stickers', key='stickers')],
     [sg.Text("Choose parsing mode: "), sg.Listbox(values=['Linear','Random','Mutation'], size=(20, 3), key='parsing_mode_list', enable_events=True)],
     [sg.Text("Turbo mode: "), sg.Checkbox('', key='turbo_mode')],
     [sg.Text("Choose output mode: "), sg.Listbox(values=['All output','If something found','Disabled'], size=(20, 3), key='output_mode_list')],
     [sg.Button('Run', key='start_program', enable_events=True), sg.Button('Stop', key='stop_program', enable_events=True)], 
-    [sg.Multiline(size=(60, 20), key='Output')]    ]
+    [sg.Multiline(size=(70, 25), key='Output')]    ]
 
     window = sg.Window("Main Window", layout_main)
     try:
+        mutated_initial_link = None
         while True:
             event, values = window.read()
             if event == "Exit" or event == sg.WIN_CLOSED:
@@ -79,7 +80,6 @@ def main_window():
                     mutated_initial_link = mutation_setup_window()
                 
             if event == 'start_program':
-                mutated_initial_link = None
                 if values['parsing_mode_list'][0] == 'Linear':
                     work_mode = '1'
                 elif values['parsing_mode_list'][0] == 'Random':
@@ -94,7 +94,9 @@ def main_window():
                     parser_type += '3'
                 if values['user_content'] == True:
                     parser_type += '4'
-                    
+                if values['stickers'] == True:
+                    parser_type += '5'
+                
                 if values['turbo_mode'] == True:
                     turbo_mode = True
                 else:
@@ -109,7 +111,8 @@ def main_window():
                 print = window['Output'].print
                 main(work_mode, parser_type, window, turbo_mode, output, print, mutated_initial_link)
         window.close()
-    except IndexError:
-        window.close()
+    except AttributeError:
+        print('Fuck')
+        # window.close()
 if __name__ == "__main__":
     main_window()
