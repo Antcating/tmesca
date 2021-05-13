@@ -1,12 +1,13 @@
 # <p align="center">Telegram Group/Channel/User Parser
 # <p align="center"><img src="icon.png" alt="drawing" width="200"/>
-Telegram Parser
- Script parse telegram links and sort them to channel/group database.
+Script parse telegram links and sort them to channel/group database.
 
 
 Script doesn't require Telegram account or any usage of Telegram API. Whole algorithm based on Telegram website and site scrapper BeautifulSoup4, so that this script can work without Telegram API delay.
 
 ---
+
+Read on [Русский](https://github.com/Antcating/telegram_parser/blob/main/README_ru.md)  [English](https://github.com/Antcating/telegram_parser/blob/main/README.md)
 
 ### Main features
 
@@ -27,26 +28,26 @@ Script doesn't require Telegram account or any usage of Telegram API. Whole algo
 ---
 
 ### Installation and run
-#### United executable files
+#### United executable files (testing, but preferable)
 Using console:<br />
 If you wanna you console version of the program:
 ```
-git clone https://github.com/Antcating/telegram_parser.git -b test
+git clone https://github.com/Antcating/telegram_parser.git
 cd telegram_parser/telegram_parser/
 python3 console.py
 ```
 If you wanna you GUI version of the program:
 ```
-git clone https://github.com/Antcating/telegram_parser.git -b test
+git clone https://github.com/Antcating/telegram_parser.git
 cd telegram_parser/telegram_parser/
 python3 gui.py
 ```
 
-#### Separated executable files
+#### Separated executable files (stable, but with updates will be abandoned)
 Using console:<br />
 If you wanna you console version of the program:
 ```
-git clone https://github.com/Antcating/telegram_parser.git -b test
+git clone https://github.com/Antcating/telegram_parser.git 
 cd telegram_parser/telegram_parser_console/
 python3 main.py
 ```
@@ -62,6 +63,12 @@ Also, make sure, that all the requirements are installed:
 cd telegram_parser
 pip3 install -r requirements.txt
 ```
+If you have already downloaded older version of the program in the past, you can delete and get all over the instructions or just update the existing folder:
+```
+cd telegram_parser
+git pull
+```
+
 ---
 
 ### Config
