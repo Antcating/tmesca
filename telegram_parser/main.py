@@ -33,6 +33,7 @@ def main(work_mode, parser_type, window, turbo_mode, output, print, mutated_init
         else:
             print('Error! Initial mutation word is not found!')
             program_exit('undef', work_mode, window)
+
     try:
         print('Parser is started!')
         while True:
@@ -47,6 +48,7 @@ def main(work_mode, parser_type, window, turbo_mode, output, print, mutated_init
                     mutated_word_id += 1
                 else: 
                     program_exit(link, work_mode, window)
+            
             url_get_status = get_link(link, output, parser_type, print)
             if url_get_status == 'connection_error':
                 program_exit(link, work_mode, window)
@@ -66,6 +68,7 @@ def main(work_mode, parser_type, window, turbo_mode, output, print, mutated_init
             
             else:
                 continue
+
     except KeyboardInterrupt:
         if work_mode == '3':
             print('Mutation checking keyboard interupted')

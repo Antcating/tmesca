@@ -13,6 +13,7 @@ def console_start():
  2 - Channels
  3 - Groups
  4 - Users
+ 5 - Stickers
 Your choise: ''')[:2].lower()
     work_mode = input('''What type of parsing you want to use:
  1 - Linear parsing

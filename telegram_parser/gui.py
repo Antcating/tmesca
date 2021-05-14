@@ -50,12 +50,12 @@ def mutation_setup_window():
         
     
 def main_window():
-    layout_main = [ [sg.Text("Choose content to parse: "), sg.Checkbox('Channels', key='channel_content'), sg.Checkbox('Groups', key='group_content'), sg.Checkbox('Users', key='user_content')],
+    layout_main = [ [sg.Text("Choose content to parse: "), sg.Checkbox('Channels', key='channel_content'), sg.Checkbox('Groups', key='group_content'), sg.Checkbox('Users', key='user_content'), sg.Checkbox('Stickers', key='stickers')],
     [sg.Text("Choose parsing mode: "), sg.Listbox(values=['Linear','Random','Mutation'], size=(20, 3), key='parsing_mode_list', enable_events=True)],
     [sg.Text("Turbo mode: "), sg.Checkbox('', key='turbo_mode')],
     [sg.Text("Choose output mode: "), sg.Listbox(values=['All output','If something found','Disabled'], size=(20, 3), key='output_mode_list')],
     [sg.Button('Run', key='start_program', enable_events=True), sg.Button('Stop', key='stop_program', enable_events=True)], 
-    [sg.Multiline(size=(60, 20), key='Output')]    ]
+    [sg.Multiline(size=(70, 25), key='Output')]    ]
 
     window = sg.Window("Main Window", layout_main)
     try:
@@ -94,7 +94,9 @@ def main_window():
                     parser_type += '3'
                 if values['user_content'] == True:
                     parser_type += '4'
-                    
+                if values['stickers'] == True:
+                    parser_type += '5'
+                
                 if values['turbo_mode'] == True:
                     turbo_mode = True
                 else:

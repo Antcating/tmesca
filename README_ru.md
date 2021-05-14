@@ -7,7 +7,11 @@
 
 ---
 
+<<<<<<< HEAD
 Читайте на [Русском](https://github.com/Antcating/telegram_parser/blob/main/README_ru.md) [English](https://github.com/Antcating/telegram_parser/blob/main/README.md)
+=======
+Read on [Русском](https://github.com/Antcating/telegram_parser/blob/test/README_ru.md)  [English](https://github.com/Antcating/telegram_parser/blob/test/README.md)
+>>>>>>> test
 
 ### Основные функции
 
@@ -22,6 +26,10 @@
     * Каналы
     * Группы
     * Пользователи
+<<<<<<< HEAD
+=======
+    * Стикер Паки
+>>>>>>> test
     * Все возможные комбинации указанных выше типов 
 4. Турбо-режим - может быть включен чтобы ускорить парсинг. 
 
