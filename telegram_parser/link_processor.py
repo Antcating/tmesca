@@ -1,61 +1,68 @@
-import requests, bs4, re, csv, time
+import requests, bs4, re, csv, time, os
 from threading import Thread
 import concurrent.futures
 
 
 def telegram_parser(link, found, title, description, members, title_stickers, bot_dict):
-    if 'c' in found:
-        with open('output/channel_telegram_parser.csv','a',newline='') as f:
-            channel_csv_writer = csv.writer(f)
-            channel_csv_writer.writerow([link, title, description, members])
-    elif 'g' in found:
-        with open('output/group_telegram_parser.csv','a',newline='') as f:
-            group_csv_writer=csv.writer(f)
-            group_csv_writer.writerow([link, title, description, members]) 
-    elif 'u' in found:
-        with open('output/user_telegram_parser.csv','a',newline='') as f:
-            group_csv_writer=csv.writer(f)
-            group_csv_writer.writerow([link, title, description]) 
-    with open('output/stickers_telegram_parser.csv','a',newline='') as f:
-            stickers_csv_writer=csv.writer(f)
-            stickers_csv_writer.writerow([link, title_stickers]) 
-    if 'b0' in found:
-        with open('output/bots_telegram_parser.csv','a',newline='') as f:
-            bot_csv_writer=csv.writer(f)
-            bot_csv_writer.writerow([link + '_bot', bot_dict['title_bot0'], bot_dict['description_bot0']]) 
-    if 'b1' in found:
-        with open('output/bots_telegram_parser.csv','a',newline='') as f:
-            bot_csv_writer=csv.writer(f)
-            bot_csv_writer.writerow([link + 'bot', bot_dict['title_bot1'], bot_dict['description_bot1']]) 
+    try:
+        if 'c' in found:
+            with open('output/channel_telegram_parser.csv','a',newline='') as f:
+                channel_csv_writer = csv.writer(f)
+                channel_csv_writer.writerow([link, title, description, members])
+        elif 'g' in found:
+            with open('output/group_telegram_parser.csv','a',newline='') as f:
+                group_csv_writer=csv.writer(f)
+                group_csv_writer.writerow([link, title, description, members]) 
+        elif 'u' in found:
+            with open('output/user_telegram_parser.csv','a',newline='') as f:
+                group_csv_writer=csv.writer(f)
+                group_csv_writer.writerow([link, title, description]) 
+        with open('output/stickers_telegram_parser.csv','a',newline='') as f:
+                stickers_csv_writer=csv.writer(f)
+                stickers_csv_writer.writerow([link, title_stickers]) 
+        if 'b0' in found:
+            with open('output/bots_telegram_parser.csv','a',newline='') as f:
+                bot_csv_writer=csv.writer(f)
+                bot_csv_writer.writerow([link + '_bot', bot_dict['title_bot0'], bot_dict['description_bot0']]) 
+        if 'b1' in found:
+            with open('output/bots_telegram_parser.csv','a',newline='') as f:
+                bot_csv_writer=csv.writer(f)
+                bot_csv_writer.writerow([link + 'bot', bot_dict['title_bot1'], bot_dict['description_bot1']]) 
+    except FileNotFoundError:
+        os.mkdir('output')
+        telegram_parser(link, found, title, description, members, title_stickers, bot_dict)
 
 
 
 def telegram_parser_fast(link, found):
-    if 'c' in found:
-        with open('output/channel_telegram_parser_fast.csv','a',newline='') as f:
-            channel_csv_writer=csv.writer(f)
-            channel_csv_writer.writerow([link]) 
-    elif 'g' in found:
-        with open('output/group_telegram_parser_fast.csv','a',newline='') as f:
-            group_csv_writer=csv.writer(f)
-            group_csv_writer.writerow([link]) 
-    elif 'u' in found:
-        with open('output/user_telegram_parser_fast.csv','a',newline='') as f:
-            user_csv_writer=csv.writer(f)
-            user_csv_writer.writerow([link]) 
-    if 's' in found:
-        with open('output/stickers_telegram_parser_fast.csv','a',newline='') as f:
-            stickers_csv_writer=csv.writer(f)
-            stickers_csv_writer.writerow([link]) 
-    if 'b0' in found:
-        with open('output/bots_telegram_parser_fast.csv','a',newline='') as f:
-            bot_csv_writer=csv.writer(f)
-            bot_csv_writer.writerow([link + '_bot']) 
-    if 'b1' in found:
-        with open('output/bots_telegram_parser_fast.csv','a',newline='') as f:
-            bot_csv_writer=csv.writer(f)
-            bot_csv_writer.writerow([link + 'bot']) 
-
+    try:
+        if 'c' in found:
+            with open('output/channel_telegram_parser_fast.csv','a',newline='') as f:
+                channel_csv_writer=csv.writer(f)
+                channel_csv_writer.writerow([link]) 
+        elif 'g' in found:
+            with open('output/group_telegram_parser_fast.csv','a',newline='') as f:
+                group_csv_writer=csv.writer(f)
+                group_csv_writer.writerow([link]) 
+        elif 'u' in found:
+            with open('output/user_telegram_parser_fast.csv','a',newline='') as f:
+                user_csv_writer=csv.writer(f)
+                user_csv_writer.writerow([link]) 
+        if 's' in found:
+            with open('output/stickers_telegram_parser_fast.csv','a',newline='') as f:
+                stickers_csv_writer=csv.writer(f)
+                stickers_csv_writer.writerow([link]) 
+        if 'b0' in found:
+            with open('output/bots_telegram_parser_fast.csv','a',newline='') as f:
+                bot_csv_writer=csv.writer(f)
+                bot_csv_writer.writerow([link + '_bot']) 
+        if 'b1' in found:
+            with open('output/bots_telegram_parser_fast.csv','a',newline='') as f:
+                bot_csv_writer=csv.writer(f)
+                bot_csv_writer.writerow([link + 'bot']) 
+    except FileNotFoundError:
+        os.mkdir('output')
+        telegram_parser_fast(link, found)
 def stickers_parser(link, found):
     url_stickers = 'https://t.me/addstickers/' + link        #getting data from link
     r_stickers = requests.get(url_stickers, stream=True)  

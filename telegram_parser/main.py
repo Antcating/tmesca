@@ -68,7 +68,7 @@ def main(work_mode, parser_type, window, turbo_mode, fast_mode, output, print, m
             
             else:
                 continue
-
+    
     except KeyboardInterrupt:
         if work_mode == '3':
             print('Mutation checking keyboard interupted')
