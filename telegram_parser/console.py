@@ -4,7 +4,7 @@ from main import main
 def start_link():
     n_letters = input('How many letters in the link might be (at least 5): ')
     start_point = 'a' + '1'*(int(n_letters)-1)
-    open('last_link', 'w').write(start_point)
+    open('.last_link', 'w').write(start_point)
 
 
 def console_start():
@@ -30,7 +30,7 @@ Your choise: ''')[0].lower()
     mutated_initial_link = None
     if work_mode == '1':
         try:                                    # LINK Checking
-            open('last_link').read()
+            open('.last_link').read()
             change_start = input('Do you want to change number of letters in link(y/n): ')[0].lower()
             if change_start == 'y':
                 start_link()

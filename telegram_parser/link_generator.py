@@ -8,44 +8,57 @@ def alphabets_generator():
     alphabet1 = []                          #first letter alphabet
     for letter in range(97,123):
         alphabet1.append(chr(letter))
-    return alphabet, alphabet1
+        
+    alphabet_last = ['1', '2', '3','4' , '5', '6', '7', '8', '9', '0']
+    for letter in range(97,123):            #all letters except last alphabet
+        alphabet_last.append(chr(letter))
+    return alphabet, alphabet1, alphabet_last
 
-def random_address_generator(alphabet, alphabet1):
+def random_address_generator(alphabet, alphabet1, alphabet_last):
     len_link = random.randint(5, 32)
     link = ''
     for i in range(len_link):
         if i == 0:
             link += alphabet1[random.randint(0, len(alphabet1)-1)]
+        elif i == len_link -1:
+            link += alphabet_last[random.randint(0, len(alphabet_last)-1)]
         else:
             link += alphabet[random.randint(0, len(alphabet)-1)]
     return link
 
-def last_link_read_linear_address(alphabet, alphabet1):
-    start_point = open('last_link').read()
+def last_link_read_linear_address(alphabet, alphabet1, alphabet_last):
+    start_point = open('.last_link').read()
     linear_letter_link_ids_array = []
     for i in range(len(start_point)): 
         if i == 0:        
             linear_letter_link_ids_array.append(alphabet1.index(start_point[i])) 
         elif i == len(start_point)-1:
-            linear_letter_link_ids_array.append(alphabet.index(start_point[i])+1)
+            linear_letter_link_ids_array.append(alphabet_last.index(start_point[i]))
         else:
             linear_letter_link_ids_array.append(alphabet.index(start_point[i]))
     return linear_letter_link_ids_array
 
-def linear_address_generator(alphabet, alphabet1, linear_letter_link_ids_array, print):
+def linear_address_generator(alphabet, alphabet1, alphabet_last, linear_letter_link_ids_array, print):
     link = ''
     for i in range(len(linear_letter_link_ids_array)):
         if i == 0:  
             link += str(alphabet1[linear_letter_link_ids_array[i]])
+        elif i == len(linear_letter_link_ids_array) -1:
+            link += str(alphabet_last[linear_letter_link_ids_array[i]])
         else:
             link += str(alphabet[linear_letter_link_ids_array[i]])
 
     linear_letter_link_ids_array[-1] += 1
     for i in range(len(linear_letter_link_ids_array)-1, -1, -1):
         if i != 0:
-            if linear_letter_link_ids_array[i] == len(alphabet):
-                linear_letter_link_ids_array[i] = 0
-                linear_letter_link_ids_array[i-1] += 1
+            if i != len(linear_letter_link_ids_array) -1:
+                if linear_letter_link_ids_array[i] == len(alphabet):
+                    linear_letter_link_ids_array[i] = 0
+                    linear_letter_link_ids_array[i-1] += 1
+            else:
+                if linear_letter_link_ids_array[i] == len(alphabet_last):
+                    linear_letter_link_ids_array[i] = 0
+                    linear_letter_link_ids_array[i-1] += 1
         else:
             if linear_letter_link_ids_array[0] == len(alphabet1):
                 print('The end of this linear range. Exiting the program.')
