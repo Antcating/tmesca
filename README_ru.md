@@ -1,4 +1,4 @@
-# <p align="center">Парсер Каналов/Групп/Пользователей/Ботов Telegram
+# <p align="center">Полный Парсер  Telegram
 # <p align="center"><img src="icon.png" alt="drawing" width="200"/>
 Скрипт Telegram Parser анализирует ссылки на Телеграм и сортирует их в раздельные базы данных.
 
