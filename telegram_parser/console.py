@@ -14,6 +14,7 @@ def console_start():
  3 - Groups
  4 - Users
  5 - Stickers
+ 6 - Bots
 Your choise: ''')[:2].lower()
     work_mode = input('''What type of parsing you want to use:
  1 - Linear parsing
@@ -21,11 +22,17 @@ Your choise: ''')[:2].lower()
  3 - Mutation parsing 
 Your choise: ''')[0].lower()
     turbo_mode = input('Turn on turbo mod(y/n): ')[0].lower()                   # work mode with/out delay
+    if turbo_mode == 'y':
+        turbo_mode = True
     output = input('''What type of output do you want: 
  1 - All output (not False will be only the content, that was choosed to parse)
  2 - If something found
  3 - No output
 Your choise: ''')[0].lower()
+    fast_mode = input('Turn on only addresses write mode(y/n): ')[0].lower()
+    if fast_mode == 'y':
+        fast_mode = True
+    
     window = False
     mutated_initial_link = None
     if work_mode == '1':
@@ -44,6 +51,6 @@ Your choise: ''')[0].lower()
         except:
             pass
         mutated_initial_link =  input('Input initial word to mutate (length of the word is greater than 5 letters): ').lower()
-    main(work_mode, parser_type, window, turbo_mode, output, print, mutated_initial_link)
+    main(work_mode, parser_type, window, turbo_mode, fast_mode, output, print, mutated_initial_link)
     
 console_start()
