@@ -1,4 +1,4 @@
-# <p align="center">Full Telegram Parser
+# <p align="center">Total Telegram GUI/Console Parser
 # <p align="center"><img src="icon.png" alt="drawing" width="200"/>
 Script parse telegram links and sort them to channel/group/user/sticker pack/bot database.
 
