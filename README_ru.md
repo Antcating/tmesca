@@ -1,4 +1,4 @@
-# <p align="center">Парсер Каналов/Групп/Пользователей Telegram
+# <p align="center">Парсер Каналов/Групп/Пользователей/Ботов Telegram
 # <p align="center"><img src="icon.png" alt="drawing" width="200"/>
 Скрипт Telegram Parser анализирует ссылки на Телеграм и сортирует их в раздельные базы данных.
 
@@ -7,11 +7,7 @@
 
 ---
 
-<<<<<<< HEAD
 Читайте на [Русском](https://github.com/Antcating/telegram_parser/blob/main/README_ru.md) [English](https://github.com/Antcating/telegram_parser/blob/main/README.md)
-=======
-Read on [Русском](https://github.com/Antcating/telegram_parser/blob/test/README_ru.md)  [English](https://github.com/Antcating/telegram_parser/blob/test/README.md)
->>>>>>> test
 
 ### Основные функции
 
@@ -26,10 +22,8 @@ Read on [Русском](https://github.com/Antcating/telegram_parser/blob/test/
     * Каналы
     * Группы
     * Пользователи
-<<<<<<< HEAD
-=======
     * Стикер Паки
->>>>>>> test
+    * Боты
     * Все возможные комбинации указанных выше типов 
 4. Турбо-режим - может быть включен чтобы ускорить парсинг. 
 
@@ -48,21 +42,6 @@ python3 console.py
 ```
 git clone https://github.com/Antcating/telegram_parser.git
 cd telegram_parser/telegram_parser/
-python3 gui.py
-```
-
-#### Разделенные исполняемые файлы
-Using console:<br />
-Чтобы использовать консольную версию программы:
-```
-git clone https://github.com/Antcating/telegram_parser.git
-cd telegram_parser/telegram_parser_console/
-python3 main.py
-```
-Чтобы использовать графическую версию программы:
-```
-git clone https://github.com/Antcating/telegram_parser.git
-cd telegram_parser/telegram_parser_gui/
 python3 gui.py
 ```
 #### Внимание!

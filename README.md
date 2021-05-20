@@ -1,4 +1,4 @@
-# <p align="center">Telegram Group/Channel/User/Sticker Parser
+# <p align="center">Telegram Group/Channel/User/Sticker/Bot Parser
 # <p align="center"><img src="icon.png" alt="drawing" width="200"/>
 Script parse telegram links and sort them to channel/group database.
 
@@ -23,6 +23,7 @@ Read on [Русском](https://github.com/Antcating/telegram_parser/blob/main/
     * Group
     * Users
     * Sticker Packs
+    * Bots
     * All possible intersections between the above types 
 4. Turbo mode - can be toggled to speed up parsing. 
 
@@ -41,21 +42,6 @@ If you wanna you GUI version of the program:
 ```
 git clone https://github.com/Antcating/telegram_parser.git
 cd telegram_parser/telegram_parser/
-python3 gui.py
-```
-
-#### Separated executable files (stable, but with updates will be abandoned)
-Using console:<br />
-If you wanna you console version of the program:
-```
-git clone https://github.com/Antcating/telegram_parser.git 
-cd telegram_parser/telegram_parser_console/
-python3 main.py
-```
-If you wanna you GUI version of the program:
-```
-git clone https://github.com/Antcating/telegram_parser.git -b test
-cd telegram_parser/telegram_parser_gui/
 python3 gui.py
 ```
 #### Warning!
