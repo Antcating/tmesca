@@ -27,4 +27,23 @@ def database_check(print):
                     csv_writer.writerow(['adress', 'name'])
             print('Init Info:' + database_name + ' was created in the script folder')
         
-            
+def fast_database_check(print):
+    database_names_list = [
+        'channel_telegram_parser_fast.csv',
+        'group_telegram_parser_fast.csv',
+        'user_telegram_parser_fast.csv',
+        'stickers_telegram_parser_fast.csv',
+        'bots_telegram_parser_fast.csv',
+        ]
+    for database_name in database_names_list:
+        try:                                                                    # checking existing of the telegram_parser.csv file
+            open('output/' + database_name, 'r').close()
+        except FileNotFoundError:
+            try:
+                os.mkdir('output')
+            except FileExistsError:
+                pass
+            open('output/' + database_name, 'a+')
+            with open('output/' + database_name,'a',newline='') as f:
+                csv_writer=csv.writer(f)
+                csv_writer.writerow(['adress'])
