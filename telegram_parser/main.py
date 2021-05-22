@@ -1,10 +1,17 @@
 import time, sys
-from database_check import database_check
-from link_processor import get_link, get_fast_link
+from database_check import database_check, fast_database_check
+from link_processor import get_link, get_fast_link, telegram_parser_open, fast_telegram_parser_open
 from link_generator import alphabets_generator, random_address_generator, linear_address_generator, last_link_read_linear_address, mutation_address_generator
 import PySimpleGUI as sg
 
 def program_exit(link, work_mode):
+    """Exiting the program.
+
+        Args:
+            link: [str] last link, script was working with.\n
+            work_mode: [int] get one of the possibilities: linear, random of mutated
+            and make last preparation before ending the program.
+    """
     if work_mode == '1':            # 1 = linear
         print('Saving last linear link position')
         open('.last_link', 'w').write(link)
@@ -16,6 +23,9 @@ def program_exit(link, work_mode):
 
 def main(work_mode, parser_type, window, turbo_mode, fast_mode, output, print, mutated_initial_link):
     database_check(print)
+    fast_database_check(print)
+    channel_db, group_db, user_db, stickers_db, bot0_db, bot1_db = telegram_parser_open()
+    channel_fast_db, group_fast_db, user_fast_db, stickers_fast_db, bot0_fast_db, bot1_fast_db  = fast_telegram_parser_open()
     alphabet, alphabet1, alphabet_last = alphabets_generator()
     if work_mode == '1':
         linear_letter_link_ids_array = last_link_read_linear_address(alphabet, alphabet1, alphabet_last)
@@ -45,9 +55,27 @@ def main(work_mode, parser_type, window, turbo_mode, fast_mode, output, print, m
                     program_exit(link, work_mode, window)
             
             if fast_mode == False:
-                url_get_status = get_link(link, output, parser_type, print)
+                url_get_status = get_link(link, 
+                                          output, 
+                                          parser_type, 
+                                          print,
+                                          channel_db, 
+                                          group_db,
+                                          user_db,
+                                          stickers_db,
+                                          bot0_db, 
+                                          bot1_db)
             else:
-                url_get_status = get_fast_link(link, output, parser_type, print)
+                url_get_status = get_fast_link(link,
+                                               output, 
+                                               parser_type, 
+                                               print,
+                                               channel_fast_db, 
+                                               group_fast_db,
+                                               user_fast_db,
+                                               stickers_fast_db,
+                                               bot0_fast_db, 
+                                               bot1_fast_db)
                 
             if url_get_status == 'connection_error':
                 program_exit(link, work_mode, window)
