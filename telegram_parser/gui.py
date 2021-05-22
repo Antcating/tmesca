@@ -1,10 +1,11 @@
-import os
+import os, logging
 import PySimpleGUI as sg
 from main import main
 
 
-sg.theme('DarkBlue') 
+logging.basicConfig(filename='parser.log', encoding='utf-8', level=logging.DEBUG)
 
+sg.ChangeLookAndFeel('DarkGrey8')    
 def linear_setup_window(window_name, init_setup):
     if init_setup == 1:
         layout = [[sg.Text("How many letters in the link might be (at least 5): "), sg.Input(size=(3, 1), key="num_letters_init"), sg.Button('Ok', enable_events=True, key = 'get_length')],
@@ -53,10 +54,7 @@ def mutation_setup_window():
         
     
 def main_window():
-    layout_main = [ 
-    [sg.HorizontalSeparator()],
-    [sg.Text("=== Work mode ===", justification='center',size=(70,1))],
-    [sg.HorizontalSeparator()],
+    work_mode_layout = [
     [sg.Text("Choose content to parse: ")], 
                      [sg.Checkbox('Channels', key='channel_content'), 
                      sg.Checkbox('Groups', key='group_content'), 
@@ -65,16 +63,21 @@ def main_window():
                      sg.Checkbox('Bots', key='bots_content')],
     [sg.Text("Choose parsing mode: "), sg.Listbox(values=['Linear','Random','Mutation'], size=(20, 3), key='parsing_mode_list', enable_events=True)],
     [sg.Text("Turbo mode: "), sg.Checkbox('', key='turbo_mode')],
-    [sg.HorizontalSeparator()],
-    [sg.Text("=== Output mode ===", justification='center',size=(70,1))],
-    [sg.HorizontalSeparator()],
+    ]
+    output_mode_layout = [
     [sg.Text("Choose output mode: "), sg.Listbox(values=['All output','If something found','Disabled'], size=(20, 3), key='output_mode_list')],
-    [sg.HorizontalSeparator()],
-    [sg.Text("=== Write mode ===", justification='center',size=(70,1))],
-    [sg.HorizontalSeparator()],
+    ]
+    write_mode_layout = [
     [sg.Text("Only addresses mode: "), sg.Checkbox('', key='fast_mode')],
+    ]
+    
+    layout_main = [ 
+    [sg.Frame('Work Mode', work_mode_layout, size=(70,10), font='Any 12')],
+    [sg.Frame('Output Mode', output_mode_layout, size=(70,10), font='Any 12')],
+    [sg.Frame('Write Mode', write_mode_layout, size=(70,10), font='Any 12')],
+    
     [sg.Button('Run', key='start_program', enable_events=True), sg.Button('Stop', key='stop_program', enable_events=True)], 
-    [sg.Multiline(size=(70, 25), key='Output')]    
+    [sg.Multiline(size=(55, 25), key='Output')]    
     ]
 
     window = sg.Window("TP - Telegram Parser", layout_main, finalize=True)
@@ -100,6 +103,7 @@ def main_window():
                     mutated_initial_link = mutation_setup_window()
                 
             if event == 'start_program':
+                logging.info('start button pressed')
                 if values['parsing_mode_list'][0] == 'Linear':
                     work_mode = '1'
                 elif values['parsing_mode_list'][0] == 'Random':
@@ -138,8 +142,6 @@ def main_window():
                     print = window['Output'].print
                 elif values['output_mode_list'][0] == 'Disabled':
                     output = '3'
-                    window['Output'].Update(visible=False)
-                    print = print
                 
                 main(work_mode, parser_type, window, turbo_mode, fast_mode, output, print, mutated_initial_link)
         window.close()
