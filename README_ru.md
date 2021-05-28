@@ -11,7 +11,7 @@
 
 ### Основные функции
 
-![gui_preview.png](gui_preview.png) <br />
+![gui_preview_new.png](gui_preview.png) <br />
 *Графический интерфейс для скрипта*
 1. GUI!
 2. Виды парсинга:

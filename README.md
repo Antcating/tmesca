@@ -11,7 +11,7 @@ Read on [Русском](https://github.com/Antcating/telegram_parser/blob/main/
 
 ### Main features
 
-![gui_preview.png](gui_preview.png) <br />
+![gui_preview.png](gui_preview_new.png) <br />
 *GUI preview*
 1. GUI!
 2. Parse types:
