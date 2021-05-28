@@ -1,5 +1,21 @@
-import os
+import os, telebot
 from main import main    
+
+
+def telegram_print_function(output):
+    try:
+        tg_token = open('.telegram_token', 'r').read()
+    except:
+        tg_token = input('Input Telegram bot token: ')
+        open('.telegram_token', 'w').write(tg_token)
+    try:
+        tg_address = open('.telegram_channel', 'r').read()
+    except:
+        tg_address = input('Input Telegram bot token: ')
+        open('.telegram_channel', 'w').write(tg_address)
+    bot = telebot.TeleBot(tg_token)
+    bot.send_message(tg_address, output) 
+
 
 def start_link():
     n_letters = input('How many letters in the link might be (at least 5): ')
@@ -24,6 +40,19 @@ Your choise: ''')[0].lower()
     turbo_mode = input('Turn on turbo mod(y/n): ')[0].lower()                   # work mode with/out delay
     if turbo_mode == 'y':
         turbo_mode = True
+        
+        
+    output_source_list = input('''What output source do you want: 
+ 1 - Console
+ 2 - Telegram
+Your choise: ''')[0].lower()    
+    if output_source_list == '1':
+        pass
+    elif output_source_list == '2':
+        print = telegram_print_function    
+
+
+
     output = input('''What type of output do you want: 
  1 - All output (not False will be only the content, that was choosed to parse)
  2 - If something found
