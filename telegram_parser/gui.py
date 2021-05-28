@@ -1,9 +1,8 @@
-import os, logging
+import os, telebot
 import PySimpleGUI as sg
 from main import main
 
 
-logging.basicConfig(filename='parser.log', encoding='utf-8', level=logging.DEBUG)
 
 sg.ChangeLookAndFeel('DarkGrey8')    
 def linear_setup_window(window_name, init_setup):
@@ -51,7 +50,51 @@ def mutation_setup_window():
             return mutated_initial_link
     window.close()
     
-        
+def telegram_token_input_windows():
+    layout = [[sg.Text("Input Telegram bot token: ")], 
+              [sg.Input(size=(32, 1), key="token_init"), sg.Button('Ok', enable_events=True, key = 'get_telegram_token')],
+              [sg.Button('Skip', tooltip='Exit only if you incerted Telegram Bot token!!!',key='Exit_no', enable_events=True) ]
+                  ] 
+    window = sg.Window('Telegram Setup', layout, modal=True) 
+    while True:
+        event, values = window.read()
+        if event == 'get_telegram_token':
+            tg_token = values['token_init']
+            window['get_telegram_token'].update('Done')
+            window['Exit_no'].update('Exit')            
+            open('.telegram_token', 'w').write(tg_token)
+
+        if event == "Exit" or event == sg.WIN_CLOSED or event == 'Exit_no':
+            break
+            window.close()
+    window.close()
+
+def telegram_channel_input_windows():
+    layout = [[sg.Text("Input Channel Address (@name_of_the_channel): ")], 
+              [sg.Input(size=(32, 1), key="channel_init"), sg.Button('Ok', enable_events=True, key = 'get_telegram_channel')],
+              [sg.Button('Skip', tooltip='Exit only if you incerted Telegram Bot token!!!',key='Exit_no', enable_events=True) ]
+                  ] 
+    window = sg.Window('Telegram Setup', layout, modal=True) 
+    while True:
+        event, values = window.read()
+        if event == 'get_telegram_channel':
+            tg_channel = values['channel_init']
+            window['get_telegram_channel'].update('Done')
+            window['Exit_no'].update('Exit')
+            
+            open('.telegram_channel', 'w').write(tg_channel)
+
+        if event == "Exit" or event == sg.WIN_CLOSED or event == 'Exit_no':
+            break
+            window.close()
+    window.close()
+
+
+def telegram_print_function(output):
+    tg_token = open('.telegram_token', 'r').read()
+    tg_address = open('.telegram_channel', 'r').read()
+    bot = telebot.TeleBot(tg_token)
+    bot.send_message(tg_address, output) 
     
 def main_window():
     work_mode_layout = [
@@ -65,7 +108,8 @@ def main_window():
     [sg.Text("Turbo mode: "), sg.Checkbox('', key='turbo_mode')],
     ]
     output_mode_layout = [
-    [sg.Text("Choose output mode: "), sg.Listbox(values=['All output','If something found','Disabled'], size=(20, 3), key='output_mode_list')],
+    [sg.Text("Choose output source: "), sg.Listbox(values=['Console', 'Telegram'], size=(20, 2), key='output_source_list', enable_events=True)],
+    [sg.Text("Choose output mode: "), sg.Listbox(values=['All output','If something found','Disabled'], size=(20, 3), key='output_mode_list', enable_events=True, disabled=True)],
     ]
     write_mode_layout = [
     [sg.Text("Only addresses mode: "), sg.Checkbox('', key='fast_mode')],
@@ -101,9 +145,15 @@ def main_window():
                 
                 if values['parsing_mode_list'][0] == 'Mutation':
                     mutated_initial_link = mutation_setup_window()
+                    
+            if event == "output_source_list":
+                window['output_mode_list'].update(disabled=False)
+                if values['output_source_list'][0] == 'Telegram':
+                    telegram_token_input_windows()
+                    telegram_channel_input_windows()
+                        
                 
             if event == 'start_program':
-                logging.info('start button pressed')
                 if values['parsing_mode_list'][0] == 'Linear':
                     work_mode = '1'
                 elif values['parsing_mode_list'][0] == 'Random':
@@ -134,15 +184,19 @@ def main_window():
                     fast_mode = False
                     
                 
+                if values['output_source_list'][0] == 'Console':
+                    print = window['Output'].print
+                elif values['output_source_list'][0] == 'Telegram':
+                    print = telegram_print_function
+                
                 if values['output_mode_list'][0] == 'All output':
                     output = '1'
-                    print = window['Output'].print
                 elif values['output_mode_list'][0] == 'If something found':
                     output = '2'
-                    print = window['Output'].print
                 elif values['output_mode_list'][0] == 'Disabled':
                     output = '3'
-                
+                    
+                    
                 main(work_mode, parser_type, window, turbo_mode, fast_mode, output, print, mutated_initial_link)
         window.close()
     except AttributeError:
