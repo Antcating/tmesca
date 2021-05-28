@@ -30,6 +30,28 @@ Read on [Русском](https://github.com/Antcating/telegram_parser/blob/main/
 
 ---
 
+### Config
+
+#### Initial Config
+Whole configuration, such as:
+* Parse type
+* Turbo mode
+* Parse content type
+* Subsettings for some of types
+* etc., <br />
+is making on the start of the script.
+
+
+#### Telegram Output
+To make Telegram output you have to: <br />
+- Create Telegram bot using [BotFather](https://t.me/BotFather) and get Telegram Bot Token.
+- Create **public** channel (or, if you know, how to get private channel ID, you can use it). 
+- In the program choose Telegram output and paste in the corresponding line Bot Token and Channel Link (if you already done it, just press Skip).   
+- Hooray! Everything ready. Enjoy!
+
+
+---
+
 ### Installation and run
 #### United executable files (testing, but preferable)
 Using console:<br />
@@ -56,27 +78,6 @@ If you have already downloaded older version of the program in the past, you can
 cd telegram_parser
 git pull
 ```
-
----
-
-### Config
-
-#### Initial Config
-Whole configuration, such as:
-* Parse type
-* Turbo mode
-* Parse content type
-* Subsettings for some of types
-* etc., <br />
-is making on the start of the script.
-
-
-#### Telegram Output
-To make Telegram output you have to: <br />
-- create Telegram bot using [BotFather](https://t.me/BotFather) and get Telegram Bot Token.
-- create **public** channel (or, if you know, how to get private channel ID, you can use it). 
-- In the program choose Telegram output and paste in the corresponding line Bot Token and Channel Link (if you already done it, just press Skip).   
-- Hooray! Everything ready. Enjoy!
 
 ---
 
