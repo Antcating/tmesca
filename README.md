@@ -46,6 +46,7 @@ is making on the start of the script.
 To make Telegram output you have to: <br />
 - Create Telegram bot using [BotFather](https://t.me/BotFather) and get Telegram Bot Token.
 - Create **public** channel (or, if you know, how to get private channel ID, you can use it). 
+- Add bot, you just created, to the channel with permission to post/read messages. 
 - In the program choose Telegram output and paste in the corresponding line Bot Token and Channel Link (if you already done it, just press Skip).   
 - Hooray! Everything ready. Enjoy!
 
