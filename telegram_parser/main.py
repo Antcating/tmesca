@@ -21,7 +21,7 @@ def program_exit(link, work_mode):
 
     
 
-def main(work_mode, parser_type, window, turbo_mode, fast_mode, output, print, mutated_initial_link):
+def main(work_mode, parser_type, window, turbo_mode, fast_mode,  output, print, mutated_initial_link):
     database_check(print)
     fast_database_check(print)
     channel_db, group_db, user_db, stickers_db, bot0_db, bot1_db = telegram_parser_open()
