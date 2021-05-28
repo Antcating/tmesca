@@ -17,21 +17,20 @@ def telegram_parser_open():
     return channel_db, group_db, user_db, sticker_db, bot0_db, bot1_db
 
 
-with open('output/channel_telegram_parser.csv','a',newline='') as channel_db:
-    def telegram_parser(channel_db, 
-                        group_db,
-                        user_db,
-                        sticker_db,
-                        bot0_db,
-                        bot1_db,
-                        
-                        link, 
-                        found, 
-                        title, 
-                        description, 
-                        members, 
-                        title_stickers, 
-                        bot_dict
+def telegram_parser(channel_db, 
+                    group_db,
+                    user_db,
+                    sticker_db,
+                    bot0_db,
+                    bot1_db,
+                    
+                    link, 
+                    found, 
+                    title, 
+                    description, 
+                    members, 
+                    title_stickers, 
+                    bot_dict
                         ):
         if 'c' in found:
             csv.writer(channel_db).writerow([link, title, description, members])
@@ -60,30 +59,29 @@ def fast_telegram_parser_open():
     return channel_fast_db, group_fast_db, user_fast_db, sticker_fast_db, bot0_fast_db, bot1_fast_db
 
 
-with open('output/channel_telegram_parser.csv','a',newline='') as channel_fast_db:
-    def fast_telegram_parser(
-                        channel_fast_db, 
-                        group_fast_db,
-                        user_fast_db,
-                        sticker_fast_db,
-                        bot0_fast_db,
-                        bot1_fast_db,
-                        
-                        link, 
-                        found, 
-                        ):
-        if 'c' in found:
-            csv.writer(channel_fast_db).writerow([link])
-        elif 'g' in found:
-            csv.writer(group_fast_db).writerow([link]) 
-        elif 'u' in found:
-            csv.writer(user_fast_db).writerow([link]) 
-        if 's' in found:
-            csv.writer(sticker_fast_db).writerow([link]) 
-        if 'b0' in found:
-            csv.writer(bot0_fast_db).writerow([link + '_bot']) 
-        if 'b1' in found:
-            csv.writer(bot1_fast_db).writerow([link + 'bot']) 
+def fast_telegram_parser(
+                    channel_fast_db, 
+                    group_fast_db,
+                    user_fast_db,
+                    sticker_fast_db,
+                    bot0_fast_db,
+                    bot1_fast_db,
+                    
+                    link, 
+                    found, 
+                    ):
+    if 'c' in found:
+        csv.writer(channel_fast_db).writerow([link])
+    elif 'g' in found:
+        csv.writer(group_fast_db).writerow([link]) 
+    elif 'u' in found:
+        csv.writer(user_fast_db).writerow([link]) 
+    if 's' in found:
+        csv.writer(sticker_fast_db).writerow([link]) 
+    if 'b0' in found:
+        csv.writer(bot0_fast_db).writerow([link + '_bot']) 
+    if 'b1' in found:
+        csv.writer(bot1_fast_db).writerow([link + 'bot']) 
   
     
 def channel_group_user_get(link, found, parser_type):
