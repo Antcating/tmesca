@@ -30,7 +30,8 @@ def telegram_parser(channel_db,
                     description, 
                     members, 
                     title_stickers, 
-                    bot_dict
+                    bot_dict,
+                    _bot_dict
                         ):
         if 'c' in found:
             csv.writer(channel_db).writerow([link, title, description, members])
@@ -41,9 +42,9 @@ def telegram_parser(channel_db,
         if 's' in found:
             csv.writer(sticker_db).writerow([link, title_stickers]) 
         if 'b0' in found:
-            csv.writer(bot0_db).writerow([link + '_bot', bot_dict['title_bot0'], bot_dict['description_bot0']]) 
+            csv.writer(bot0_db).writerow([link + '_bot', _bot_dict['title_bot'], _bot_dict['description_bot']]) 
         if 'b1' in found:
-            csv.writer(bot1_db).writerow([link + 'bot', bot_dict['title_bot1'], bot_dict['description_bot1']]) 
+            csv.writer(bot1_db).writerow([link + 'bot', bot_dict['title_bot'], bot_dict['description_bot']]) 
 
 def fast_telegram_parser_open():
     try:
@@ -148,26 +149,23 @@ def stickers_get(link, found):
         return title_stickers, found
 
        
-def bot_get(link, found):
-    bot_links = [link + '_bot', link + 'bot']
-    i = 0
+def bot_get(link, found, i):
     bot_dict = dict()
-    for link_bot in bot_links:
-        url_bot = 'https://t.me/' + link_bot
-        r_bot = requests.get(url_bot, stream=True)  
-        soup_bot = bs4.BeautifulSoup(r_bot.text, "lxml", ) 
-        type_link = soup_bot.find_all('div', class_="tgme_page_extra")
-        if type_link != []:
-            title_bot = soup_bot.find('div', class_='tgme_page_title').text
-            try:
-                description_bot = soup_bot.find('div', class_='tgme_page_description').text
-            except:
-                description_bot = None
-            bot_dict['title_bot' + str(i)] = title_bot
-            bot_dict['description_bot' + str(i)] = description_bot
-            found += 'b' + str(i) + ','
-        i += 1
+    url_bot = 'https://t.me/' + link
+    r_bot = requests.get(url_bot, stream=True)  
+    soup_bot = bs4.BeautifulSoup(r_bot.text, "lxml", ) 
+    type_link = soup_bot.find_all('div', class_="tgme_page_extra")
+    if type_link != []:
+        title_bot = soup_bot.find('div', class_='tgme_page_title').text
+        try:
+            description_bot = soup_bot.find('div', class_='tgme_page_description').text
+        except:
+            description_bot = None
+        bot_dict['title_bot'] = title_bot
+        bot_dict['description_bot'] = description_bot
+        found += 'b' + str(i) + ','
     return bot_dict, found
+
 
 
 def output_func(found, link, output, print):
@@ -193,7 +191,7 @@ def output_func(found, link, output, print):
         print('Try: ' + link + ', result: ' + mess)
         
 
-def get_link(link, output, parser_type, print, channel_db, group_db, user_db, stickers_db, bot0_db, bot1_db):
+def get_link(link, output, parser_type, bot_mode, print, channel_db, group_db, user_db, stickers_db, bot0_db, bot1_db):
     
     i = 0
     while i < 5:
@@ -203,19 +201,35 @@ def get_link(link, output, parser_type, print, channel_db, group_db, user_db, st
             members = None
             title_stickers = None
             bot_dict = None
+            _bot_dict = None
             found = ''
+            found_cgu = ''
+            found_b = ''
+            found_s = ''
+            _found_b = ''
             if any(parser_mode in parser_type for parser_mode in ['1', '2', '3', '4', '5', '6']):
                 with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
                     if any(parser_mode in parser_type for parser_mode in ['1', '2', '3', '4']):
                         channel_group_user_future = executor.submit(channel_group_user_get, link, found, parser_type)
-                        title, description, members, found = channel_group_user_future.result()
                     if any(parser_mode in parser_type for parser_mode in ['1', '5']):
                         sticker_future = executor.submit(stickers_get, link, found)
-                        title_stickers, found = sticker_future.result()
                     if any(parser_mode in parser_type for parser_mode in ['1', '6']):
-                        bot_future = executor.submit(bot_get, link, found)
-                        bot_dict, found = bot_future.result()
-
+                        if '1' in bot_mode:
+                            _bot_future = executor.submit(bot_get, link + '_bot', found, 0)
+                        if '2' in bot_mode:
+                            bot_future = executor.submit(bot_get, link + 'bot', found, 1)
+                        
+                        
+                if any(parser_mode in parser_type for parser_mode in ['1', '2', '3', '4']):
+                    title, description, members, found_cgu = channel_group_user_future.result()
+                if any(parser_mode in parser_type for parser_mode in ['1', '5']):
+                    title_stickers, found_s = sticker_future.result()
+                if any(parser_mode in parser_type for parser_mode in ['1', '6']):
+                    if '1' in bot_mode:
+                        _bot_dict, _found_b = _bot_future.result()
+                    if '2' in bot_mode:
+                        bot_dict, found_b = bot_future.result()
+            found = found_b + _found_b + found_cgu + found_s 
             Thread(target = telegram_parser, args = (   channel_db,
                                                         group_db, 
                                                         user_db,
@@ -229,7 +243,8 @@ def get_link(link, output, parser_type, print, channel_db, group_db, user_db, st
                                                         description, 
                                                         members, 
                                                         title_stickers, 
-                                                        bot_dict
+                                                        bot_dict,
+                                                        _bot_dict
                                                         )).start()
             
             output_func(found, link, output, print)
@@ -278,36 +293,47 @@ def fast_stickers_get(link, found):
         found += 's,'
         return found
        
-def fast_bot_get(link, found):
-    bot_links = [link + '_bot', link + 'bot']
-    i = 0
-    for link_bot in bot_links:
-        url_bot = 'https://t.me/' + link_bot
-        r_bot = requests.get(url_bot, stream=True)  
-        soup_bot = bs4.BeautifulSoup(r_bot.text, "lxml", ) 
-        type_link = soup_bot.find_all('div', class_="tgme_page_extra")
-        if type_link != []:
-            found += 'b' + str(i) + ','
-        i += 1
+def fast_bot_get(link, found, i):
+    url_bot = 'https://t.me/' + link
+    r_bot = requests.get(url_bot, stream=True)  
+    soup_bot = bs4.BeautifulSoup(r_bot.text, "lxml", ) 
+    type_link = soup_bot.find_all('div', class_="tgme_page_extra")
+    if type_link != []:
+        found += 'b' + str(i) + ','
     return found
 
-def get_fast_link(link, output, parser_type, print, channel_fast_db, group_fast_db, user_fast_db, sticker_fast_db, bot0_fast_db, bot1_fast_db):
+def get_fast_link(link, output, parser_type, bot_mode, print, channel_fast_db, group_fast_db, user_fast_db, sticker_fast_db, bot0_fast_db, bot1_fast_db):
     i = 0
     while i < 5:
         try:
             found = ''
+            found_b = ''
+            found_sgu = ''
+            found_s = ''
+            _found_b = ''
             if any(parser_mode in parser_type for parser_mode in ['1', '2', '3', '4', '5', '6']):
                 with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
                     if any(parser_mode in parser_type for parser_mode in ['1', '2', '3', '4']):
                         channel_group_user_future = executor.submit(fast_channel_group_user_get, link, found, parser_type)
-                        found = channel_group_user_future.result()
                     if any(parser_mode in parser_type for parser_mode in ['1', '5']):
                         sticker_future = executor.submit(fast_stickers_get, link, found)
-                        found = sticker_future.result()
                     if any(parser_mode in parser_type for parser_mode in ['1', '6']):
-                        bot_future = executor.submit(fast_bot_get, link, found)
-                        found = bot_future.result()
-           
+                        if '1' in bot_mode:
+                            _bot_future = executor.submit(fast_bot_get, link + '_bot', found, 0)
+                        if '2' in bot_mode:
+                            bot_future = executor.submit(fast_bot_get, link + 'bot', found, 1)
+                            
+            if any(parser_mode in parser_type for parser_mode in ['1', '2', '3', '4']):
+                found_sgu = channel_group_user_future.result()
+            if any(parser_mode in parser_type for parser_mode in ['1', '5']):
+                found_s = sticker_future.result()
+            if any(parser_mode in parser_type for parser_mode in ['1', '6']):
+                if '1' in bot_mode:
+                    _found_b = _bot_future.result()
+                if '2' in bot_mode:
+                    found_b = bot_future.result()
+                    
+            found = found_s + found_sgu + found_b + _found_b
             Thread(target = fast_telegram_parser,args =  (
                                                   channel_fast_db, 
                                                   group_fast_db, 
