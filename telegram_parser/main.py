@@ -21,7 +21,7 @@ def program_exit(link, work_mode):
 
     
 
-def main(work_mode, parser_type, window, turbo_mode, fast_mode,  output, print, mutated_initial_link):
+def main(work_mode, parser_type, window, turbo_mode, fast_mode,  output, print, mutated_initial_link, bot_mode):
     database_check(print)
     fast_database_check(print)
     channel_db, group_db, user_db, stickers_db, bot0_db, bot1_db = telegram_parser_open()
@@ -58,6 +58,7 @@ def main(work_mode, parser_type, window, turbo_mode, fast_mode,  output, print, 
                 url_get_status = get_link(link, 
                                           output, 
                                           parser_type, 
+                                          bot_mode,
                                           print,
                                           channel_db, 
                                           group_db,
@@ -69,6 +70,7 @@ def main(work_mode, parser_type, window, turbo_mode, fast_mode,  output, print, 
                 url_get_status = get_fast_link(link,
                                                output, 
                                                parser_type, 
+                                               bot_mode,
                                                print,
                                                channel_fast_db, 
                                                group_fast_db,
@@ -83,8 +85,8 @@ def main(work_mode, parser_type, window, turbo_mode, fast_mode,  output, print, 
             if window != False:
                 window.Refresh()
                 event, values = window.read(timeout=0.0001)
-                if event in ("Exit",sg.WIN_CLOSED):
-                    program_exit(link, work_mode, window)
+                # if event in ("Exit",sg.WIN_CLOSED):
+                #     program_exit(link, work_mode, window)
                 if event == 'stop_program':
                     if work_mode == '1':            # 1 = linear
                         print('Saving last linear link position')
@@ -100,6 +102,6 @@ def main(work_mode, parser_type, window, turbo_mode, fast_mode,  output, print, 
     except KeyboardInterrupt:
         if work_mode == '3':
             print('Mutation checking keyboard interupted')
-        program_exit(link, work_mode, window)
+        program_exit(link, work_mode)
   
 

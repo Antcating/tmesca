@@ -85,6 +85,7 @@ def telegram_channel_input_windows():
             open('.telegram_channel', 'w').write(tg_channel)
 
         if event == "Exit" or event == sg.WIN_CLOSED or event == 'Exit_no':
+
             break
             window.close()
     window.close()
@@ -96,6 +97,29 @@ def telegram_print_function(output):
     bot = telebot.TeleBot(tg_token)
     bot.send_message(tg_address, output) 
     
+    
+def telegram_bots_submenu():
+    bot_mode = ''
+    layout = [
+        [sg.Text("Choose bot links to parse: ")], 
+        [sg.Checkbox('LINK_bot', key='_bots_mode')],
+        [sg.Checkbox('LINKbot', key='bots_mode')],
+        [sg.Button('Exit', key='Exit_no', enable_events=True) ]
+                  ] 
+    window = sg.Window('Telegram Bot Parsing Setup', layout, modal=True) 
+    while True:
+        event, values = window.read()
+        if event == "Exit" or event == sg.WIN_CLOSED or event == 'Exit_no':
+            if values['_bots_mode'] == True:
+                    bot_mode += '1'
+            if values['bots_mode'] == True:
+                    bot_mode += '2'
+            window.close()
+            return bot_mode
+    window.close()
+
+
+    
 def main_window():
     work_mode_layout = [
     [sg.Text("Choose content to parse: ")], 
@@ -103,7 +127,7 @@ def main_window():
                      sg.Checkbox('Groups', key='group_content'), 
                      sg.Checkbox('Users', key='user_content'), 
                      sg.Checkbox('Stickers', key='stickers_content'), 
-                     sg.Checkbox('Bots', key='bots_content')],
+                     sg.Checkbox('Bots', key='bots_content', enable_events=True)],
     [sg.Text("Choose parsing mode: "), sg.Listbox(values=['Linear','Random','Mutation'], size=(20, 3), key='parsing_mode_list', enable_events=True)],
     [sg.Text("Turbo mode: "), sg.Checkbox('', key='turbo_mode')],
     ]
@@ -126,11 +150,15 @@ def main_window():
 
     window = sg.Window("TP - Telegram Parser", layout_main, finalize=True)
     try:
+        bot_mode = None
         mutated_initial_link = None
         while True:
             event, values = window.read()
             if event == "Exit" or event == sg.WIN_CLOSED:
                 break
+            
+            if event == 'bots_content':
+                bot_mode = telegram_bots_submenu()
             if event == "parsing_mode_list":
                 if values['parsing_mode_list'][0] == 'Linear':
                     try:                                    # LINK Checking
@@ -195,9 +223,8 @@ def main_window():
                     output = '2'
                 elif values['output_mode_list'][0] == 'Disabled':
                     output = '3'
-                    
-                    
-                main(work_mode, parser_type, window, turbo_mode, fast_mode, output, print, mutated_initial_link)
+                
+                main(work_mode, parser_type, window, turbo_mode, fast_mode, output, print, mutated_initial_link, bot_mode)
         window.close()
     except AttributeError:
         print('Fuck')
