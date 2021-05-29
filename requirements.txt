@@ -1,4 +1,4 @@
 requests==2.25.1
 beautifulsoup4==4.9.3
 PySimpleGUI==4.41.2
-pyTelegramBotAPI==2.25.1
+pyTelegramBotAPI==3.7.9
