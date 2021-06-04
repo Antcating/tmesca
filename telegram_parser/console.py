@@ -1,7 +1,6 @@
 import os, telebot
 from main import main    
 
-
 def telegram_print_function(output):
     try:
         tg_token = open('.telegram_token', 'r').read()
@@ -23,7 +22,7 @@ def start_link():
     open('.last_link', 'w').write(start_point)
 
 
-def console_start():
+def console_start(print):
     parser_type = input('''What type of content do you want to parse (input several numbers, if you want to parse any combination of the possible content): 
  1 - All (Groups/Channel/Users
  2 - Channels
@@ -32,6 +31,12 @@ def console_start():
  5 - Stickers
  6 - Bots
 Your choise: ''')[:2].lower()
+    if parser_type == '1' or parser_type == '2':
+        bot_mode = input('''Choose bot link types to parse: 1/2/12:
+ 1 - LINK_bot
+ 2 - LINKbot
+ 12 - LINK_bot && LINKbot
+Your choise: ''')
     work_mode = input('''What type of parsing you want to use:
  1 - Linear parsing
  2 - Random parsing 
@@ -80,6 +85,6 @@ Your choise: ''')[0].lower()
         except:
             pass
         mutated_initial_link =  input('Input initial word to mutate (length of the word is greater than 5 letters): ').lower()
-    main(work_mode, parser_type, window, turbo_mode, fast_mode, output, print, mutated_initial_link)
+    main(work_mode, parser_type, window, turbo_mode, fast_mode, output, print, mutated_initial_link, bot_mode)
     
-console_start()
+console_start(print)
