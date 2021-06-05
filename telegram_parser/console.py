@@ -1,7 +1,7 @@
 import os, telebot
 from main import main    
 
-def telegram_print_function(output):
+def telegram_channel_settings():
     try:
         tg_token = open('.telegram_token', 'r').read()
     except:
@@ -12,9 +12,14 @@ def telegram_print_function(output):
     except:
         tg_address = input('Input Telegram bot token: ')
         open('.telegram_channel', 'w').write(tg_address)
+
+def telegram_print_function(output):
+    tg_token = open('.telegram_token', 'r').read()
+    tg_address = open('.telegram_channel', 'r').read()
     bot = telebot.TeleBot(tg_token)
     bot.send_message(tg_address, output) 
-
+    
+    
 
 def start_link():
     n_letters = input('How many letters in the link might be (at least 5): ')
@@ -54,6 +59,7 @@ Your choise: ''')[0].lower()
     if output_source_list == '1':
         pass
     elif output_source_list == '2':
+        telegram_channel_settings()
         print = telegram_print_function    
 
 
