@@ -1,20 +1,43 @@
+# -*- coding: utf-8 -*-
 import os, telebot, configparser
 from main import main
 
 
-def update_config(config_element):
-    config_element.read('config.ini')
+def telegram_config_creation(parser_config):
+    telegram_config = configparser.ConfigParser()
+    telegram_config.add_section('Telegram')
+    telegram_config['Telegram']['user_id'] = parser_config['user_id']
+    telegram_config['Telegram']['tg_token'] = parser_config['tg_token']
+    with open('telegram.ini', 'w') as configfile:
+        telegram_config.write(configfile)
+
+
+def config_creation(parser_config):
+    config = configparser.ConfigParser()
+    config.add_section('Internal')
+    config['Internal']['parser_type'] = parser_config['parser_type']
+    config['Internal']['bot_mode'] = parser_config['bot_mode']
+    config['Internal']['work_mode'] = parser_config['work_mode']
+    config['Internal']['turbo_mode'] = parser_config['turbo_mode']
+    config['Internal']['output_source'] = parser_config['output_source']
+    config['Internal']['output'] = parser_config['output']
+    with open('config.ini', 'w') as configfile:
+        config.write(configfile)
+
+
+def telegram_update_config(config_element):
+    config_element.read('telegram.ini')
     return config_element
 
 
 def telegram_channel_settings():
     try:
         config_element = configparser.ConfigParser()
-        config = update_config(config_element)
-        tg_token = config['TelegramBot']['token']
+        config = telegram_update_config(config_element)
+        tg_token = config['Telegram']['tg_token']
 
         bot = telebot.TeleBot(tg_token)
-        user_id = config['Admin']['id']
+        user_id = config['Telegram']['user_id']
         try:
             bot.send_message(user_id, 'Test message')
         except telebot.apihelper.ApiException as telebot_error:
@@ -22,14 +45,10 @@ def telegram_channel_settings():
                 print('Telegram config incorrect. Aborting script...')
                 os.abort()
 
-        return bot, user_id
+        return tg_token, bot, user_id
     except KeyError:
         print('Config does not exist. Aborting script...')
         os.abort()
-
-
-def telegram_print_function(bot, user_id, output):
-    bot.send_message(user_id, output)
 
 
 def start_link():
@@ -38,7 +57,7 @@ def start_link():
     open('.last_link', 'w').write(start_point)
 
 
-def console_menu(print):
+def console_menu():
     parser_config = {
         'parser_type': None,
         'bot_mode': None,
@@ -46,7 +65,10 @@ def console_menu(print):
         'turbo_mode': None,
         'output_source': None,
         'output': None,
-        'print': None
+
+        'tg_token': None,
+        'user_id': None,
+        'bot': None,
     }
 
     def parsing_content_func(parser_config):
@@ -79,9 +101,8 @@ Your choice: ''')
 What type of parsing you want to use:
  1 - Linear parsing
  2 - Random parsing 
- 3 - Mutation parsing 
 Your choice: ''')[0].lower()
-        if work_mode not in ['1', '2', '3']:
+        if work_mode not in ['1', '2']:
             print('Incorrect input for the work mode. Try again.')
             work_mode_func(parser_config)
         parser_config['work_mode'] = work_mode
@@ -90,9 +111,9 @@ Your choice: ''')[0].lower()
     def turbo_mode_func(parser_config):
         turbo_mode = input('Turn on turbo mod(y/n): ')[0].lower()  # work mode with/out delay
         if turbo_mode in ['y', '1']:
-            parser_config['turbo_mode'] = True
+            parser_config['turbo_mode'] = '1'
         elif turbo_mode in ['n', '0']:
-            parser_config['turbo_mode'] = False
+            parser_config['turbo_mode'] = '0'
         else:
             print('Incorrect input for the turbo mode. Try again.')
             turbo_mode_func(parser_config)
@@ -104,7 +125,7 @@ Your choice: ''')[0].lower()
  1 - All output (not False will be only the content, that was choosed to parse)
  2 - If something found
  3 - No output
-Your choise: ''')[0].lower()
+Your choice: ''')[0].lower()
         if output in ['1', '2']:
             parser_config['output'] = output
             output_source = input(
@@ -113,10 +134,14 @@ Your choise: ''')[0].lower()
  2 - Telegram
 Your choice: ''')[0].lower()
             if output_source == '1':
-                pass
+                parser_config['output_source'] = output_source
             elif output_source == '2':
-                bot, user_id = telegram_channel_settings()
-                print = telegram_print_function
+                tg_token, bot, user_id = telegram_channel_settings()
+                parser_config['bot'] = bot
+                parser_config['user_id'] = user_id
+                parser_config['tg_token'] = tg_token
+
+                parser_config['output_source'] = output_source
             return parser_config
         elif output == '3':
             parser_config['output'] = output
@@ -125,14 +150,26 @@ Your choice: ''')[0].lower()
             print('Incorrect input for the output. Try again.')
             output_func(parser_config)
 
+    def fast_mode_func(parser_config):
+        fast_mode = input('Turn on only addresses write mode(y/n): ')[0].lower()
+        if fast_mode in ['y', '1']:
+            parser_config['fast_mode'] = '1'
+            return parser_config
+        elif fast_mode in ['n', '0']:
+            parser_config['fast_mode'] = '0'
+            return parser_config
+        else:
+            print('Incorrect input for the fast mode. Try again.')
+            fast_mode_func(parser_config)
     parser_config = parsing_content_func(parser_config)
     parser_config = work_mode_func(parser_config)
     parser_config = turbo_mode_func(parser_config)
     parser_config = output_func(parser_config)
-    # fast_mode = input('Turn on only addresses write mode(y/n): ')[0].lower()
-    # if fast_mode == 'y':
-    #     fast_mode = True
+    parser_config = fast_mode_func(parser_config)
 
+    config_creation(parser_config)
+    if parser_config['bot'] is not None:
+        telegram_config_creation(parser_config)
     mutated_initial_link = None
     if parser_config['work_mode'] == '1':
         try:  # LINK Checking
@@ -144,14 +181,14 @@ Your choice: ''')[0].lower()
             print('Initial setup!')
             start_link()
 
-    elif parser_config['work_mode'] == '3':
-        try:
-            os.remove('mutated')
-        except FileNotFoundError:
-            pass
-        mutated_initial_link = input(
-            'Input initial word to mutate (length of the word is greater than 5 letters): ').lower()
+    # elif parser_config['work_mode'] == '3':
+    #     try:
+    #         os.remove('mutated')
+    #     except FileNotFoundError:
+    #         pass
+    #     mutated_initial_link = input(
+    #         'Input initial word to mutate (length of the word is greater than 5 letters): ').lower()
     main(parser_config)
 
 
-console_menu(print)
+console_menu()
