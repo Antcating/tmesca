@@ -12,15 +12,10 @@ def alphabets_generator():
 
 def random_address_generator(alphabet, alphabet1, alphabet_last):
     len_link = random.randint(5, 32)
-    link = ''
-    for i in range(len_link):
-        if i == 0:
-            link += alphabet1[random.randint(0, len(alphabet1) - 1)]
-        elif i == len_link - 1:
-            link += alphabet_last[random.randint(0, len(alphabet_last) - 1)]
-        else:
-            link += alphabet[random.randint(0, len(alphabet) - 1)]
-    return link
+    link = random.choices(alphabet1)
+    link += random.choices(alphabet, k=len_link - 2)
+    link += random.choices(alphabet_last)
+    return ''.join(link)
 
 
 def last_link_read_linear_address(alphabet, alphabet1, alphabet_last):
