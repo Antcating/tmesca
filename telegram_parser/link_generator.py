@@ -3,17 +3,10 @@ from print_handler import print_func
 
 
 def alphabets_generator():
-    alphabet = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '_']
-    for letter in range(97, 123):  # all letters except first alphabet
-        alphabet.append(chr(letter))
-
-    alphabet1 = []  # first letter alphabet
-    for letter in range(97, 123):
-        alphabet1.append(chr(letter))
-
-    alphabet_last = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-    for letter in range(97, 123):  # all letters except last alphabet
-        alphabet_last.append(chr(letter))
+    from string import ascii_lowercase, digits
+    alphabet = digits + '_' + ascii_lowercase
+    alphabet1 = ascii_lowercase
+    alphabet_last = digits + ascii_lowercase
     return alphabet, alphabet1, alphabet_last
 
 
