@@ -31,12 +31,6 @@ Read on [Русском](https://github.com/Antcating/telegram_parser/blob/main/
 ### Config
 
 #### Initial Config
-Before the first run, you **have to** change configuration file `telegram.ini`:
-```
-[Telegram]
-user_id = id here
-tg_token = bot token here
-```
   
 Whole other configuration, such as:
 * Parse type
@@ -49,7 +43,14 @@ are making on the start of the script.
 ---
   
 #### Telegram Output
-To make Telegram output you have to: <br />
+If you want to use Telegram output: <br />
+Before the first run, you **have to** change configuration file `telegram.ini`:
+```
+[Telegram]
+user_id = id here
+tg_token = bot token here
+```
+##### Instruction
 - Create Telegram bot using [BotFather](https://t.me/BotFather) and get Telegram Bot Token.
 - Get your Telegram account id. You can get it using [this bot](https://t.me/userinfobot). 
 - In the config file `telegram.ini` paste Telegram Bot Token to the `tg_token` row, and id into `user_id` row.   
@@ -79,7 +80,7 @@ git pull
 ---
 
 ### Usage
-From the folder in which you cloned/downloaded the script you have to go to subfolder called telegram_parser, and run through the console _python3 gui.py_ or _python3 console.py_
+From the folder in which you cloned/downloaded the script you have to go to subfolder called telegram_parser, and run through the console _python3 console.py_
 
 ---
 
