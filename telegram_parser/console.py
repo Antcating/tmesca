@@ -52,7 +52,7 @@ def telegram_channel_settings():
 
 def start_link():
     n_letters = input('How many letters in the link might be (at least 5): ')
-    start_point = 'a' + '1' * (int(n_letters) - 1)
+    start_point = 'a' * int(n_letters)
     open('.last_link', 'w').write(start_point)
 
 
