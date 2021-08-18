@@ -48,9 +48,10 @@ Whole other configuration, such as:
 * Parse content type
 * Subsettings for some of types
 * etc., <br />
-is making on the start of the script.
+are making on the start of the script.
 
-
+---
+  
 #### Telegram Output
 To make Telegram output you have to: <br />
 - Create Telegram bot using [BotFather](https://t.me/BotFather) and get Telegram Bot Token.
@@ -58,7 +59,6 @@ To make Telegram output you have to: <br />
 - Add bot, you just created, to the channel with permission to post/read messages. 
 - In the program choose Telegram output and paste in the corresponding line Bot Token and Channel Link (if you already done it, just press Skip).   
 - Hooray! Everything ready. Enjoy!
-
 
 ---
 
