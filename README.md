@@ -1,5 +1,4 @@
 # <p align="center">Total Telegram GUI/Console Parser
-# <p align="center"><img src="icon.png" alt="drawing" width="200"/>
 Script parse telegram links and sort them to channel/group/user/sticker pack/bot database.
 
 
@@ -11,22 +10,20 @@ Read on [Русском](https://github.com/Antcating/telegram_parser/blob/main/
 
 ### Main features
 
-![gui_preview.png](gui_preview_new.png) <br />
-*GUI preview*
-1. GUI!
-2. Parse types:
-    * Linear search - choose the length of the link and parse all links, that are in this range.
-    * Random search - creates random link from 5 to 32 symbols and check it.
-    * Mutation search - input word and script creates mutations of this word and check all possibilities.
-3. Parse content types:
-    * Channels
-    * Group
-    * Users
-    * Sticker Packs
-    * Bots
-    * All possible intersections between the above types
-4.  Output to Telegram on the channel. 
-5.  Turbo mode - can be toggled to speed up parsing. 
+
+1. Parse types:
+   * Linear search - choose the length of the link and parse all links, that are in this range.
+   * Random search - creates random link from 5 to 32 symbols and check it.
+   * Mutation search - input word and script creates mutations of this word and check all possibilities. 
+2. Parse content types:
+   * Channels
+   * Group
+   * Users
+   * Sticker Packs
+   * Bots
+   * All possible intersections between the above types
+3. Output to Telegram on the channel. 
+4. Turbo mode - can be toggled to speed up parsing. 
 
 ---
 
@@ -54,19 +51,11 @@ To make Telegram output you have to: <br />
 ---
 
 ### Installation and run
-#### United executable files (testing, but preferable)
 Using console:<br />
-If you wanna you console version of the program:
 ```
 git clone https://github.com/Antcating/telegram_parser.git
 cd telegram_parser/telegram_parser/
 python3 console.py
-```
-If you wanna you GUI version of the program:
-```
-git clone https://github.com/Antcating/telegram_parser.git
-cd telegram_parser/telegram_parser/
-python3 gui.py
 ```
 #### Warning!
 Also, make sure, that all the requirements are installed:
