@@ -4,10 +4,10 @@ from print_handler import print_func
 
 def alphabets_generator():
     from string import ascii_lowercase, digits
-    alphabet = digits + '_' + ascii_lowercase
-    alphabet1 = ascii_lowercase
-    alphabet_last = digits + ascii_lowercase
-    return alphabet, alphabet1, alphabet_last
+    alphabet_first = ascii_lowercase
+    alphabet_last = ascii_lowercase + digits
+    alphabet = ascii_lowercase + digits + '_'
+    return alphabet, alphabet_first, alphabet_last
 
 
 def random_address_generator(alphabet, alphabet1, alphabet_last):
@@ -20,14 +20,9 @@ def random_address_generator(alphabet, alphabet1, alphabet_last):
 
 def last_link_read_linear_address(alphabet, alphabet1, alphabet_last):
     start_point = open('.last_link').read()
-    linear_letter_link_ids_array = []
-    for i in range(len(start_point)):
-        if i == 0:
-            linear_letter_link_ids_array.append(alphabet1.index(start_point[i]))
-        elif i == len(start_point) - 1:
-            linear_letter_link_ids_array.append(alphabet_last.index(start_point[i]))
-        else:
-            linear_letter_link_ids_array.append(alphabet.index(start_point[i]))
+    linear_letter_link_ids_array = [
+        alphabet.index(letter) for letter in start_point
+    ]
     return linear_letter_link_ids_array
 
 
