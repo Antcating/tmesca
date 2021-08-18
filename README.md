@@ -31,15 +31,27 @@ Read on [Русском](https://github.com/Antcating/telegram_parser/blob/main/
 ### Config
 
 #### Initial Config
-Whole configuration, such as:
+Before the first run, you **have to** change configuration file `telegram.ini`:
+```
+[Telegram]
+user_id = id here
+tg_token = bot token here
+```
+* Telegram Parser uses Telegram Bots to control Parser, so you will **have to** go to [BotFather](https://t.me/BotFather) and create bot using its instructions. After creating bot, BotFather will return token to access the HTTP API. You will have to copy-paste it to the configuration file on the `tg_token` row.
+* Bot sends founds in user chat. So, you have to get your Telegram id. You can to it, for example, using [this bot](https://t.me/userinfobot). Your id you paste to the config on the `user_id` row. <br />
+
+---
+  
+Whole other configuration, such as:
 * Parse type
 * Turbo mode
 * Parse content type
 * Subsettings for some of types
 * etc., <br />
-is making on the start of the script.
+are making on the start of the script.
 
-
+---
+  
 #### Telegram Output
 To make Telegram output you have to: <br />
 - Create Telegram bot using [BotFather](https://t.me/BotFather) and get Telegram Bot Token.
@@ -48,11 +60,9 @@ To make Telegram output you have to: <br />
 - In the program choose Telegram output and paste in the corresponding line Bot Token and Channel Link (if you already done it, just press Skip).   
 - Hooray! Everything ready. Enjoy!
 
-
 ---
 
-### Installation and run
-#### United executable files (testing, but preferable)
+### Installation and Run
 Using console:<br />
 ```
 git clone https://github.com/Antcating/telegram_parser.git
