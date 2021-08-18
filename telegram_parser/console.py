@@ -2,7 +2,6 @@
 import os, telebot, configparser
 from main import main
 
-
 def telegram_config_creation(parser_config):
     telegram_config = configparser.ConfigParser()
     telegram_config.add_section('Telegram')
@@ -12,17 +11,17 @@ def telegram_config_creation(parser_config):
         telegram_config.write(configfile)
 
 
-def config_creation(parser_config):
-    config = configparser.ConfigParser()
-    config.add_section('Internal')
-    config['Internal']['parser_type'] = parser_config['parser_type']
-    config['Internal']['bot_mode'] = parser_config['bot_mode']
-    config['Internal']['work_mode'] = parser_config['work_mode']
-    config['Internal']['turbo_mode'] = parser_config['turbo_mode']
-    config['Internal']['output_source'] = parser_config['output_source']
-    config['Internal']['output'] = parser_config['output']
-    with open('config.ini', 'w') as configfile:
-        config.write(configfile)
+# def config_creation(parser_config):
+#     config = configparser.ConfigParser()
+#     config.add_section('Internal')
+#     config['Internal']['parser_type'] = parser_config['parser_type']
+#     config['Internal']['bot_mode'] = parser_config['bot_mode']
+#     config['Internal']['work_mode'] = parser_config['work_mode']
+#     config['Internal']['turbo_mode'] = parser_config['turbo_mode']
+#     config['Internal']['output_source'] = parser_config['output_source']
+#     config['Internal']['output'] = parser_config['output']
+#     with open('config.ini', 'w') as configfile:
+#         config.write(configfile)
 
 
 def telegram_update_config(config_element):
@@ -39,7 +38,7 @@ def telegram_channel_settings():
         bot = telebot.TeleBot(tg_token)
         user_id = config['Telegram']['user_id']
         try:
-            bot.send_message(user_id, 'Test message')
+            bot.send_message(user_id, 'Bot test message')
         except telebot.apihelper.ApiException as telebot_error:
             if telebot_error.result.status_code == 404:
                 print('Telegram config incorrect. Aborting script...')
@@ -60,7 +59,7 @@ def start_link():
 def console_menu():
     parser_config = {
         'parser_type': None,
-        'bot_mode': None,
+        'bot_mode': 1,
         'work_mode': None,
         'turbo_mode': None,
         'output_source': None,
@@ -109,7 +108,7 @@ Your choice: ''')[0].lower()
         return parser_config
 
     def turbo_mode_func(parser_config):
-        turbo_mode = input('Turn on turbo mod(y/n): ')[0].lower()  # work mode with/out delay
+        turbo_mode = input('Turn on turbo mod (disabling timeouts between requests) ?(y/n): ')[0].lower()  # work mode with/out delay
         if turbo_mode in ['y', '1']:
             parser_config['turbo_mode'] = '1'
         elif turbo_mode in ['n', '0']:
@@ -151,7 +150,7 @@ Your choice: ''')[0].lower()
             output_func(parser_config)
 
     def fast_mode_func(parser_config):
-        fast_mode = input('Turn on only addresses write mode(y/n): ')[0].lower()
+        fast_mode = input('''Turn on saving only addresses (it will boost productivity)? (y/n):''' )[0].lower()
         if fast_mode in ['y', '1']:
             parser_config['fast_mode'] = '1'
             return parser_config
@@ -167,10 +166,9 @@ Your choice: ''')[0].lower()
     parser_config = output_func(parser_config)
     parser_config = fast_mode_func(parser_config)
 
-    config_creation(parser_config)
-    if parser_config['bot'] is not None:
-        telegram_config_creation(parser_config)
-    mutated_initial_link = None
+    # config_creation(parser_config)
+    # if parser_config['bot'] is not None:
+    #     telegram_config_creation(parser_config)
     if parser_config['work_mode'] == '1':
         try:  # LINK Checking
             open('.last_link').read()
@@ -180,14 +178,6 @@ Your choice: ''')[0].lower()
         except FileNotFoundError:
             print('Initial setup!')
             start_link()
-
-    # elif parser_config['work_mode'] == '3':
-    #     try:
-    #         os.remove('mutated')
-    #     except FileNotFoundError:
-    #         pass
-    #     mutated_initial_link = input(
-    #         'Input initial word to mutate (length of the word is greater than 5 letters): ').lower()
     main(parser_config)
 
 
