@@ -1,6 +1,7 @@
 import csv, os
+from print_handler import print_func
 
-def database_check(print):
+def database_check(parser_config):
     database_names_list = [
         'channel_telegram_parser.csv',
         'group_telegram_parser.csv',
@@ -25,9 +26,9 @@ def database_check(print):
                     csv_writer.writerow(['adress', 'title', 'description'])
                 else:
                     csv_writer.writerow(['adress', 'name'])
-            print('Init Info:' + database_name + ' was created in the script folder')
+            print_func(parser_config, 'Init Info:' + database_name + ' was created in the script folder')
         
-def fast_database_check(print):
+def fast_database_check():
     database_names_list = [
         'channel_telegram_parser_fast.csv',
         'group_telegram_parser_fast.csv',
