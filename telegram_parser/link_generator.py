@@ -27,30 +27,24 @@ def last_link_read_linear_address(alphabet, alphabet1, alphabet_last):
 
 
 def linear_address_generator(alphabet, alphabet1, alphabet_last, linear_letter_link_ids_array, parser_config):
-    link = ''
-    for i in range(len(linear_letter_link_ids_array)):
-        if i == 0:
-            link += str(alphabet1[linear_letter_link_ids_array[i]])
-        elif i == len(linear_letter_link_ids_array) - 1:
-            link += str(alphabet_last[linear_letter_link_ids_array[i]])
-        else:
-            link += str(alphabet[linear_letter_link_ids_array[i]])
+    link = ''.join(alphabet[id] for id in linear_letter_link_ids_array)
 
     linear_letter_link_ids_array[-1] += 1
-    for i in range(len(linear_letter_link_ids_array) - 1, -1, -1):
-        if i != 0:
-            if i != len(linear_letter_link_ids_array) - 1:
-                if linear_letter_link_ids_array[i] == len(alphabet):
-                    linear_letter_link_ids_array[i] = 0
-                    linear_letter_link_ids_array[i - 1] += 1
-            else:
-                if linear_letter_link_ids_array[i] == len(alphabet_last):
-                    linear_letter_link_ids_array[i] = 0
-                    linear_letter_link_ids_array[i - 1] += 1
-        else:
-            if linear_letter_link_ids_array[0] == len(alphabet1):
-                print_func(parser_config, 'The end of this linear range. Exiting the program.')
+    if linear_letter_link_ids_array[-1] == len(alphabet_last):
+        linear_letter_link_ids_array[-1] = 0
+        linear_letter_link_ids_array[-2] += 1
+
+        i = len(linear_letter_link_ids_array) - 2
+        while i > 0:
+            if linear_letter_link_ids_array[i] < len(alphabet):
                 break
+            linear_letter_link_ids_array[i] = 0
+            linear_letter_link_ids_array[i-1] += 1
+            i -= 1
+        
+        if linear_letter_link_ids_array[0] == len(alphabet1):
+            print_func(parser_config, 'The end of this linear range. Exiting the program.')
+        
     return link
 
 
