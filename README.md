@@ -37,10 +37,6 @@ Before the first run, you **have to** change configuration file `telegram.ini`:
 user_id = id here
 tg_token = bot token here
 ```
-* Telegram Parser uses Telegram Bots to control Parser, so you will **have to** go to [BotFather](https://t.me/BotFather) and create bot using its instructions. After creating bot, BotFather will return token to access the HTTP API. You will have to copy-paste it to the configuration file on the `tg_token` row.
-* Bot sends founds in user chat. So, you have to get your Telegram id. You can to it, for example, using [this bot](https://t.me/userinfobot). Your id you paste to the config on the `user_id` row. <br />
-
----
   
 Whole other configuration, such as:
 * Parse type
@@ -55,9 +51,8 @@ are making on the start of the script.
 #### Telegram Output
 To make Telegram output you have to: <br />
 - Create Telegram bot using [BotFather](https://t.me/BotFather) and get Telegram Bot Token.
-- Create **public** channel (or, if you know, how to get private channel ID, you can use it). 
-- Add bot, you just created, to the channel with permission to post/read messages. 
-- In the program choose Telegram output and paste in the corresponding line Bot Token and Channel Link (if you already done it, just press Skip).   
+- Get your Telegram account id. You can get it using [this bot](https://t.me/userinfobot). 
+- In the config file `telegram.ini` paste Telegram Bot Token to the `tg_token` row, and id into `user_id` row.   
 - Hooray! Everything ready. Enjoy!
 
 ---
