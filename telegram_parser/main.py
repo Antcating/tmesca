@@ -65,7 +65,7 @@ def main(parser_config):
 
             if url_get_status == 'connection_error':
                 program_exit(link, parser_config)
-            if not parser_config['turbo_mode']:
+            if parser_config['turbo_mode'] == '0':
                 time.sleep(1.5)
             else:
                 continue
