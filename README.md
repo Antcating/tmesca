@@ -31,7 +31,13 @@ Read on [Русском](https://github.com/Antcating/telegram_parser/blob/main/
 ### Config
 
 #### Initial Config
-Whole configuration, such as:
+Before the first run, you have to change configuration file `telegram.ini`:
+```
+[Telegram]
+user_id = id here
+tg_token = bot token here
+```
+Whole other configuration, such as:
 * Parse type
 * Turbo mode
 * Parse content type
@@ -51,8 +57,7 @@ To make Telegram output you have to: <br />
 
 ---
 
-### Installation and run
-#### United executable files (testing, but preferable)
+### Installation and Run
 Using console:<br />
 ```
 git clone https://github.com/Antcating/telegram_parser.git
