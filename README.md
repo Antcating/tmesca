@@ -1,4 +1,5 @@
 # <p align="center">Total Telegram GUI/Console Parser
+# <p align="center"><img src="icon.png" alt="drawing" width="200"/>
 Script parse telegram links and sort them to channel/group/user/sticker pack/bot database.
 
 
@@ -51,6 +52,7 @@ To make Telegram output you have to: <br />
 ---
 
 ### Installation and run
+#### United executable files (testing, but preferable)
 Using console:<br />
 ```
 git clone https://github.com/Antcating/telegram_parser.git
