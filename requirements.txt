@@ -4,3 +4,4 @@ cchardet~=2.1.7
 lxml~=4.6.3
 PySimpleGUI~=4.43.0
 requests~=2.25.1
+PyTelegramBotApi~=3.7.9
