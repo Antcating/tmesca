@@ -39,6 +39,9 @@ tg_token = bot token here
 ```
 * Telegram Parser uses Telegram Bots to control Parser, so you will **have to** go to [BotFather](https://t.me/BotFather) and create bot using its instructions. After creating bot, BotFather will return token to access the HTTP API. You will have to copy-paste it to the configuration file on the `tg_token` row.
 * Bot sends founds in user chat. So, you have to get your Telegram id. You can to it, for example, using [this bot](https://t.me/userinfobot). Your id you paste to the config on the `user_id` row. <br />
+
+---
+  
 Whole other configuration, such as:
 * Parse type
 * Turbo mode
