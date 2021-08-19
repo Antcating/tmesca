@@ -18,6 +18,15 @@ def random_address_generator(alphabet, alphabet1, alphabet_last):
     return ''.join(link)
 
 
+def random_addresses():
+    alphabet, alphabet_first, alphabet_last = alphabets_generator()
+    while True:
+        len_link = random.randint(5, 32)
+        link = random.choices(alphabet_first)
+        link += random.choices(alphabet, k=len_link - 2)
+        link += random.choices(alphabet_last)
+        yield ''.join(link)
+
 def last_link_read_linear_address(alphabet, alphabet1, alphabet_last):
     start_point = open('.last_link').read()
     linear_letter_link_ids_array = [
