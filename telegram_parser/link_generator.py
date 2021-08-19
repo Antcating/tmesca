@@ -1,13 +1,13 @@
 import random, string, itertools
 from print_handler import print_func
+import string
 
+ALPHABET_FIRST = string.ascii_lowercase
+ALPHABET_LAST = ALPHABET_FIRST + string.digits
+ALPHABET = ALPHABET_LAST + '_'
 
 def alphabets_generator():
-    from string import ascii_lowercase, digits
-    alphabet_first = ascii_lowercase
-    alphabet_last = ascii_lowercase + digits
-    alphabet = ascii_lowercase + digits + '_'
-    return alphabet, alphabet_first, alphabet_last
+    return ALPHABET, ALPHABET_FIRST, ALPHABET_LAST
 
 
 def random_address_generator(alphabet, alphabet1, alphabet_last):
@@ -46,7 +46,6 @@ def linear_address_generator(alphabet, alphabet1, alphabet_last, linear_letter_l
             print_func(parser_config, 'The end of this linear range. Exiting the program.')
         
     return link
-
 
 # def mutation_address_generator(link):
 #     mutated_array = []
