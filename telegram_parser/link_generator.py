@@ -1,52 +1,43 @@
 import random, string, itertools
 from print_handler import print_func
+import string
+
+ALPHABET_FIRST = string.ascii_lowercase
+ALPHABET_LAST = ALPHABET_FIRST + string.digits
+ALPHABET = ALPHABET_LAST + '_'
+
+def random_addresses():
+    while True:
+        len_link = random.randint(5, 32)
+        link = random.choices(ALPHABET_FIRST)
+        link += random.choices(ALPHABET, k=len_link - 2)
+        link += random.choices(ALPHABET_LAST)
+        yield ''.join(link)
 
 
-def alphabets_generator():
-    from string import ascii_lowercase, digits
-    alphabet_first = ascii_lowercase
-    alphabet_last = ascii_lowercase + digits
-    alphabet = ascii_lowercase + digits + '_'
-    return alphabet, alphabet_first, alphabet_last
-
-
-def random_address_generator(alphabet, alphabet1, alphabet_last):
-    len_link = random.randint(5, 32)
-    link = random.choices(alphabet1)
-    link += random.choices(alphabet, k=len_link - 2)
-    link += random.choices(alphabet_last)
-    return ''.join(link)
-
-
-def last_link_read_linear_address(alphabet, alphabet1, alphabet_last):
-    start_point = open('.last_link').read()
-    linear_letter_link_ids_array = [
-        alphabet.index(letter) for letter in start_point
-    ]
-    return linear_letter_link_ids_array
-
-
-def linear_address_generator(alphabet, alphabet1, alphabet_last, linear_letter_link_ids_array, parser_config):
-    link = ''.join(alphabet[id] for id in linear_letter_link_ids_array)
-
-    linear_letter_link_ids_array[-1] += 1
-    if linear_letter_link_ids_array[-1] == len(alphabet_last):
-        linear_letter_link_ids_array[-1] = 0
-        linear_letter_link_ids_array[-2] += 1
-
-        i = len(linear_letter_link_ids_array) - 2
-        while i > 0:
-            if linear_letter_link_ids_array[i] < len(alphabet):
-                break
-            linear_letter_link_ids_array[i] = 0
-            linear_letter_link_ids_array[i-1] += 1
-            i -= 1
+def linear_addresses(seed, first=True):
+    if len(seed) == 1:
+        for letter in letters(ALPHABET_LAST, seed[0]):
+            yield letter
+    else:
+        if first:
+            alphabet = ALPHABET_FIRST
+        else:
+            alphabet = ALPHABET
         
-        if linear_letter_link_ids_array[0] == len(alphabet1):
-            print_func(parser_config, 'The end of this linear range. Exiting the program.')
+        for link in linear_addresses(seed[1:], False):
+            yield seed[0] + link
         
-    return link
+        new_seed = 'a' * (len(seed) - 1)
+        for letter in letters(alphabet, seed[0], 1):
+            for link in linear_addresses(new_seed, False):
+                yield letter + link
 
+
+def letters(alphabet, start='a', shift=0):
+    position = alphabet.index(start)
+    for letter in alphabet[position+shift:]:
+        yield letter
 
 # def mutation_address_generator(link):
 #     mutated_array = []
