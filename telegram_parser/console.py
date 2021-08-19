@@ -64,7 +64,7 @@ def start_link():
 
 QUESTIONS = [
     {
-        'type': 'list',
+        'type': 'checkbox',
         'name': 'parser_type',
         'message': 'What type of content do you want to parse?',
         'choices': [
@@ -87,7 +87,9 @@ QUESTIONS = [
                 'name': 'Bots',
                 'value': '6'
             }
-        ]
+        ],
+        'validate': lambda x: len(x) > 0,
+        'filter': lambda x: ''.join(x)
     }, {
         'type': 'checkbox',
         'name': 'bot_mode',
