@@ -2,8 +2,7 @@
 import time, sys
 from database_check import database_check, fast_database_check
 from link_processor import get_link, get_fast_link, telegram_parser_open, fast_telegram_parser_open
-from link_generator import alphabets_generator, random_address_generator, linear_address_generator, \
-    last_link_read_linear_address
+from link_generator import random_addresses, linear_addresses
 from print_handler import print_func
 
 
@@ -29,21 +28,21 @@ def main(parser_config):
     fast_database_check()
     channel_db, group_db, user_db, stickers_db, bot0_db, bot1_db = telegram_parser_open()
     channel_fast_db, group_fast_db, user_fast_db, stickers_fast_db, bot0_fast_db, bot1_fast_db = fast_telegram_parser_open()
-    alphabet, alphabet1, alphabet_last = alphabets_generator()
-    if parser_config['work_mode'] == '1':
-        linear_letter_link_ids_array = last_link_read_linear_address(alphabet, alphabet1, alphabet_last)
-
+    # alphabet, alphabet1, alphabet_last = alphabets_generator()
+    # if parser_config['work_mode'] == '1':
+    #     linear_letter_link_ids_array = last_link_read_linear_address(alphabet, alphabet1, alphabet_last)
+    with open('.last_link') as f:
+        seed = f.read()
 
     try:
         start_message = 'Parser is started!'
         print_func(parser_config, start_message)
-        while True:
-            if parser_config['work_mode'] == '1':  # 1 = linear
-                link = linear_address_generator(alphabet, alphabet1, alphabet_last,\
-                                                linear_letter_link_ids_array,  parser_config)
-            elif parser_config['work_mode'] == '2':  # 2 = random
-                link = random_address_generator(alphabet, alphabet1, alphabet_last)
-
+        if parser_config['work_mode'] == '1':  # 1 = linear
+            links = linear_addresses(seed)
+        elif parser_config['work_mode'] == '2':  # 2 = random
+            links = random_addresses()
+        
+        for link in links: 
             if parser_config['fast_mode'] == '0':
                 url_get_status = get_link(link,
                                           parser_config,
