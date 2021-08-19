@@ -56,6 +56,30 @@ def linear_address_generator(alphabet, alphabet1, alphabet_last, linear_letter_l
         
     return link
 
+def linear_addresses(seed, first=True):
+    if len(seed) == 1:
+        for letter in letters(ALPHABET_LAST, seed[0]):
+            yield letter
+    else:
+        if first:
+            alphabet = ALPHABET_FIRST
+        else:
+            alphabet = ALPHABET
+        
+        for link in linear_addresses(seed[1:], False):
+            yield seed[0] + link
+        
+        new_seed = 'a' * (len(seed) - 1)
+        for letter in letters(alphabet, seed[0], 1):
+            for link in linear_addresses(new_seed, False):
+                yield letter + link
+
+
+def letters(alphabet, start='a', shift=0):
+    position = alphabet.index(start)
+    for letter in alphabet[position+shift:]:
+        yield letter
+
 # def mutation_address_generator(link):
 #     mutated_array = []
 #     replacements = """
