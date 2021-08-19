@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+beautifulsoup4 = "~=4.9.3"
+bs4 = "~=0.0.1"
+cchardet = "~=2.1.7"
+lxml = "~=4.6.3"
+requests = "~=2.25.1"
+PySimpleGUI = "~=4.43.0"
+telebot = "*"
+questionary = "*"
+
+[dev-packages]
+autopep8 = "*"
+pylint = "*"
+
+[requires]
+python_version = "3.9"

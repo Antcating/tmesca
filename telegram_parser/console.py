@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
-import os, telebot, configparser
+import os
+import re
+import telebot
+import configparser
+import questionary
 from main import main
+from pathlib import Path
+
 
 def telegram_config_creation(parser_config):
     telegram_config = configparser.ConfigParser()
@@ -56,128 +62,140 @@ def start_link():
     open('.last_link', 'w').write(start_point)
 
 
-def console_menu():
-    parser_config = {
-        'parser_type': None,
-        'bot_mode': 1,
-        'work_mode': None,
-        'turbo_mode': None,
-        'output_source': None,
-        'output': None,
-
-        'tg_token': None,
-        'user_id': None,
-        'bot': None,
+QUESTIONS = [
+    {
+        'type': 'checkbox',
+        'name': 'parser_type',
+        'message': 'What type of content do you want to parse?',
+        'choices': [
+            {
+                'name': 'All',
+                'value': '1'
+            }, {
+                'name': 'Channels',
+                'value': '2'
+            }, {
+                'name': 'Groups',
+                'value': '3'
+            }, {
+                'name': 'Users',
+                'value': '4'
+            }, {
+                'name': 'Stickers',
+                'value': '5'
+            }, {
+                'name': 'Bots',
+                'value': '6'
+            }
+        ],
+        'validate': lambda x: len(x) > 0,
+        'filter': lambda x: ''.join(x)
+    }, {
+        'type': 'checkbox',
+        'name': 'bot_mode',
+        'message': 'Choose bot link types to parse: ',
+        'choices': [
+            {
+                'name': 'LINK_bot',
+                'value': '1'
+            },
+            {
+                'name': 'LINKbot',
+                'value': '2'
+            }
+        ],
+        'when': lambda data: '1' in data['parser_type'] or '6' in data['parser_type'],
+        'validate': lambda x: len(x) > 0,
+        'filter': lambda x: ''.join(x),
+    }, {
+        'type': 'select',
+        'name': 'work_mode',
+        'message': 'What type of parsing you want to use?',
+        'choices': [
+            {
+                'name': 'Linear parsing',
+                'value': '1'
+            }, {
+                'name': 'Random parsing',
+                'value': '2'
+            }
+        ]
+    },
+    {
+        'type': 'confirm',
+        'name': 'turbo_mode',
+        'message': 'Turn on turbo mod (disabling timeouts between requests)?',
+        'default': True,
+        'filter': lambda x: '1' if x else '0'
+    },
+    {
+        'type': 'select',
+        'name': 'output',
+        'message': 'What type of output do you want?',
+        'choices': [
+            {
+                'name': 'All output (not False will be only the content, that was choosed to parse)',
+                'value': '1'
+            }, {
+                'name': 'If something found',
+                'value': '2'
+            }, {
+                'name': 'No output',
+                'value': '3'
+            }
+        ]
+    },
+    {
+        'type': 'select',
+        'name': 'output_source',
+        'message': 'What output source do you want?',
+        'choices': [
+            {
+                'name': 'Console',
+                'value': '1'
+            }, {
+                'name': 'Telegram',
+                'value': '2'
+            }
+        ]
+    }, {
+        'type': 'confirm',
+        'name': 'fast_mode',
+        'message': 'Turn on saving only addresses (it will boost productivity)?',
+        'default': True,
+        'filter': lambda x: '1' if x else '0'
+    }, {
+        'type': 'confirm',
+        'name': 'continue',
+        'message': 'Continue old session?',
+        'when': lambda x: x['work_mode'] == '1' and Path('.last_link').is_file()
+    }, {
+        'type': 'input',
+        'name': 'link_length',
+        'message': 'How many letters in the link might be (at least 5)?',
+        'validate': lambda x: re.match(r'^\d+$', x) is not None and int(x) >= 5,
+        'filter': lambda x: int(x),
+        'when': lambda x: x['work_mode'] == '1' and ('continue' not in x or not x['continue'])
     }
+]
 
-    def parsing_content_func(parser_config):
-        parser_type = input('''
-What type of content do you want to parse (input several numbers, if you want to parse any combination of content): 
- 1 - All (Groups/Channel/Users
- 2 - Channels
- 3 - Groups
- 4 - Users
- 5 - Stickers
- 6 - Bots
-Your choice: ''')[:2].lower()
-        if parser_type[0] not in ['1', '2', '3', '4', '5', '6']:
-            print('Incorrect input for the parsing content types. Try again.')
-            parsing_content_func(parser_config)
 
-        if parser_type == '1' or '6' in parser_type:
-            bot_mode = input('''
-Choose bot link types to parse: 1/2/12:
- 1 - LINK_bot
- 2 - LINKbot
- 12 - LINK_bot && LINKbot
-Your choice: ''')
-            parser_config['bot_mode'] = bot_mode
-        parser_config['parser_type'] = parser_type
-        return parser_config
+def console_menu():
+    parser_config = questionary.prompt(QUESTIONS)
 
-    def work_mode_func(parser_config):
-        work_mode = input('''
-What type of parsing you want to use:
- 1 - Linear parsing
- 2 - Random parsing 
-Your choice: ''')[0].lower()
-        if work_mode not in ['1', '2']:
-            print('Incorrect input for the work mode. Try again.')
-            work_mode_func(parser_config)
-        parser_config['work_mode'] = work_mode
-        return parser_config
+    if len(parser_config) == 0:
+        # Cancelled by user
+        exit(1)
 
-    def turbo_mode_func(parser_config):
-        turbo_mode = input('Turn on turbo mod (disabling timeouts between requests) ?(y/n): ')[0].lower()  # work mode with/out delay
-        if turbo_mode in ['y', '1']:
-            parser_config['turbo_mode'] = '1'
-        elif turbo_mode in ['n', '0']:
-            parser_config['turbo_mode'] = '0'
-        else:
-            print('Incorrect input for the turbo mode. Try again.')
-            turbo_mode_func(parser_config)
-        return parser_config
+    if parser_config['output_source'] == '2':
+        tg_token, bot, user_id = telegram_channel_settings()
+        parser_config['bot'] = bot
+        parser_config['user_id'] = user_id
+        parser_config['tg_token'] = tg_token
 
-    def output_func(parser_config):
-        output = input(
-'''What type of output do you want: 
- 1 - All output (not False will be only the content, that was choosed to parse)
- 2 - If something found
- 3 - No output
-Your choice: ''')[0].lower()
-        if output in ['1', '2']:
-            parser_config['output'] = output
-            output_source = input(
-'''What output source do you want: 
- 1 - Console
- 2 - Telegram
-Your choice: ''')[0].lower()
-            if output_source == '1':
-                parser_config['output_source'] = output_source
-            elif output_source == '2':
-                tg_token, bot, user_id = telegram_channel_settings()
-                parser_config['bot'] = bot
-                parser_config['user_id'] = user_id
-                parser_config['tg_token'] = tg_token
+    if 'link_length' in parser_config:
+        Path('.last_link').write_text('a' * parser_config['link_length'])
 
-                parser_config['output_source'] = output_source
-            return parser_config
-        elif output == '3':
-            parser_config['output'] = output
-            return parser_config
-        else:
-            print('Incorrect input for the output. Try again.')
-            output_func(parser_config)
-
-    def fast_mode_func(parser_config):
-        fast_mode = input('''Turn on saving only addresses (it will boost productivity)? (y/n):''' )[0].lower()
-        if fast_mode in ['y', '1']:
-            parser_config['fast_mode'] = '1'
-            return parser_config
-        elif fast_mode in ['n', '0']:
-            parser_config['fast_mode'] = '0'
-            return parser_config
-        else:
-            print('Incorrect input for the fast mode. Try again.')
-            fast_mode_func(parser_config)
-    parser_config = parsing_content_func(parser_config)
-    parser_config = work_mode_func(parser_config)
-    parser_config = turbo_mode_func(parser_config)
-    parser_config = output_func(parser_config)
-    parser_config = fast_mode_func(parser_config)
-
-    # config_creation(parser_config)
-    # if parser_config['bot'] is not None:
-    #     telegram_config_creation(parser_config)
-    if parser_config['work_mode'] == '1':
-        try:  # LINK Checking
-            open('.last_link').read()
-            change_start = input('Do you want to change number of letters in link(y/n): ')[0].lower()
-            if change_start == 'y':
-                start_link()
-        except FileNotFoundError:
-            print('Initial setup!')
-            start_link()
     main(parser_config)
 
 
