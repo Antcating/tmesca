@@ -28,13 +28,12 @@ def main(parser_config):
     fast_database_check()
     channel_db, group_db, user_db, stickers_db, bot0_db, bot1_db = telegram_parser_open()
     channel_fast_db, group_fast_db, user_fast_db, stickers_fast_db, bot0_fast_db, bot1_fast_db = fast_telegram_parser_open()
-    with open('.last_link') as f:
-        seed = f.read()
-
     try:
         start_message = 'Parser is started!'
         print_func(parser_config, start_message)
         if parser_config['work_mode'] == '1':  # 1 = linear
+            with open('.last_link') as f:
+                seed = f.read()
             links = linear_addresses(seed)
         elif parser_config['work_mode'] == '2':  # 2 = random
             links = random_addresses()
