@@ -42,6 +42,7 @@ def main(parser_config):
             links = random_addresses()
 
         for link in links:
+            url_get_status = ''
             if parser_config['fast_mode'] == '0':
                 url_get_status = get_link(link,
                                           parser_config,
@@ -60,7 +61,7 @@ def main(parser_config):
                                                stickers_fast_db,
                                                bot0_fast_db,
                                                bot1_fast_db)
-            elif parser_config['fast_mode'] == '1':
+            elif parser_config['fast_mode'] == '2':
                 url_get_status = check_links(link,
                                              parser_config,
                                              channel_fast_db,

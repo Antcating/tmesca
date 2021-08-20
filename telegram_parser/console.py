@@ -170,7 +170,8 @@ QUESTIONS = [
                 'name': 'Fast. Only type of links check.',
                 'value': '1'
             }, {
-                'name': 'Lightning. No parsing of the entire page.'
+                'name': 'Lightning. No parsing of the entire page.',
+                'value': '2'
             }
         ],
         'default': {
