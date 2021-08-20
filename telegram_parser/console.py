@@ -159,11 +159,24 @@ QUESTIONS = [
             }
         ]
     }, {
-        'type': 'confirm',
+        'type': 'select',
         'name': 'fast_mode',
-        'message': 'Turn on saving only addresses (it will boost productivity)?',
-        'default': True,
-        'filter': lambda x: '1' if x else '0'
+        'message': 'Choose parser mode and speen',
+        'choices': [
+            {
+                'name': 'Slow. Full info about page.',
+                'value': '0'
+            }, {
+                'name': 'Fast. Only type of links check.',
+                'value': '1'
+            }, {
+                'name': 'Lightning. No parsing of the entire page.'
+            }
+        ],
+        'default': {
+            'name': 'Fast. Only type of links check.',
+            'value': '1'
+        }
     }, {
         'type': 'confirm',
         'name': 'continue',
