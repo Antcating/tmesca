@@ -76,6 +76,12 @@ def check_links(link, parser_config, channel_fast_db, group_fast_db, user_fast_d
 
             if any(parser_mode in parser_config['parser_type'] for parser_mode in ['1', '2', '3', '4']):
                 found_sgu = channel_group_user_future.result()
+                if any(parser_mode in parser_config['parser_type'] for parser_mode in ['1', '2']):
+                    found_sgu = found_sgu.replace('c,', '')
+                if any(parser_mode in parser_config['parser_type'] for parser_mode in ['1', '3']):
+                    found_sgu = found_sgu.replace('g,', '')
+                if any(parser_mode in parser_config['parser_type'] for parser_mode in ['1', '4']):
+                    found_sgu = found_sgu.replace('u,', '')
             if any(parser_mode in parser_config['parser_type'] for parser_mode in ['1', '5']):
                 found_s = sticker_future.result()
             if any(parser_mode in parser_config['parser_type'] for parser_mode in ['1', '6']):
