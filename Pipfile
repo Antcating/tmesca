@@ -12,10 +12,13 @@ requests = "~=2.25.1"
 PySimpleGUI = "~=4.43.0"
 telebot = "*"
 questionary = "*"
+more-itertools = "*"
 
 [dev-packages]
 autopep8 = "*"
 pylint = "*"
+mtprof = "*"
+ipykernel = "*"
 
 [requires]
 python_version = "3.9"
