@@ -1,21 +1,20 @@
-# <p align="center">Total Telegram Console Parser
-# <p align="center"><img src="icon.png" alt="drawing" width="200"/>
-Script parse telegram links and sort them to channel/group/user/sticker pack/bot database.
+<p align="center"><img src="icon.png" alt="drawing" width="200" /></p>
+<h1 align="center">Total Telegram Scanner</h1>
 
+Don't be fooled by the repository name: `telegram_parser` is actually **telegram scanner**. This script generates links on telegram entities and then parse page content. It sorts all his finds by content type (users / groups / channels, etc.) and puts them in the database.
 
-Script doesn't require Telegram account or any usage of Telegram API. Whole algorithm based on Telegram website and site scrapper BeautifulSoup4, so that this script can work without Telegram API delay.
+Script doesn't require Telegram account or any usage of Telegram API. Whole algorithm based on Telegram website, so that this script can work without Telegram API delay.
 
 ---
 
-Read on [Русском](https://github.com/Antcating/telegram_parser/blob/main/README_ru.md)  [English](https://github.com/Antcating/telegram_parser/blob/main/README_ru.md)
+[Читать на русском](https://github.com/Antcating/telegram_parser/blob/main/README_ru.md)
 
-### Main features
+## Main features
 
-
-1. Parse types:
-   * Linear search - choose the length of the link and parse all links, that are in this range.
-   * Random search - creates random link from 5 to 32 symbols and check it.
-   * Mutation search - input word and script creates mutations of this word and check all possibilities. 
+1. Various link generation types:
+   * Linear search - generates all links with certain length.
+   * Random search - creates random link from 5 to 32 symbols.
+   <!-- * Mutation search - input word and script creates mutations of this word and check all possibilities.  -->
 2. Parse content types:
    * Channels
    * Group
@@ -28,21 +27,22 @@ Read on [Русском](https://github.com/Antcating/telegram_parser/blob/main/
 
 ---
 
-### Config
+## Config
 
-#### Initial Config
+### Initial Config
   
 Whole other configuration, such as:
 * Parse type
 * Turbo mode
 * Parse content type
 * Subsettings for some of types
-* etc., <br />
+* etc.
+
 are making on the start of the script.
 
 ---
   
-#### Telegram Output
+### Telegram Output
 If you want to use Telegram output: <br />
 Before the first run, you **have to** change configuration file `telegram.ini`:
 ```
@@ -80,7 +80,7 @@ git pull
 ---
 
 ### Usage
-From the folder in which you cloned/downloaded the script you have to go to subfolder called telegram_parser, and run through the console _python3 console.py_
+From the folder in which you cloned/downloaded the script you have to go to subfolder called telegram_parser, and run through the console `python3 console.py`
 
 ---
 
