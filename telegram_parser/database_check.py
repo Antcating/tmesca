@@ -39,11 +39,11 @@ def database_check(parser_config):
 
 def fast_database_check():
     database_names_list = [
-        'channel_telegram_parser_fast.csv',
-        'group_telegram_parser_fast.csv',
-        'user_telegram_parser_fast.csv',
-        'stickers_telegram_parser_fast.csv',
-        'bots_telegram_parser_fast.csv',
+        'channels_fast.csv',
+        'groups_fast.csv',
+        'users_fast.csv',
+        'stickers_fast.csv',
+        'bots_fast.csv',
     ]
     output = Path('output')
     if not output.exists():
