@@ -19,12 +19,7 @@ def telegram_parser_open():
     return channel_db, group_db, user_db, sticker_db, bot0_db, bot1_db
 
 
-def telegram_parser(channel_db,
-                    group_db,
-                    user_db,
-                    sticker_db,
-                    bot0_db,
-                    bot1_db,
+def telegram_parser(db,
 
                     link,
                     found,
@@ -36,17 +31,17 @@ def telegram_parser(channel_db,
                     _bot_dict
                     ):
     if 'c' in found:
-        csv.writer(channel_db).writerow([link,title,description,members])
+        db.add_channel(link,title,description,members)
     elif 'g' in found:
-        csv.writer(group_db).writerow([link, title, description, members])
+        db.add_group(link, title, description, members)
     elif 'u' in found:
-        csv.writer(user_db).writerow([link, title, description])
+        db.add_user(link, title, description)
     if 's' in found:
-        csv.writer(sticker_db).writerow([link, title_stickers])
+        db.add_stickers(link, title_stickers)
     if 'b0' in found:
-        csv.writer(bot0_db).writerow([link + '_bot', _bot_dict['title_bot'], _bot_dict['description_bot']])
+        db.add_bot(link + '_bot', _bot_dict['title_bot'], _bot_dict['description_bot'])
     if 'b1' in found:
-        csv.writer(bot1_db).writerow([link + 'bot', bot_dict['title_bot'], bot_dict['description_bot']])
+        db.add_bot(link + 'bot', bot_dict['title_bot'], bot_dict['description_bot'])
 
 
 def fast_telegram_parser_open():
@@ -64,28 +59,23 @@ def fast_telegram_parser_open():
 
 
 def fast_telegram_parser(
-        channel_fast_db,
-        group_fast_db,
-        user_fast_db,
-        sticker_fast_db,
-        bot0_fast_db,
-        bot1_fast_db,
+        db,
 
         link,
         found,
 ):
     if 'c' in found:
-        csv.writer(channel_fast_db).writerow([link])
+        db.add_channel_fast(link)
     elif 'g' in found:
-        csv.writer(group_fast_db).writerow([link])
+        db.add_group_fast(link)
     elif 'u' in found:
-        csv.writer(user_fast_db).writerow([link])
+        db.add_user_fast(link)
     if 's' in found:
-        csv.writer(sticker_fast_db).writerow([link])
+        db.add_stickers_fast(link)
     if 'b0' in found:
-        csv.writer(bot0_fast_db).writerow([link + '_bot'])
+        db.add_bot_fast(link+'_bot')
     if 'b1' in found:
-        csv.writer(bot1_fast_db).writerow([link + 'bot'])
+        db.add_bot_fast(link + 'bot')
 
 
 def channel_group_user_get(link, found, parser_config):
@@ -198,12 +188,7 @@ def output_func(found, link, parser_config):
 
 def get_link(link,
              parser_config,
-             channel_db,
-             group_db,
-             user_db,
-             stickers_db,
-             bot0_db,
-             bot1_db):
+             db):
     i = 0
     while i < 5:
         try:
@@ -240,13 +225,7 @@ def get_link(link,
                     if '2' in parser_config['bot_mode']:
                         bot_dict, found_b = bot_future.result()
             found = found_b + _found_b + found_cgu + found_s
-            Thread(target=telegram_parser, args=(channel_db,
-                                                 group_db,
-                                                 user_db,
-                                                 stickers_db,
-                                                 bot0_db,
-                                                 bot1_db,
-
+            Thread(target=telegram_parser, args=(db,
                                                  link,
                                                  found,
                                                  title,
@@ -318,8 +297,7 @@ def fast_bot_get(link, found, i):
     return found
 
 
-def get_fast_link(link, parser_config, channel_fast_db, group_fast_db, user_fast_db,
-                  sticker_fast_db, bot0_fast_db, bot1_fast_db):
+def get_fast_link(link, parser_config, db):
     i = 0
     while i < 5:
         try:
@@ -353,12 +331,7 @@ def get_fast_link(link, parser_config, channel_fast_db, group_fast_db, user_fast
 
             found = found_s + found_sgu + found_b + _found_b
             Thread(target=fast_telegram_parser, args=(
-                channel_fast_db,
-                group_fast_db,
-                user_fast_db,
-                sticker_fast_db,
-                bot0_fast_db,
-                bot1_fast_db,
+                db,
                 link,
                 found,
             )).start()
