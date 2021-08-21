@@ -59,11 +59,23 @@ class Database:
     def add_user(self, address, title, description):
         if self.fast:
             raise Exception('Attempt to add full data in fast db')
-        writer = csv.writer(self._channels)
+        writer = csv.writer(self._users)
         writer.writerow([ address, title, description ])
     
     def add_user_fast(self, address):
         if not self.fast:
             raise Exception('Attempt to add fast data in full db')
-        writer = csv.writer(self._channels)
+        writer = csv.writer(self._users)
+        writer.writerow([ address ])
+
+    def add_bot(self, address, title, description):
+        if self.fast:
+            raise Exception('Attempt to add full data in fast db')
+        writer = csv.writer(self._bots)
+        writer.writerow([ address, title, description ])
+    
+    def add_bot_fast(self, address):
+        if not self.fast:
+            raise Exception('Attempt to add fast data in full db')
+        writer = csv.writer(self._bots)
         writer.writerow([ address ])
