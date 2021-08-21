@@ -6,30 +6,35 @@ from print_handler import print_func
 
 def database_check(parser_config):
     database_names_list = [
-        'channels.csv',
-        'groups.csv',
-        'users.csv',
-        'stickers.csv',
-        'bots.csv',
+        {
+            'name': 'channels.csv',
+            'fields': ['address', 'title', 'description', 'members']
+        }, {
+            'name': 'groups.csv',
+            'fields': ['address', 'title', 'description', 'members']
+        }, {
+            'name': 'users.csv',
+            'fields': ['address', 'title', 'description']
+        }, {
+            'name': 'stickers.csv',
+            'fields': ['address', 'title']
+        }, {
+            'name': 'bots.csv',
+            'fields': ['address', 'title', 'description']
+        }
     ]
     output = Path('output')
     if not output.exists():
         output.mkdir()
-    
-    for database_name in database_names_list:
+
+    for database in database_names_list:
         # checking existing of the telegram_parser.csv file
-        path = output.joinpath(database_name)
+        path = output.joinpath(database['name'])
         if not path.exists():
             with path.open('w', newline='') as f:
                 csv_writer = csv.writer(f)
-                if 'group' in database_name or 'channel' in database_name:
-                    csv_writer.writerow(
-                        ['address', 'title', 'description', 'members'])
-                elif 'user' in database_name or 'bots' in database_name:
-                    csv_writer.writerow(['address', 'title', 'description'])
-                else:
-                    csv_writer.writerow(['address', 'title'])
-            print_func(parser_config, 'Init Info:' + database_name +
+                csv_writer.writerow(database['fields'])
+            print_func(parser_config, 'Init Info:' + database['name'] +
                        ' was created in the script folder')
 
 
