@@ -79,3 +79,15 @@ class Database:
             raise Exception('Attempt to add fast data in full db')
         writer = csv.writer(self._bots)
         writer.writerow([ address ])
+
+    def add_stickers(self, address, title):
+        if self.fast:
+            raise Exception('Attempt to add full data in fast db')
+        writer = csv.writer(self._stickers)
+        writer.writerow([ address, title ])
+    
+    def add_user_fast(self, address):
+        if not self.fast:
+            raise Exception('Attempt to add fast data in full db')
+        writer = csv.writer(self._stickers)
+        writer.writerow([ address ])
