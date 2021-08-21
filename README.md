@@ -1,19 +1,21 @@
-<p align="center"><img src="icon.png" alt="drawing" width="200" /></p>
-<h1 align="center">Total Telegram Scanner</h1>
+<h1 align="center"><img src="logo.png" alt="tmesca" width="200"/></h1>
 
-Don't be fooled by the repository name: `telegram_parser` is actually **telegram scanner**. This script generates links on telegram entities and then parse page content. It sorts all his finds by content type (users / groups / channels, etc.) and puts them in the database.
+[README на русском](README_ru.md)
 
-Script doesn't require Telegram account or any usage of Telegram API. Whole algorithm based on Telegram website, so that this script can work without Telegram API delay.
+## What is it?
+**tmesca** is a Telegram public entity scanner by parsing the contents of short links to `t.me`. The principle is extremely simple:
+1. Generating a link to `t.me`
+2. Download its contents
+3. We analyze and determine what it is (user / channel / stickers, etc.)
+4. We save information to the desired database based on the type of entity
 
----
-
-[Читать на русском](https://github.com/Antcating/telegram_parser/blob/main/README_ru.md)
+Therefore **tmesca** doesn't require a Telegram account and doesn't depend on the Telegram API.
 
 ## Main features
 
 1. Various link generation types:
-   * Linear search - generates all links with certain length.
-   * Random search - creates random link from 5 to 32 symbols.
+   * Linear search - generates all links with a certain length. In other words, bruteforce.
+   * Random search - generates random links from 5 to 32 characters long.
    <!-- * Mutation search - input word and script creates mutations of this word and check all possibilities.  -->
 2. Parse content types:
    * Channels
@@ -21,28 +23,34 @@ Script doesn't require Telegram account or any usage of Telegram API. Whole algo
    * Users
    * Sticker Packs
    * Bots
-   * All possible intersections between the above types
 3. Output to Telegram on the channel. 
 4. Turbo mode - can be toggled to speed up parsing. 
 
----
+## Known Issues
+Sometimes the scanner can skip existing links. This is due to the fact that Telegram returns a page by a link, which is no different from pages for non-existent links. There is a possibility that this is such a protection against scanning, but this happens too chaotically, so that it is difficult to determine the trigger criteria.
 
-## Config
+## Installation and Run
+You will need git, python3 and pip, and pipenv for the second method.
 
-### Initial Config
-  
-Whole other configuration, such as:
-* Parse type
-* Turbo mode
-* Parse content type
-* Subsettings for some of types
-* etc.
+### Pure python
+This method is recommended for beginners. Just run these commands in the terminal.
+```bash
+git clone https://github.com/Antcating/telegram_parser.git
+cd telegram_parser/
+pip install -r requirements.txt
+python3 telegram_parser/console.py
+```
 
-are making on the start of the script.
+### pipenv
+A way for the advanced. This method assumes that you know what you are doing.
+```bash
+git clone https://github.com/Antcating/telegram_parser.git
+cd telegram_parser/
+pip install -r requirements.txt
+python3 telegram_parser/console.py
+```
 
----
-  
-### Telegram Output
+## Telegram Output
 If you want to use Telegram output: <br />
 Before the first run, you **have to** change configuration file `telegram.ini`:
 ```
@@ -56,36 +64,7 @@ tg_token = bot token here
 - In the config file `telegram.ini` paste Telegram Bot Token to the `tg_token` row, and id into `user_id` row.   
 - Hooray! Everything ready. Enjoy!
 
----
-
-### Installation and Run
-Using console:<br />
-```
-git clone https://github.com/Antcating/telegram_parser.git
-cd telegram_parser/telegram_parser/
-python3 console.py
-```
-#### Warning!
-Also, make sure, that all the requirements are installed:
-```
-cd telegram_parser
-pip3 install -r requirements.txt
-```
-If you have already downloaded older version of the program in the past, you can delete and get all over the instructions or just update the existing folder:
-```
-cd telegram_parser
-git pull
-```
-
----
-
-### Usage
-From the folder in which you cloned/downloaded the script you have to go to subfolder called telegram_parser, and run through the console `python3 console.py`
-
----
-
 ### Requirements and thanks 
 * [Beautiful Soup 4](https://www.crummy.com/software/BeautifulSoup/)
 * [Requests](https://docs.python-requests.org/en/master/)
-* [PySimpleGUI](https://github.com/PySimpleGUI/PySimpleGUI)
-* [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI)
+<!-- * [PySimpleGUI](https://github.com/PySimpleGUI/PySimpleGUI) -->
