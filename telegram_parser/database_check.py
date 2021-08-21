@@ -24,11 +24,11 @@ def database_check(parser_config):
                 csv_writer = csv.writer(f)
                 if 'group' in database_name or 'channel' in database_name:
                     csv_writer.writerow(
-                        ['adress', 'title', 'description', 'members'])
+                        ['address', 'title', 'description', 'members'])
                 elif 'user' in database_name or 'bots' in database_name:
-                    csv_writer.writerow(['adress', 'title', 'description'])
+                    csv_writer.writerow(['address', 'title', 'description'])
                 else:
-                    csv_writer.writerow(['adress', 'name'])
+                    csv_writer.writerow(['address', 'name'])
             print_func(parser_config, 'Init Info:' + database_name +
                        ' was created in the script folder')
 
