@@ -36,58 +36,58 @@ class Database:
         if self.fast:
             raise Exception('Attempt to add full data in fast db')
         writer = csv.writer(self._channels)
-        writer.writerow([ address, title, description, members ])
-    
+        writer.writerow([address, title, description, members])
+
     def add_channel_fast(self, address):
         if not self.fast:
             raise Exception('Attempt to add fast data in full db')
         writer = csv.writer(self._channels)
-        writer.writerow([ address ])
+        writer.writerow([address])
 
     def add_group(self, address, title, description, members):
         if self.fast:
             raise Exception('Attempt to add full data in fast db')
         writer = csv.writer(self._groups)
-        writer.writerow([ address, title, description, members ])
-    
+        writer.writerow([address, title, description, members])
+
     def add_group_fast(self, address):
         if not self.fast:
             raise Exception('Attempt to add fast data in full db')
         writer = csv.writer(self._groups)
-        writer.writerow([ address ])
+        writer.writerow([address])
 
     def add_user(self, address, title, description):
         if self.fast:
             raise Exception('Attempt to add full data in fast db')
         writer = csv.writer(self._users)
-        writer.writerow([ address, title, description ])
-    
+        writer.writerow([address, title, description])
+
     def add_user_fast(self, address):
         if not self.fast:
             raise Exception('Attempt to add fast data in full db')
         writer = csv.writer(self._users)
-        writer.writerow([ address ])
+        writer.writerow([address])
 
     def add_bot(self, address, title, description):
         if self.fast:
             raise Exception('Attempt to add full data in fast db')
         writer = csv.writer(self._bots)
-        writer.writerow([ address, title, description ])
-    
+        writer.writerow([address, title, description])
+
     def add_bot_fast(self, address):
         if not self.fast:
             raise Exception('Attempt to add fast data in full db')
         writer = csv.writer(self._bots)
-        writer.writerow([ address ])
+        writer.writerow([address])
 
     def add_stickers(self, address, title):
         if self.fast:
             raise Exception('Attempt to add full data in fast db')
         writer = csv.writer(self._stickers)
-        writer.writerow([ address, title ])
-    
-    def add_user_fast(self, address):
+        writer.writerow([address, title])
+
+    def add_stickers_fast(self, address):
         if not self.fast:
             raise Exception('Attempt to add fast data in full db')
         writer = csv.writer(self._stickers)
-        writer.writerow([ address ])
+        writer.writerow([address])
