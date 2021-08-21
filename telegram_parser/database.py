@@ -55,3 +55,15 @@ class Database:
             raise Exception('Attempt to add fast data in full db')
         writer = csv.writer(self._groups)
         writer.writerow([ address ])
+
+    def add_user(self, address, title, description):
+        if self.fast:
+            raise Exception('Attempt to add full data in fast db')
+        writer = csv.writer(self._channels)
+        writer.writerow([ address, title, description ])
+    
+    def add_user_fast(self, address):
+        if not self.fast:
+            raise Exception('Attempt to add fast data in full db')
+        writer = csv.writer(self._channels)
+        writer.writerow([ address ])
