@@ -1,5 +1,4 @@
 import csv
-import os
 from pathlib import Path
 from print_handler import print_func
 
