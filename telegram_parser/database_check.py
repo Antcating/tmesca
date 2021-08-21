@@ -6,11 +6,11 @@ from print_handler import print_func
 
 def database_check(parser_config):
     database_names_list = [
-        'channel_telegram_parser.csv',
-        'group_telegram_parser.csv',
-        'user_telegram_parser.csv',
-        'stickers_telegram_parser.csv',
-        'bots_telegram_parser.csv',
+        'channels.csv',
+        'groups.csv',
+        'users.csv',
+        'stickers.csv',
+        'bots.csv',
     ]
     output = Path('output')
     if not output.exists():
@@ -28,7 +28,7 @@ def database_check(parser_config):
                 elif 'user' in database_name or 'bots' in database_name:
                     csv_writer.writerow(['address', 'title', 'description'])
                 else:
-                    csv_writer.writerow(['address', 'name'])
+                    csv_writer.writerow(['address', 'title'])
             print_func(parser_config, 'Init Info:' + database_name +
                        ' was created in the script folder')
 
