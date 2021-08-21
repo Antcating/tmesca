@@ -29,7 +29,7 @@ def main(parser_config):
     # fast_database_check()
     # channel_db, group_db, user_db, stickers_db, bot0_db, bot1_db = telegram_parser_open()
     # channel_fast_db, group_fast_db, user_fast_db, stickers_fast_db, bot0_fast_db, bot1_fast_db = fast_telegram_parser_open()
-    db = Database(parser_config['fast_mode'] == 1, parser_config)
+    db = Database(parser_config['fast_mode'] == '1', parser_config)
     try:
         start_message = 'Parser is started!'
         print_func(parser_config, start_message)
