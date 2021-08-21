@@ -1,4 +1,4 @@
-<h1 align="center"><img src="logo.png" alt="tmesca" width="200"/></h1>
+<h1 align="center"><img src="logo.png" alt="tmesca" width="800"/></h1>
 
 [README on English](README.md)
 
