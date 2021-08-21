@@ -22,3 +22,10 @@ class Database:
     
     def open_fast(self):
         fast_database_check()
+        dbs = fast_telegram_parser_open()
+        self._channel = dbs[0]
+        self._group = dbs[1]
+        self._user = dbs[2]
+        self._stickers = dbs[3]
+        self._bots = dbs[4]
+        # dbs[5] is actually ignored
