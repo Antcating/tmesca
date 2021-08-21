@@ -34,7 +34,7 @@ def database_check(parser_config):
             with path.open('w', newline='') as f:
                 csv_writer = csv.writer(f)
                 csv_writer.writerow(database['fields'])
-            print_func(parser_config, 'Init Info:' + database['name'] +
+            print_func(parser_config, 'Init Info: ' + database['name'] +
                        ' was created in the script folder')
 
 
