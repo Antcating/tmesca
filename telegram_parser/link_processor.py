@@ -7,12 +7,12 @@ from print_handler import print_func
 
 def telegram_parser_open():
     try:
-        channel_db = open('output/channel_telegram_parser.csv', 'a', newline='',  encoding="utf-8")
-        group_db = open('output/group_telegram_parser.csv', 'a', newline='',  encoding="utf-8")
-        user_db = open('output/user_telegram_parser.csv', 'a', newline='',  encoding="utf-8")
-        sticker_db = open('output/stickers_telegram_parser.csv', 'a', newline='',  encoding="utf-8")
-        bot0_db = open('output/bots_telegram_parser.csv', 'a', newline='',  encoding="utf-8")
-        bot1_db = open('output/bots_telegram_parser.csv', 'a', newline='',  encoding="utf-8")
+        channel_db = open('output/channels.csv', 'a', newline='',  encoding="utf-8")
+        group_db = open('output/groups.csv', 'a', newline='',  encoding="utf-8")
+        user_db = open('output/users.csv', 'a', newline='',  encoding="utf-8")
+        sticker_db = open('output/stickers.csv', 'a', newline='',  encoding="utf-8")
+        bot0_db = open('output/bots.csv', 'a', newline='',  encoding="utf-8")
+        bot1_db = open('output/bots.csv', 'a', newline='',  encoding="utf-8")
     except FileNotFoundError:
         os.mkdir('output')
         telegram_parser_open()
@@ -51,12 +51,12 @@ def telegram_parser(channel_db,
 
 def fast_telegram_parser_open():
     try:
-        channel_fast_db = open('output/channel_telegram_parser_fast.csv', 'a', newline='',  encoding="utf-8")
-        group_fast_db = open('output/group_telegram_parser_fast.csv', 'a', newline='',  encoding="utf-8")
-        user_fast_db = open('output/user_telegram_parser_fast.csv', 'a', newline='',  encoding="utf-8")
-        sticker_fast_db = open('output/stickers_telegram_parser_fast.csv', 'a', newline='',  encoding="utf-8")
-        bot0_fast_db = open('output/bots_telegram_parser_fast.csv', 'a', newline='',  encoding="utf-8")
-        bot1_fast_db = open('output/bots_telegram_parser_fast.csv', 'a', newline='',  encoding="utf-8")
+        channel_fast_db = open('output/channels_fast.csv', 'a', newline='',  encoding="utf-8")
+        group_fast_db = open('output/groups_fast.csv', 'a', newline='',  encoding="utf-8")
+        user_fast_db = open('output/users_fast.csv', 'a', newline='',  encoding="utf-8")
+        sticker_fast_db = open('output/stickers_fast.csv', 'a', newline='',  encoding="utf-8")
+        bot0_fast_db = open('output/bots_fast.csv', 'a', newline='',  encoding="utf-8")
+        bot1_fast_db = open('output/bots_fast.csv', 'a', newline='',  encoding="utf-8")
     except FileNotFoundError:
         os.mkdir('output')
         fast_telegram_parser_open()
