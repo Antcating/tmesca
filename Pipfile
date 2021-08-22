@@ -13,6 +13,7 @@ PySimpleGUI = "~=4.43.0"
 questionary = "*"
 more-itertools = "*"
 pytelegrambotapi = "*"
+pyyaml = "*"
 
 [dev-packages]
 autopep8 = "*"

@@ -4,13 +4,13 @@ generator:
   # resume_sessions: yes
 parser:
   type: soup | lighting
-  
+  info: full | links
   filter:
     - users
     - groups
     - channels
     - bots
-    - stickerpacks
+    - stickers
   bot_suffix:
     - _bot
     - bot
