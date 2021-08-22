@@ -19,18 +19,19 @@ class Config:
                 print(s)
                 config.update(s)
 
-        self.generator = config['generator'] or dict()
-        self.parser = config['parser'] or dict()
-        self.output = config['output'] or dict()
+        self._generator = config['generator'] or dict()
+        self._parser = config['parser'] or dict()
+        self._output = config['output'] or dict()
 
         if prompt:
             self.generator_prompt()
-            
+            self.parser_prompt()
+
         # self.postprocessing
         # self.init_session()
 
     def generator_prompt(self):
-        gen = self.generator
+        gen = self._generator
         que = QUESTIONS['generator']
         if 'type' not in gen:
             gen['type'] = que['type'].ask()
@@ -42,6 +43,11 @@ class Config:
             if (not last_link.is_file() or not gen['restore_sessions']) and 'link_length' not in gen:
                 gen['link_length'] = int(que['link_length'].ask())
 
+    def parser_prompt(self):
+        par = self._parser
+        que = QUESTIONS['parser']
+        if 'type' not in par:
+            par['type'] = que['type'].ask()
 
 QUESTIONS = {
     'generator': {
@@ -60,5 +66,14 @@ QUESTIONS = {
             message='Enter link length:',
             validate=lambda x: re.match(r'^\d+$', x) is not None
         )
+    },
+    'parser': {
+        'type': select(
+            message='Choose parser:',
+            choices=[
+                Choice('Soup. Parses page with BS4', 'soup'),
+                Choice('Lighting. No parsing, just some string checks', 'lighting')
+            ]
+        ) 
     }
 }
