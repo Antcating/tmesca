@@ -25,7 +25,8 @@ class Config:
 
         if prompt:
             self.generator_prompt()
-
+            
+        # self.postprocessing
         # self.init_session()
 
     def generator_prompt(self):
