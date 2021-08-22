@@ -1,0 +1,20 @@
+generator:
+  type: linear | random
+  # link_length: 5
+parser:
+  type: soup | lighting
+  
+  filter:
+    - users
+    - groups
+    - channels
+    - bots
+    - stickerpacks
+  bot_suffix:
+    - _bot
+    - bot
+  slow_mode: 0
+output:
+  type: telegram | console
+  # bot_token: ENTER TOKEN
+  # user_id: ENTER USER ID
