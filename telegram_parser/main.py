@@ -5,6 +5,7 @@ from database_check import database_check, fast_database_check
 from link_processor import get_link, get_fast_link, telegram_parser_open, fast_telegram_parser_open
 from link_generator import random_addresses, linear_addresses
 from print_handler import print_func
+from database import Database
 from new_search import check_links
 
 
@@ -26,10 +27,7 @@ def program_exit(link, parser_config):
 
 
 def main(parser_config):
-    database_check(parser_config)
-    fast_database_check()
-    channel_db, group_db, user_db, stickers_db, bot0_db, bot1_db = telegram_parser_open()
-    channel_fast_db, group_fast_db, user_fast_db, stickers_fast_db, bot0_fast_db, bot1_fast_db = fast_telegram_parser_open()
+    db = Database(parser_config['fast_mode'] in ['1', '2'], parser_config)
     try:
         start_message = 'Parser is started!'
         print_func(parser_config, start_message)
@@ -45,30 +43,15 @@ def main(parser_config):
             if parser_config['fast_mode'] == '0':
                 url_get_status = get_link(link,
                                           parser_config,
-                                          channel_db,
-                                          group_db,
-                                          user_db,
-                                          stickers_db,
-                                          bot0_db,
-                                          bot1_db)
+                                          db)
             elif parser_config['fast_mode'] == '1':
                 url_get_status = get_fast_link(link,
                                                parser_config,
-                                               channel_fast_db,
-                                               group_fast_db,
-                                               user_fast_db,
-                                               stickers_fast_db,
-                                               bot0_fast_db,
-                                               bot1_fast_db)
+                                               db)
             elif parser_config['fast_mode'] == '2':
                 url_get_status = check_links(link,
                                              parser_config,
-                                             channel_fast_db,
-                                             group_fast_db,
-                                             user_fast_db,
-                                             stickers_fast_db,
-                                             bot0_fast_db,
-                                             bot1_fast_db)
+                                             db)
 
             if url_get_status == 'connection_error':
                 program_exit(link, parser_config)
