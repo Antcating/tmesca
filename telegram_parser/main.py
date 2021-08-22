@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-import time, sys
+import time
+import sys
 from database_check import database_check, fast_database_check
 from link_processor import get_link, get_fast_link, telegram_parser_open, fast_telegram_parser_open
 from link_generator import random_addresses, linear_addresses
 from print_handler import print_func
 from database import Database
+from new_search import check_links
 
 
 def program_exit(link, parser_config):
@@ -39,8 +41,9 @@ def main(parser_config):
             links = linear_addresses(seed)
         elif parser_config['work_mode'] == '2':  # 2 = random
             links = random_addresses()
-        
-        for link in links: 
+
+        for link in links:
+            url_get_status = ''
             if parser_config['fast_mode'] == '0':
                 url_get_status = get_link(link,
                                           parser_config,
@@ -49,6 +52,15 @@ def main(parser_config):
                 url_get_status = get_fast_link(link,
                                                parser_config,
                                                db)
+            elif parser_config['fast_mode'] == '2':
+                url_get_status = check_links(link,
+                                             parser_config,
+                                             channel_fast_db,
+                                             group_fast_db,
+                                             user_fast_db,
+                                             stickers_fast_db,
+                                             bot0_fast_db,
+                                             bot1_fast_db)
 
             if url_get_status == 'connection_error':
                 program_exit(link, parser_config)
