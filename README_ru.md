@@ -60,5 +60,6 @@ python3 telegram_parser/console.py
 ### Зависимости и благодарности
 * [Beautiful Soup 4](https://www.crummy.com/software/BeautifulSoup/)
 * [Requests](https://docs.python-requests.org/en/master/)
+* [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI)
 
 Отдельная благодарность [@flexagoon](https://t.me/flexagoon) за перевод README.md на русский язык.
