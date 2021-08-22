@@ -10,9 +10,9 @@ cchardet = "~=2.1.7"
 lxml = "~=4.6.3"
 requests = "~=2.25.1"
 PySimpleGUI = "~=4.43.0"
-telebot = "*"
 questionary = "*"
 more-itertools = "*"
+pytelegrambotapi = "*"
 
 [dev-packages]
 autopep8 = "*"

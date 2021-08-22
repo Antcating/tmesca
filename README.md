@@ -67,4 +67,4 @@ tg_token = bot token here
 ### Requirements and thanks 
 * [Beautiful Soup 4](https://www.crummy.com/software/BeautifulSoup/)
 * [Requests](https://docs.python-requests.org/en/master/)
-<!-- * [PySimpleGUI](https://github.com/PySimpleGUI/PySimpleGUI) -->
+* [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI)
