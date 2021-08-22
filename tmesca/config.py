@@ -58,6 +58,8 @@ class Config:
         que = QUESTIONS['output']
         if 'type' not in out:
             out['type'] = que['type'].ask()
+        if out['type'] is not 'none' and 'filter' not in out:
+            out['filter'] = que['filter'].ask()
 
 QUESTIONS = {
     'generator': {
@@ -110,6 +112,13 @@ QUESTIONS = {
                 Choice('Console', 'console'),
                 Choice('Telegram', 'telegram'),
                 Choice('None', 'none')
+            ]
+        ),
+        'filter': select(
+            message='Choose information to output: ',
+            choices=[
+                Choice('Everything', 'everything'),
+                Choice('Finds only', 'basic')
             ]
         )
     }
