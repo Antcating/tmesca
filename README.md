@@ -27,7 +27,7 @@ Therefore **tmesca** doesn't require a Telegram account and doesn't depend on th
 4. Turbo mode - can be toggled to speed up parsing. 
 
 ## Known Issues
-Sometimes the scanner can skip existing links. This is due to the fact that Telegram returns a page by a link, which is no different from pages for non-existent links. There is a possibility that this is such a protection against scanning, but this happens too chaotically, so that it is difficult to determine the trigger criteria.
+The current implementation (especially in turbo mode) doesn't consider the restrictions 300 requests per minute to `t.me` and may skip existing links.
 
 ## Installation and Run
 You will need git, python3 and pip, and pipenv for the second method.
