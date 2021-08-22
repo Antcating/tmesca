@@ -53,6 +53,11 @@ class Config:
         if 'filter' not in par:
             par['filter'] = que['filter'].ask()
         
+    def output_prompt(self):
+        out = self._output
+        que = QUESTIONS['output']
+        if 'type' not in out:
+            out['type'] = que['type'].ask()
 
 QUESTIONS = {
     'generator': {
@@ -95,6 +100,16 @@ QUESTIONS = {
                 Choice('Groups', 'groups'),
                 Choice('Bots', 'bots'),
                 Choice('Stickerpacks', 'stickers')
+            ]
+        )
+    },
+    'output': {
+        'type': select(
+            message='Choose where to output:',
+            choices=[
+                Choice('Console', 'console'),
+                Choice('Telegram', 'telegram'),
+                Choice('None', 'none')
             ]
         )
     }
