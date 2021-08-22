@@ -1,7 +1,8 @@
 generator:
-  type: linear | random
+  # type: linear | random
   # link_length: 5
-  # resume_sessions: yes
+  # restore_sessions: yes
+  # save_sessions: no
 parser:
   type: soup | lighting
   info: full | links

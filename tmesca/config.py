@@ -1,5 +1,7 @@
-import yaml
 from pathlib import Path
+
+import yaml
+from questionary import Choice, select, confirm
 
 
 class Config:
@@ -12,8 +14,45 @@ class Config:
         path = Path(filename)
         if path.is_file():
             with path.open('r') as f:
-                config.update(yaml.safe_load(f))
+                s = yaml.safe_load(f)
+                print(s)
+                config.update(s)
+
+        self.generator = config['generator'] or dict()
+        self.parser = config['parser'] or dict()
+        self.output = config['output'] or dict()
+
+        if prompt:
+            self.generator_prompt()
         
-        self.generator = config['generator']
-        self.parser = config['parser']
-        self.output = config['output']
+        # self.restore_session()
+
+    def generator_prompt(self):
+        gen = self.generator
+        que = QUESTIONS['generator']
+        if 'type' not in gen:
+            gen['type'] = que['type'].ask()
+        
+        if gen['type'] == 'linear':
+            last_link = Path('.last_link')
+            if last_link.is_file() and 'restore_sessions' not in gen:
+                gen['restore_sessions'] = que['restore_sessions'].ask()
+            if not last_link.is_file() or not gen['restore_sessions']:
+                pass
+
+
+QUESTIONS = {
+    'generator': {
+        'type': select(
+            message='Choose link generation method:',
+            choices=[
+                Choice('Linear', 'linear'),
+                Choice('Random', 'random')
+            ]
+        ),
+        'restore_sessions': confirm(
+            message='Continue old session?',
+            default=True
+        )
+    }
+}
