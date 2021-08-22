@@ -26,6 +26,7 @@ class Config:
         if prompt:
             self.generator_prompt()
             self.parser_prompt()
+            self.output_prompt()
 
         # self.postprocessing
         # self.init_session()
@@ -58,7 +59,7 @@ class Config:
         que = QUESTIONS['output']
         if 'type' not in out:
             out['type'] = que['type'].ask()
-        if out['type'] is not 'none' and 'filter' not in out:
+        if out['type'] != 'none' and 'filter' not in out:
             out['filter'] = que['filter'].ask()
 
 QUESTIONS = {
@@ -76,7 +77,7 @@ QUESTIONS = {
         ),
         'link_length': text(
             message='Enter link length:',
-            validate=lambda x: re.match(r'^\d+$', x) is not None
+            validate=lambda x: re.match(r'^\d+$', x) is not None and int(x) >= 5
         )
     },
     'parser': {

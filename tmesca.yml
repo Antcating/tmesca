@@ -17,7 +17,7 @@ parser:
   #   - bot
   # slow_mode: 0
 output:
-  type: telegram | console | none
-  filter: everything | basic
+  # type: telegram | console | none
+  # filter: everything | basic
   # bot_token: ENTER TOKEN
   # user_id: ENTER USER ID
