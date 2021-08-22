@@ -48,6 +48,8 @@ class Config:
         que = QUESTIONS['parser']
         if 'type' not in par:
             par['type'] = que['type'].ask()
+        if 'info' not in par:
+            par['info'] = que['info'].ask()
 
 QUESTIONS = {
     'generator': {
@@ -74,6 +76,13 @@ QUESTIONS = {
                 Choice('Soup. Parses page with BS4', 'soup'),
                 Choice('Lighting. No parsing, just some string checks', 'lighting')
             ]
-        ) 
+        ),
+        'info': select(
+            message='Choose information to collect: ',
+            choices=[
+                Choice('Full information', 'full'),
+                Choice('Only link', 'link')
+            ]
+        )
     }
 }

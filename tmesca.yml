@@ -4,8 +4,8 @@ generator:
   # restore_sessions: yes
   # save_sessions: no
 parser:
-  type: soup | lighting
-  info: full | links
+  # type: soup | lighting
+  # info: full | link
   filter:
     - users
     - groups
