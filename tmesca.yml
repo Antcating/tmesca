@@ -1,6 +1,7 @@
 generator:
   type: linear | random
   # link_length: 5
+  # resume_sessions: yes
 parser:
   type: soup | lighting
   
