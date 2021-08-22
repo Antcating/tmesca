@@ -55,12 +55,7 @@ def main(parser_config):
             elif parser_config['fast_mode'] == '2':
                 url_get_status = check_links(link,
                                              parser_config,
-                                             channel_fast_db,
-                                             group_fast_db,
-                                             user_fast_db,
-                                             stickers_fast_db,
-                                             bot0_fast_db,
-                                             bot1_fast_db)
+                                             db)
 
             if url_get_status == 'connection_error':
                 program_exit(link, parser_config)

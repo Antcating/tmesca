@@ -50,8 +50,7 @@ def check_exists(lines):
     return True
 
 
-def check_links(link, parser_config, channel_fast_db, group_fast_db, user_fast_db,
-                sticker_fast_db, bot0_fast_db, bot1_fast_db):
+def check_links(link, parser_config, db):
     for i in range(5):
         try:
             found = ''
@@ -92,12 +91,7 @@ def check_links(link, parser_config, channel_fast_db, group_fast_db, user_fast_d
 
             found = found_s + found_sgu + found_b + _found_b
             Thread(target=fast_telegram_parser, args=(
-                channel_fast_db,
-                group_fast_db,
-                user_fast_db,
-                sticker_fast_db,
-                bot0_fast_db,
-                bot1_fast_db,
+                db,
                 link,
                 found,
             )).start()
