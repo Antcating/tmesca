@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import yaml
-from questionary import Choice, select, confirm, text
+from questionary import Choice, select, confirm, text, checkbox
 import re
 
 
@@ -50,6 +50,9 @@ class Config:
             par['type'] = que['type'].ask()
         if 'info' not in par:
             par['info'] = que['info'].ask()
+        if 'filter' not in par:
+            par['filter'] = que['filter'].ask()
+        
 
 QUESTIONS = {
     'generator': {
@@ -82,6 +85,16 @@ QUESTIONS = {
             choices=[
                 Choice('Full information', 'full'),
                 Choice('Only link', 'link')
+            ]
+        ),
+        'filter': checkbox(
+            message='Choose content to find:',
+            choices=[
+                Choice('Users', 'users'),
+                Choice('Channels', 'channels'),
+                Choice('Groups', 'groups'),
+                Choice('Bots', 'bots'),
+                Choice('Stickerpacks', 'stickers')
             ]
         )
     }
