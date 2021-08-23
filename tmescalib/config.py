@@ -16,7 +16,6 @@ class Config:
         if path.is_file():
             with path.open('r') as f:
                 s = yaml.safe_load(f)
-                print(s)
                 config.update(s)
 
         self.generator = config['generator'] or dict()
@@ -29,7 +28,7 @@ class Config:
             self.output_prompt()
 
         self.postprocessing()
-        # self.init_session()
+        self.init_session()
 
     def generator_prompt(self):
         gen = self.generator
@@ -74,7 +73,7 @@ class Config:
                 res = [res]
             self.parser['filter'] = set(res)
         else:
-            self.parser['filter'] = set(res)
+            self.parser['filter'] = set(self.parser['filter'])
         
         if 'bot_suffix' not in self.parser:
             self.parser['bot_suffix'] = ['_bot', 'bot'] 
