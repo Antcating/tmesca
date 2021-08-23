@@ -77,6 +77,9 @@ class Config:
             self._parser['bot_suffix'] = ['_bot', 'bot'] 
         elif isinstance(self._parser['bot_suffix'], str):
             self._parser['bot_suffix'] = [res]
+        
+        if 'slow_mode' not in self._parser:
+            self._parser['slow_mode'] = 0
 
 
 QUESTIONS = {

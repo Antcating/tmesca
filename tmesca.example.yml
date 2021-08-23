@@ -1,0 +1,55 @@
+# | in types means or. For example a | b means
+# "field should contains 'a' or 'b'"
+# Most of the fields can be omitted; in this
+# case, they will be asked each time the script
+# is run. If silent mode choosen, script probably
+# fails to run in this case.
+generator:
+  # linear | random
+  type: random
+  # number >= 5
+  link_length: 5
+  # boolean (yes/no)
+  # restore_sessions: yes
+  # boolean (yes/no), omitted means no
+  # save_sessions: no
+parser:
+  # soup | lighting
+  type: lighting
+  # full | link
+  info: link
+  # Note: if field is a string, it will be
+  # interpreted as array with one element.
+  # But 'all' is a special case, it will 
+  # be interpreted like array of all possible
+  # answers.
+  # all | string | array of string
+  filter:
+    - users
+    - groups
+    - channels
+    - bots
+    - stickers
+  # Note: like filter, if field is a string,
+  # it will be interpreted like array with one
+  # element. Unlike filter, there is no special
+  # case, but you can omit it for some
+  # string | array of string 
+  # bot_suffix:
+  #   - _bot
+  #   - bot
+  # Delay between requests in seconds
+  # number, defaults to 0
+  # slow_mode: 0
+output:
+  # telegram | console | none
+  type: console
+  # Note: basic means logging only finds
+  # everything | basic
+  filter: basic
+  # Note: refer to the README for explanation
+  # the next two fields
+  # string
+  # bot_token: ENTER TOKEN
+  # number
+  # user_id: ENTER USER ID
