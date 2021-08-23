@@ -11,7 +11,7 @@ generator:
   link_length: 5
   # boolean (yes/no)
   # restore_sessions: yes
-  # boolean (yes/no), omitted means no
+  # boolean (yes/no), omitted means yes
   # save_sessions: no
 parser:
   # soup | lighting

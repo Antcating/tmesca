@@ -1,8 +1,8 @@
+import re
 from pathlib import Path
 
 import yaml
-from questionary import Choice, select, confirm, text, checkbox
-import re
+from questionary import Choice, checkbox, confirm, select, text
 
 
 class Config:
@@ -28,7 +28,7 @@ class Config:
             self.parser_prompt()
             self.output_prompt()
 
-        # self.postprocessing
+        self.postprocessing()
         # self.init_session()
 
     def generator_prompt(self):
@@ -63,6 +63,9 @@ class Config:
             out['filter'] = que['filter'].ask()
 
     def postprocessing(self):
+        if 'save_sessions' not in self._generator:
+            self._generator['save_sessions'] = True
+
         if isinstance(self._parser['filter'], str):
             res = self._parser['filter']
             if res == 'all':
