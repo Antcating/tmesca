@@ -74,29 +74,36 @@ class Config:
             self.parser['filter'] = set(res)
         else:
             self.parser['filter'] = set(self.parser['filter'])
-        
+
         if 'bot_suffix' not in self.parser:
-            self.parser['bot_suffix'] = ['_bot', 'bot'] 
+            self.parser['bot_suffix'] = ['_bot', 'bot']
         elif isinstance(self.parser['bot_suffix'], str):
             self.parser['bot_suffix'] = [res]
-        
+
         if 'slow_mode' not in self.parser:
             self.parser['slow_mode'] = 0
-    
+
     def init_session(self):
         self.session = {}
         last_link = Path('.last_link')
-        if last_link.is_file() and self.generator['restore_sessions']:
-            self.session['seed'] = last_link.read_text()
-        else:
-            self.session['seed'] = 'a' * self.generator['link_length']
-        
+        if self.parser['type'] == 'linear':
+            if last_link.is_file() and self.generator['restore_sessions']:
+                self.session['seed'] = last_link.read_text()
+            else:
+                self.session['seed'] = 'a' * self.generator['link_length']
+
         if self.output['type'] == 'telegram':
             if 'bot_token' not in self.output or 'user_id' not in self.output:
                 raise Exception('No user_id or bot_token in config')
             from bot import init
-            self.session['bot'] = init(self.output['bot_token'], self.output['user_id'])
-        
+            self.session['bot'] = init(
+                self.output['bot_token'], self.output['user_id'])
+
+    def print(self, message):
+        if self.output['type'] == 'console':
+            print(message)
+        elif self.output['type'] == 'telegram':
+            self.output['bot'].send_message(self.output['user_id'], message)
 
 
 QUESTIONS = {
