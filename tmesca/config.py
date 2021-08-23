@@ -53,7 +53,7 @@ class Config:
             par['info'] = que['info'].ask()
         if 'filter' not in par:
             par['filter'] = que['filter'].ask()
-        
+
     def output_prompt(self):
         out = self._output
         que = QUESTIONS['output']
@@ -61,6 +61,23 @@ class Config:
             out['type'] = que['type'].ask()
         if out['type'] != 'none' and 'filter' not in out:
             out['filter'] = que['filter'].ask()
+
+    def postprocessing(self):
+        if isinstance(self._parser['filter'], str):
+            res = self._parser['filter']
+            if res == 'all':
+                res = ['users', 'groups', 'channels', 'bots', 'stickers']
+            else:
+                res = [res]
+            self._parser['filter'] = set(res)
+        else:
+            self._parser['filter'] = set(res)
+        
+        if 'bot_suffix' not in self._parser:
+            self._parser['bot_suffix'] = ['_bot', 'bot'] 
+        elif isinstance(self._parser['bot_suffix'], str):
+            self._parser['bot_suffix'] = [res]
+
 
 QUESTIONS = {
     'generator': {
@@ -77,7 +94,8 @@ QUESTIONS = {
         ),
         'link_length': text(
             message='Enter link length:',
-            validate=lambda x: re.match(r'^\d+$', x) is not None and int(x) >= 5
+            validate=lambda x: re.match(
+                r'^\d+$', x) is not None and int(x) >= 5
         )
     },
     'parser': {
