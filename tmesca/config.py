@@ -83,6 +83,21 @@ class Config:
         
         if 'slow_mode' not in self.parser:
             self.parser['slow_mode'] = 0
+    
+    def init_session(self):
+        self.session = {}
+        last_link = Path('.last_link')
+        if last_link.is_file() and self.generator['restore_sessions']:
+            self.session['seed'] = last_link.read_text()
+        else:
+            self.session['seed'] = 'a' * self.generator['link_length']
+        
+        if self.output['type'] == 'telegram':
+            if 'bot_token' not in self.output or 'user_id' not in self.output:
+                raise Exception('No user_id or bot_token in config')
+            from bot import init
+            self.session['bot'] = init(self.output['bot_token'], self.output['user_id'])
+        
 
 
 QUESTIONS = {
