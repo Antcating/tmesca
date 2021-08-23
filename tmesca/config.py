@@ -19,9 +19,9 @@ class Config:
                 print(s)
                 config.update(s)
 
-        self._generator = config['generator'] or dict()
-        self._parser = config['parser'] or dict()
-        self._output = config['output'] or dict()
+        self.generator = config['generator'] or dict()
+        self.parser = config['parser'] or dict()
+        self.output = config['output'] or dict()
 
         if prompt:
             self.generator_prompt()
@@ -32,7 +32,7 @@ class Config:
         # self.init_session()
 
     def generator_prompt(self):
-        gen = self._generator
+        gen = self.generator
         que = QUESTIONS['generator']
         if 'type' not in gen:
             gen['type'] = que['type'].ask()
@@ -45,7 +45,7 @@ class Config:
                 gen['link_length'] = int(que['link_length'].ask())
 
     def parser_prompt(self):
-        par = self._parser
+        par = self.parser
         que = QUESTIONS['parser']
         if 'type' not in par:
             par['type'] = que['type'].ask()
@@ -55,7 +55,7 @@ class Config:
             par['filter'] = que['filter'].ask()
 
     def output_prompt(self):
-        out = self._output
+        out = self.output
         que = QUESTIONS['output']
         if 'type' not in out:
             out['type'] = que['type'].ask()
@@ -63,26 +63,26 @@ class Config:
             out['filter'] = que['filter'].ask()
 
     def postprocessing(self):
-        if 'save_sessions' not in self._generator:
-            self._generator['save_sessions'] = True
+        if 'save_sessions' not in self.generator:
+            self.generator['save_sessions'] = True
 
-        if isinstance(self._parser['filter'], str):
-            res = self._parser['filter']
+        if isinstance(self.parser['filter'], str):
+            res = self.parser['filter']
             if res == 'all':
                 res = ['users', 'groups', 'channels', 'bots', 'stickers']
             else:
                 res = [res]
-            self._parser['filter'] = set(res)
+            self.parser['filter'] = set(res)
         else:
-            self._parser['filter'] = set(res)
+            self.parser['filter'] = set(res)
         
-        if 'bot_suffix' not in self._parser:
-            self._parser['bot_suffix'] = ['_bot', 'bot'] 
-        elif isinstance(self._parser['bot_suffix'], str):
-            self._parser['bot_suffix'] = [res]
+        if 'bot_suffix' not in self.parser:
+            self.parser['bot_suffix'] = ['_bot', 'bot'] 
+        elif isinstance(self.parser['bot_suffix'], str):
+            self.parser['bot_suffix'] = [res]
         
-        if 'slow_mode' not in self._parser:
-            self._parser['slow_mode'] = 0
+        if 'slow_mode' not in self.parser:
+            self.parser['slow_mode'] = 0
 
 
 QUESTIONS = {
