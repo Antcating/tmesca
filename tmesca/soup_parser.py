@@ -97,6 +97,7 @@ class FullInfo:
 
         if re.search('Preview channel', type_link):  # check for channel
             members_int = re.findall(r'\d+', members_str)
+            members = ''
             members = members.join(members_int)
             if members == '':
                 members = '0'
@@ -111,6 +112,7 @@ class FullInfo:
         if 'Preview channel' not in type_link and 'members' in members_str:  # check for group
             members_str = members_str.split(',')[0]
             members_int = re.findall(r'\d+', members_str)
+            members = ''
             members = members.join(members_int)
             if members == '':
                 members = '0'
@@ -146,7 +148,7 @@ class FullInfo:
                     for m in re.finditer("</strong>", type_link)][1][0]
         title_stickers = type_link[start_name:end_name]
         return {
-            'type': 'user',
+            'type': 'stickers',
             'link': url_stickers,
             'title': title_stickers
         }

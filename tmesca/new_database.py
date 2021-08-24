@@ -31,18 +31,28 @@ class Database:
         # dbs[5] is actually ignored
 
     def add(self, res):
-        if not self.fast:
-            raise NotImplementedError()
-        if res['type'] == 'user':
-            self.add_user_fast(res['link'])
-        elif res['type'] == 'channel':
-            self.add_channel_fast(res['link'])
-        elif res['type'] == 'group':
-            self.add_group_fast(res['link'])
-        elif res['type'] == 'bot':
-            self.add_bot_fast(res['link'])
-        elif res['type'] == 'stickers':
-            self.add_stickers_fast(res['link'])
+        if self.fast:
+            if res['type'] == 'user':
+                self.add_user_fast(res['link'])
+            elif res['type'] == 'channel':
+                self.add_channel_fast(res['link'])
+            elif res['type'] == 'group':
+                self.add_group_fast(res['link'])
+            elif res['type'] == 'bot':
+                self.add_bot_fast(res['link'])
+            elif res['type'] == 'stickers':
+                self.add_stickers_fast(res['link'])
+        else:
+            if res['type'] == 'user':
+                self.add_user(res['link'], res['title'], res['description'])
+            elif res['type'] == 'channel':
+                self.add_channel(res['link'], res['title'], res['description'], res['members'])
+            elif res['type'] == 'group':
+                self.add_group(res['link'], res['title'], res['description'], res['members'])
+            elif res['type'] == 'bot':
+                self.add_bot(res['link'], res['title'], res['description'])
+            elif res['type'] == 'stickers':
+                self.add_stickers(res['link'], res['title'])
 
     def add_channel(self, address, title, description, members):
         if self.fast:
