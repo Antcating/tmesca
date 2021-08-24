@@ -4,6 +4,11 @@ from pathlib import Path
 import yaml
 from questionary import Choice, checkbox, confirm, select, text
 
+try:
+    from .bot import init
+except:
+    def init(*args):
+        raise NotImplementedError('Telegram bot not works')
 
 class Config:
     def __init__(self, prompt=False, filename='tmesca.yml'):
@@ -95,7 +100,6 @@ class Config:
         if self.output['type'] == 'telegram':
             if 'bot_token' not in self.output or 'user_id' not in self.output:
                 raise Exception('No user_id or bot_token in config')
-            from bot import init
             self.session['bot'] = init(
                 self.output['bot_token'], self.output['user_id'])
 
@@ -103,7 +107,7 @@ class Config:
         if self.output['type'] == 'console':
             print(message)
         elif self.output['type'] == 'telegram':
-            self.output['bot'].send_message(self.output['user_id'], message)
+            self.session['bot'].send_message(self.output['user_id'], message)
 
     def print_link(self, res):
         self.print(f'{res["type"]}: {res["link"]}')

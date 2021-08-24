@@ -2,10 +2,10 @@
 import atexit
 from pathlib import Path
 
-from tmescalib.config import Config
-from tmescalib.generators import get_generator
-from tmescalib.requester import Requester
-from tmescalib.lighting_parser import Basic
+from .config import Config
+from .generators import get_generator
+from .requester import Requester
+from .lighting_parser import Basic
 
 last_link = None
 
@@ -74,5 +74,6 @@ def produce_links_types(link, config):
         })
     return res
 
-if __name__ == '__main__':
-    start()
+# if __name__ == '__main__':
+#     start()
+start()
