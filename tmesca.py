@@ -19,7 +19,6 @@ def start():
     for link in links:
         last_link = link
         link_types = produce_links_types(link, config)
-        # print(link)
     last_link = None
 
 
