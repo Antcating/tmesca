@@ -6,7 +6,7 @@ from .config import Config
 from .generators import get_generator
 from .requester import Requester
 from .lighting_parser import Basic as BasicLighting
-from .soup_parser import Basic as BasicSoup
+from .soup_parser import Basic as BasicSoup, FullInfo as FullInfoSoup
 from .new_database import Database
 
 last_link = None
@@ -86,7 +86,8 @@ def get_parser(config):
         if i == 'link':
             return BasicSoup()
         if i == 'full':
-            raise NotImplementedError()
+            return FullInfoSoup()
+        raise NotImplementedError()
     if t == 'lighting':
         if i == 'link':
             return BasicLighting()

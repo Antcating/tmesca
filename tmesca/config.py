@@ -110,7 +110,8 @@ class Config:
             self.session['bot'].send_message(self.output['user_id'], message)
 
     def print_link(self, res):
-        self.print(f'{res["type"]}: {res["link"]}')
+        s = [f'{k}: {v}' for k, v in res.items()]
+        self.print('\n'.join(s))
 
     def print_everything(self, message):
         if self.output['filter'] == 'everything':
