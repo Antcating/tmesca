@@ -5,7 +5,8 @@ from pathlib import Path
 from .config import Config
 from .generators import get_generator
 from .requester import Requester
-from .lighting_parser import Basic
+from .lighting_parser import Basic as BasicLighting
+from .soup_parser import Basic as BasicSoup
 from .new_database import Database
 
 last_link = None
@@ -15,7 +16,7 @@ def start():
     global last_link
     config = Config(True)
     requester = Requester()
-    parser = Basic()
+    parser = get_parser(config)
     db = Database(config.parser['info'] == 'link')
     links = get_generator(config)
 
@@ -77,6 +78,19 @@ def produce_links_types(link, config):
             'link': link
         })
     return res
+
+def get_parser(config):
+    t = config.parser['type']
+    i = config.parser['info']
+    if t == 'soup':
+        if i == 'link':
+            return BasicSoup()
+        if i == 'full':
+            raise NotImplementedError()
+    if t == 'lighting':
+        if i == 'link':
+            return BasicLighting()
+        raise NotImplementedError()
 
 # if __name__ == '__main__':
 #     start()
