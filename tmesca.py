@@ -59,9 +59,12 @@ def produce_links_types(link, config):
         })
     if 'bots' in filters:
         for suffix in config.parser['bot_suffix']:
+            new_link = link + suffix
+            if len(new_link) > 32:
+                continue
             res.append({
                 'type': 'bot',
-                'link': link + suffix
+                'link': new_link
             })
     if 'stickers' in filters:
         res.append({
