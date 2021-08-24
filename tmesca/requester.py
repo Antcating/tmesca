@@ -8,7 +8,7 @@ class Requester:
     _count = 0
     _executor = ThreadPoolExecutor()
 
-    def add(self, links, handler, config, parser):
+    def add(self, links, handler, config, parser, db):
         for link in links:
             now = datetime.now()
             if self._start is None or (self._start - now >= timedelta(seconds=60)):
@@ -22,4 +22,4 @@ class Requester:
                 self._count = 0
 
             self._count += 1
-            self._executor.submit(handler, link, config, parser)
+            self._executor.submit(handler, link, config, parser, db)

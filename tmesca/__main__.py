@@ -6,6 +6,7 @@ from .config import Config
 from .generators import get_generator
 from .requester import Requester
 from .lighting_parser import Basic
+from .new_database import Database
 
 last_link = None
 
@@ -15,6 +16,7 @@ def start():
     config = Config(True)
     requester = Requester()
     parser = Basic()
+    db = Database(config.parser['info'] == 'link')
     links = get_generator(config)
 
     if config.generator['save_sessions'] and config.generator['type'] == 'linear':
@@ -24,12 +26,12 @@ def start():
         config.print_everything(f'Start processing link {link}')
         last_link = link
         link_types = produce_links_types(link, config)
-        requester.add(link_types, handler, config, parser)
+        requester.add(link_types, handler, config, parser, db)
 
     last_link = None
 
 
-def handler(link, config, parser):
+def handler(link, config, parser, db):
     res = parser.parse(link)
     if res is None:
         return
@@ -39,6 +41,8 @@ def handler(link, config, parser):
         return
     if res['type'] == 'channel' and 'channels' not in config._parser['filter']:
         return
+
+    db.add(res)
     config.print_link(res)
 
 def save_session():
