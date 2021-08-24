@@ -4,6 +4,8 @@ from pathlib import Path
 
 from tmescalib.config import Config
 from tmescalib.generators import get_generator
+from tmescalib.requester import Requester
+from tmescalib.lighting_parser import Basic
 
 last_link = None
 
@@ -11,6 +13,8 @@ last_link = None
 def start():
     global last_link
     config = Config(True)
+    requester = Requester()
+    parser = Basic()
     links = get_generator(config)
 
     if config.generator['save_sessions']:
@@ -19,8 +23,22 @@ def start():
     for link in links:
         last_link = link
         link_types = produce_links_types(link, config)
+        requester.add(link_types, handler, config, parser)
+
     last_link = None
 
+
+def handler(link, config, parser):
+    res = parser.parse(link)
+    if res is None:
+        return
+    if res['type'] == 'user' and 'users' not in config._parser['filter']:
+        return
+    if res['type'] == 'group' and 'groups' not in config._parser['filter']:
+        return
+    if res['type'] == 'channel' and 'channels' not in config._parser['filter']:
+        return
+    config.print_link(res)
 
 def save_session():
     path = Path('.last_link')

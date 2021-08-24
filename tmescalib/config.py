@@ -105,6 +105,9 @@ class Config:
         elif self.output['type'] == 'telegram':
             self.output['bot'].send_message(self.output['user_id'], message)
 
+    def print_link(self, res):
+        self.print(f'{res["type"]}: {res["link"]}')
+
 
 QUESTIONS = {
     'generator': {
