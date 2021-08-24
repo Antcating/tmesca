@@ -35,11 +35,11 @@ def handler(link, config, parser, db):
     res = parser.parse(link)
     if res is None:
         return
-    if res['type'] == 'user' and 'users' not in config._parser['filter']:
+    if res['type'] == 'user' and 'users' not in config.parser['filter']:
         return
-    if res['type'] == 'group' and 'groups' not in config._parser['filter']:
+    if res['type'] == 'group' and 'groups' not in config.parser['filter']:
         return
-    if res['type'] == 'channel' and 'channels' not in config._parser['filter']:
+    if res['type'] == 'channel' and 'channels' not in config.parser['filter']:
         return
 
     db.add(res)

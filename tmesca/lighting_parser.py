@@ -45,7 +45,7 @@ class Basic:
         with requests.get(f_link, stream=True) as res:
             lines = res.iter_lines()
             if not check_exists(lines):
-                return ''
+                return None
             consume(lines, 60)
             lines = dropwhile(lambda x: not x.startswith(b'<!--'), lines)
             consume(lines, 1)
