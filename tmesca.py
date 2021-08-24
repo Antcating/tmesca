@@ -17,7 +17,7 @@ def start():
     parser = Basic()
     links = get_generator(config)
 
-    if config.generator['save_sessions']:
+    if config.generator['save_sessions'] and config.generator['type'] == 'linear':
         atexit.register(save_session)
 
     for link in links:

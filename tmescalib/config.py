@@ -86,7 +86,7 @@ class Config:
     def init_session(self):
         self.session = {}
         last_link = Path('.last_link')
-        if self.parser['type'] == 'linear':
+        if self.generator['type'] == 'linear':
             if last_link.is_file() and self.generator['restore_sessions']:
                 self.session['seed'] = last_link.read_text()
             else:

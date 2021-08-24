@@ -1,10 +1,7 @@
-import requests
-import time
-from more_itertools import consume
 from itertools import dropwhile
-from link_processor import output_func, print_func, fast_telegram_parser
-from threading import Thread
-from concurrent.futures import ThreadPoolExecutor
+
+import requests
+from more_itertools import consume
 
 
 class Basic:
