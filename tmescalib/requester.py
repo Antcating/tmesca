@@ -15,6 +15,7 @@ class Requester:
                 self._start = now
                 self._count = 0
             elif self._count >= 300:
+                config.print_everything('Speed limit hit, starting sleep')
                 diff = self._start+timedelta(seconds=60)-now
                 sleep(diff.total_seconds())
                 self._start = datetime.now()

@@ -108,6 +108,10 @@ class Config:
     def print_link(self, res):
         self.print(f'{res["type"]}: {res["link"]}')
 
+    def print_everything(self, message):
+        if self.output['filter'] == 'everything':
+            self.print(message)
+
 
 QUESTIONS = {
     'generator': {

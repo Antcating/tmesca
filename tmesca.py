@@ -21,6 +21,7 @@ def start():
         atexit.register(save_session)
 
     for link in links:
+        config.print_everything(f'Start processing link {link}')
         last_link = link
         link_types = produce_links_types(link, config)
         requester.add(link_types, handler, config, parser)
