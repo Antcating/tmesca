@@ -84,8 +84,8 @@ class FullInfo:
         #     return self.parse_stickers(link['link'])
         if link['type'] == 'user':
             return self.parse_user(link['link'])
-        # if link['type'] == 'bot':
-        #     return self.parse_bot(link['link'])
+        if link['type'] == 'bot':
+            return self.parse_bot(link['link'])
         raise NotImplementedError(f'Type {link["type"]} not implemented')
 
     def parse_user(self, link):
@@ -128,5 +128,23 @@ class FullInfo:
                 'title': title,
                 'description': description,
                 'members': members
+            }
+        return None
+    
+    def parse_bot(self, link):
+        f_link = f'https://t.me/{link}'
+        with requests.get(f_link, stream=True) as res:
+            lines = res.iter_lines()
+            if not check_exists(lines):
+                return None
+            title_line = next(lines)
+            title = title_line[35:-2].decode()
+            description_line = nth(lines, 2)
+            description = description_line[41:-2].decode()
+            return {
+                'type': 'bot',
+                'link': f_link,
+                'title': title,
+                'description': description
             }
         return None
