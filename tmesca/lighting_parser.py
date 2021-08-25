@@ -80,8 +80,8 @@ def consumewhile(it, fun):
 
 class FullInfo:
     def parse(self, link):
-        # if link['type'] == 'stickers':
-        #     return self.parse_stickers(link['link'])
+        if link['type'] == 'stickers':
+            return self.parse_stickers(link['link'])
         if link['type'] == 'user':
             return self.parse_user(link['link'])
         if link['type'] == 'bot':
