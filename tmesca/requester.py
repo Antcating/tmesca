@@ -22,5 +22,5 @@ class Requester:
                 self._count = 0
 
             self._count += 1
-            self._executor.submit(handler, link, config, parser, db)
-            # handler(link, config, parser, db)
+            # self._executor.submit(handler, link, config, parser, db)
+            handler(link, config, parser, db)

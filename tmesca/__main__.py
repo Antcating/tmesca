@@ -5,7 +5,7 @@ from pathlib import Path
 from .config import Config
 from .generators import get_generator
 from .requester import Requester
-from .lighting_parser import Basic as BasicLighting
+from .lighting_parser import Basic as BasicLighting, FullInfo as FullInfoLighting
 from .soup_parser import Basic as BasicSoup, FullInfo as FullInfoSoup
 from .new_database import Database
 
@@ -91,6 +91,8 @@ def get_parser(config):
     if t == 'lighting':
         if i == 'link':
             return BasicLighting()
+        if i == 'full':
+            return FullInfoLighting()
         raise NotImplementedError()
 
 # if __name__ == '__main__':
