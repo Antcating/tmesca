@@ -11,7 +11,7 @@ class Requester:
     def add(self, links, handler, config, parser, db):
         for link in links:
             now = datetime.now()
-            if self._start is None or (self._start - now >= timedelta(seconds=60)):
+            if self._start is None or (now - self._start >= timedelta(seconds=60)):
                 self._start = now
                 self._count = 0
             elif self._count >= 300:

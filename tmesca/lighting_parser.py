@@ -109,7 +109,11 @@ class FullInfo:
                     'title': title,
                     'description': description
                 }
-            members = int(re.match(rb'\d+', members_line[29:]).group(0))
+            num = re.match(rb'\d+', members_line[29:])
+            if num is None:
+                members = 0
+            else:
+                members = int(num.group(0))
             if line.startswith(b'<div class="tgme_page_action'):
                 return {
                     'type': 'channel',
