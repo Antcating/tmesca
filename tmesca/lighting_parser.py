@@ -86,7 +86,7 @@ class FullInfo:
             return self.parse_user(link['link'])
         # if link['type'] == 'bot':
         #     return self.parse_bot(link['link'])
-        # raise NotImplementedError(f'Type {link["type"]} not implemented')
+        raise NotImplementedError(f'Type {link["type"]} not implemented')
 
     def parse_user(self, link):
         f_link = f'https://t.me/{link}'
