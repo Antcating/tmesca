@@ -3,11 +3,13 @@ import atexit
 from pathlib import Path
 
 from .config import Config
+from .database import Database
 from .generators import get_generator
+from .lighting_parser import Basic as BasicLighting
+from .lighting_parser import FullInfo as FullInfoLighting
 from .requester import Requester
-from .lighting_parser import Basic as BasicLighting, FullInfo as FullInfoLighting
-from .soup_parser import Basic as BasicSoup, FullInfo as FullInfoSoup
-from .new_database import Database
+from .soup_parser import Basic as BasicSoup
+from .soup_parser import FullInfo as FullInfoSoup
 
 last_link = None
 
