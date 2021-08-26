@@ -97,7 +97,10 @@ class FullInfo:
             title_line = next(lines)
             title = title_line[35:-2].decode()
             description_line = nth(lines, 2)
-            description = description_line[41:-2].decode()
+            if description_line.endswith(b'">'):
+                description = description_line[41:-2].decode()
+            else:
+                description = description_line[41:].decode()
             members_line = consumewhile(lines, lambda x: x.startswith(
                 b'<div class="tgme_page_ex'))
             consumewhile(lines, lambda x: x.startswith(b'<!--'))
