@@ -20,7 +20,7 @@ def random_addresses():
         link = random.choices(ALPHABET_FIRST)
         link += random.choices(ALPHABET, k=len_link - 2)
         link += random.choices(ALPHABET_LAST)
-        s_link ''.join(link)
+        s_link = ''.join(link)
         if '__' in s_link:
             continue 
         yield s_link
