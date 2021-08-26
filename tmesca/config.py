@@ -15,7 +15,8 @@ class Config:
         config = {
             'generator': {},
             'parser': {},
-            'output': {}
+            'output': {},
+            'misc': {}
         }
         path = Path(filename)
         if path.is_file():
@@ -26,6 +27,7 @@ class Config:
         self.generator = config['generator'] or dict()
         self.parser = config['parser'] or dict()
         self.output = config['output'] or dict()
+        self.misc = config['misc'] or dict()
 
         if prompt:
             self.generator_prompt()
@@ -87,6 +89,9 @@ class Config:
 
         if 'slow_mode' not in self.parser:
             self.parser['slow_mode'] = 0
+        
+        if 'single_thread' not in self.misc:
+            self.misc['single_thread'] = False
 
     def init_session(self):
         self.session = {}

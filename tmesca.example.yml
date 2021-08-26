@@ -53,3 +53,6 @@ output:
   # bot_token: ENTER TOKEN
   # number
   # user_id: ENTER USER ID
+misc:
+  # boolean (yes/no), defaults to no
+  # single_thread: yes
