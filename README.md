@@ -26,8 +26,8 @@ Therefore **tmesca** doesn't require a Telegram account and doesn't depend on th
 3. Output to Telegram on the channel. 
 4. Turbo mode - can be toggled to speed up parsing. 
 
-## Known Issues
-Sometimes the scanner can skip existing links. This is due to the fact that Telegram returns a page by a link, which is no different from pages for non-existent links. There is a possibility that this is such a protection against scanning, but this happens too chaotically, so that it is difficult to determine the trigger criteria.
+## Restrictions
+`t.me` only allows 300 requests per minute from one address.
 
 ## Installation and Run
 You will need git, python3 and pip, and pipenv for the second method.
@@ -35,33 +35,32 @@ You will need git, python3 and pip, and pipenv for the second method.
 ### Pure python
 This method is recommended for beginners. Just run these commands in the terminal.
 ```bash
-git clone https://github.com/Antcating/telegram_parser.git
-cd telegram_parser/
+git clone https://github.com/Antcating/tmesca.git
+cd tmesca/
 pip install -r requirements.txt
-python3 telegram_parser/console.py
+python3 -m tmesca
 ```
 
 ### pipenv
 A way for the advanced. This method assumes that you know what you are doing.
 ```bash
-git clone https://github.com/Antcating/telegram_parser.git
-cd telegram_parser/
-pip install -r requirements.txt
-python3 telegram_parser/console.py
+git clone https://github.com/Antcating/tmesca.git
+cd tmesca/
+pipenv install
+pipenv run tmesca
 ```
 
+## Configuration
+**tmesca** does not require any default configuration and will ask for all necessary settings at startup. However, for regular launches, it may be more convenient to configure for yourself. For a basic configuration, just copy the file `tmesca.example.yml` to` tmesca.yml`. You can find a detailed description of all fields in the same file.
+
+### Difference between `soup` and` lighting`
+The soup parser runs on top of Beautiful Soup and lxml, and the lighting parser uses simple string comparisons. Accordingly, `soup` works more accurately, but` lighting` is ~30% faster. It is recommended to use `lighting` with` link` mode, and `soup` with` full` mode.
+
 ## Telegram Output
-If you want to use Telegram output: <br />
-Before the first run, you **have to** change configuration file `telegram.ini`:
-```
-[Telegram]
-user_id = id here
-tg_token = bot token here
-```
-##### Instruction
 - Create Telegram bot using [BotFather](https://t.me/BotFather) and get Telegram Bot Token.
 - Get your Telegram account id. You can get it using [this bot](https://t.me/userinfobot). 
-- In the config file `telegram.ini` paste Telegram Bot Token to the `tg_token` row, and id into `user_id` row.   
+- Create config if not already. You can comment out everything you don't need.
+- In the config, insert the Bot Token Telegram obtained earlier into the `bot_token` line, and the id into the` user_id` line.
 - Hooray! Everything ready. Enjoy!
 
 ### Requirements and thanks 
