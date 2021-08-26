@@ -22,5 +22,7 @@ class Requester:
                 self._count = 0
 
             self._count += 1
-            self._executor.submit(handler, link, config, parser, db)
-            # handler(link, config, parser, db)
+            if config.misc['single_thread']:
+                handler(link, config, parser, db)
+            else:
+                self._executor.submit(handler, link, config, parser, db)
