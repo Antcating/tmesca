@@ -26,8 +26,8 @@
 3. Вывод в Telegram
 4. Турбо-режим - может быть включен чтобы ускорить парсинг. 
 
-## Известные проблемы
-Иногда сканер может пропускать реально существующие ссылки. Это связано с тем, что Telegram возвращает по ссылке страницу, которая ничем не отличается от страниц для несуществующих ссылок. Есть вероятность, что это такая защита от сканирования, однако подобное происходит слишком хаотично, так что трудно определить критерии срабатывания.
+## Ограничения
+`t.me` позволяет только 300 запросов в минуту с одного адреса.
 
 ## Установка и запуск
 Вам потребуется git, python3 и pip, а для второго способа ещё pipenv.
@@ -35,26 +35,33 @@
 ### Чистый python
 Этот способ рекомендуется для новичков. Просто выполните эти команды в терминале.
 ```bash
-git clone https://github.com/Antcating/telegram_parser.git
-cd telegram_parser/
+git clone https://github.com/Antcating/tmesca.git
+cd tmesca/
 pip install -r requirements.txt
-python3 telegram_parser/console.py
+python3 -m tmesca
 ```
 
 ### pipenv
 Способ для продвинутых. Этот способ предполагает, что вы знаете что делаете.
 ```bash
-git clone https://github.com/Antcating/telegram_parser.git
-cd telegram_parser/
-pip install -r requirements.txt
-python3 telegram_parser/console.py
+git clone https://github.com/Antcating/tmesca.git
+cd tmesca/
+pipenv install
+pipenv run tmesca
 ```
+
+## Конфигурация
+**tmesca** не требует никакой конфигурации по умолчанию и запросит все необходимые настройки при запуске. Однако, для постоянных запусков может быть удобнее скофигурировать под себя. Для базовой конфигурации достаточно скопировать файл `tmesca.example.yml` в `tmesca.yml`. Детальное описание всех полей вы можете найти в том же файле. 
+
+### Разница между `soup` и `lighting`
+Парсер `soup` работает поверх Beautiful Soup и lxml, а парсер `lighting` использует простые сравнения строк. Соответственно `soup` работает точнее, но `lighting` быстрее на ~30%. Рекомендуется использовать `lighting` с режимом `link`, а `soup` с режимом `full`. 
 
 ## Вывод в Telegram 
 Для вывода Telegram вам необходимо проделать следующие шаги:  
 - Создайте бота Telegram с помощью [BotFather](https://t.me/BotFather) и получите Bot Token Telegram.  
 - Получите id своей страницы в Telegram. Можно сделать с помощью [этого бота](https://t.me/userinfobot).
-- В конфиге `telegram.ini` вставьте  Bot Token Telegram, полученный ранее в строку `tg_token`, а id в строку `user_id`. 
+- Создайте конфиг, если ещё нет. Можете закомментировать всё не нужное.
+- В конфиге вставьте Bot Token Telegram, полученный ранее в строку `bot_token`, а id в строку `user_id`. 
 - Ура! Все готово. Развлекайтесь!
 
 ### Зависимости и благодарности

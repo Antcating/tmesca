@@ -3,6 +3,9 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[scripts]
+tmesca = 'python -m tmesca'
+
 [packages]
 beautifulsoup4 = "~=4.9.3"
 bs4 = "~=0.0.1"
@@ -13,12 +16,14 @@ PySimpleGUI = "~=4.43.0"
 questionary = "*"
 more-itertools = "*"
 pytelegrambotapi = "*"
+pyyaml = "*"
 
 [dev-packages]
 autopep8 = "*"
 pylint = "*"
 mtprof = "*"
 ipykernel = "*"
+rope = "*"
 
 [requires]
 python_version = "3.9"
