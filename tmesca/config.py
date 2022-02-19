@@ -144,7 +144,7 @@ QUESTIONS = {
         'link_length': text(
             message='Enter link length:',
             validate=lambda x: re.match(
-                r'^\d+$', x) is not None and int(x) >= 5
+                r'^\d+$', x) is not None and int(x) > 0
         )
     },
     'parser': {
