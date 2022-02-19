@@ -157,15 +157,18 @@ class FullInfo:
     
     def parse_stickers(self, link):
         f_link = f'https://t.me/addstickers/{link}'
-        with requests.get(f_link, stream=True) as res:
-            lines = res.iter_lines()
-            consume(lines, 7)
-            line = next(lines)
-            if line.startswith(b'<meta property="og:title" content="Add sticker set on'):
-                return None
-            title = line[51:-14].decode()
-            return {
-                'type': 'stickers',
-                'link': f_link,
-                'title': title
-            }
+        try:
+            with requests.get(f_link, stream=True) as res:
+                lines = res.iter_lines()
+                consume(lines, 7)
+                line = next(lines)
+                if line.startswith(b'<meta property="og:title" content="Add sticker set on'):
+                    return None
+                title = line[51:-14].decode()
+                return {
+                    'type': 'stickers',
+                    'link': f_link,
+                    'title': title
+                }
+        except StopIteration:
+            print(f'Failed {f_link} StopIteration')
