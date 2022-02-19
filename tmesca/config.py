@@ -87,6 +87,11 @@ class Config:
         elif isinstance(self.parser['bot_suffix'], str):
             self.parser['bot_suffix'] = [res]
 
+        if 'custom_suffix' not in self.parser:
+            self.parser['custom_suffix'] = ['']
+        elif isinstance(self.parser['custom_suffix'], str):
+            self.parser['custom_suffix'] = [res]
+
         if 'slow_mode' not in self.parser:
             self.parser['slow_mode'] = 0
         
