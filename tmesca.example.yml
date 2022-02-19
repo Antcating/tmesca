@@ -38,6 +38,11 @@ parser:
   # bot_suffix:
   #   - _bot
   #   - bot
+  # Note: works exatly as bot_suffix, except added
+  # BEFORE bot suffix. Also dont forget to add
+  # empty suffix.
+  # string | array of string
+  # custom_suffix: "_by_rudalle_emojich_bot"
   # Delay between requests in seconds
   # number, defaults to 0
   # slow_mode: 0
