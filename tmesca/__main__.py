@@ -60,25 +60,27 @@ def save_session():
 def produce_links_types(link, config):
     filters = config.parser['filter']
     res = []
-    if 'users' in filters or 'groups' in filters or 'channels' in filters:
-        res.append({
-            'type': 'user',
-            'link': link
-        })
-    if 'bots' in filters:
-        for suffix in config.parser['bot_suffix']:
-            new_link = link + suffix
-            if len(new_link) > 32:
-                continue
+    for suffix in config.parser['custom_suffix']:
+        link_with_suffix = link + suffix
+        if 'users' in filters or 'groups' in filters or 'channels' in filters:
             res.append({
-                'type': 'bot',
-                'link': new_link
+                'type': 'user',
+                'link': link_with_suffix
             })
-    if 'stickers' in filters:
-        res.append({
-            'type': 'stickers',
-            'link': link
-        })
+        if 'bots' in filters:
+            for bot_suffix in config.parser['bot_suffix']:
+                new_link = link_with_suffix + bot_suffix
+                if len(new_link) > 32:
+                    continue
+                res.append({
+                    'type': 'bot',
+                    'link': new_link
+                })
+        if 'stickers' in filters:
+            res.append({
+                'type': 'stickers',
+                'link': link_with_suffix
+            })
     return res
 
 def get_parser(config):

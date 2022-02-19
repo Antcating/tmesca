@@ -85,7 +85,12 @@ class Config:
         if 'bot_suffix' not in self.parser:
             self.parser['bot_suffix'] = ['_bot', 'bot']
         elif isinstance(self.parser['bot_suffix'], str):
-            self.parser['bot_suffix'] = [res]
+            self.parser['bot_suffix'] = [self.parser['bot_suffix']]
+
+        if 'custom_suffix' not in self.parser:
+            self.parser['custom_suffix'] = ['']
+        elif isinstance(self.parser['custom_suffix'], str):
+            self.parser['custom_suffix'] = [self.parser['custom_suffix']]
 
         if 'slow_mode' not in self.parser:
             self.parser['slow_mode'] = 0
@@ -139,7 +144,7 @@ QUESTIONS = {
         'link_length': text(
             message='Enter link length:',
             validate=lambda x: re.match(
-                r'^\d+$', x) is not None and int(x) >= 5
+                r'^\d+$', x) is not None and int(x) > 0
         )
     },
     'parser': {
