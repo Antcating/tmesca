@@ -43,6 +43,10 @@ parser:
   # empty suffix.
   # string | array of string
   # custom_suffix: "_by_rudalle_emojich_bot"
+  # string | array of string
+  # custom_prefix:
+  #   - rabota
+  #   - rabota_
   # Delay between requests in seconds
   # number, defaults to 0
   # slow_mode: 0
